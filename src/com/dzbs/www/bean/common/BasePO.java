@@ -22,7 +22,6 @@ import com.google.gson.annotations.Expose;
 public class BasePO {
 	@Id  
     @GeneratedValue(strategy = GenerationType.AUTO)
-	@Expose  
 	protected int id;
 	
 	//创建日期
@@ -30,7 +29,7 @@ public class BasePO {
 	@DateTimeFormat(pattern = "MM/dd/yyyy HH:mm:ss")
 	protected Date create_date = new Date();
 		
-	// 更新日期
+	//更新日期
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "MM/dd/yyyy HH:mm:ss")
 	protected Date update_date = new Date();

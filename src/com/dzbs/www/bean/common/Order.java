@@ -32,6 +32,9 @@ public class Order {
 	//巴士id
 	private int bus_id;
 	
+	//司机id
+	private int driver_id;
+	
 	//所选座位号
 	private int seat_id;
 	
@@ -94,6 +97,14 @@ public class Order {
 
 	public void setPay_time(Date pay_time) {
 		this.pay_time = pay_time;
+	}
+
+	public int getDriver_id() {
+		return driver_id;
+	}
+
+	public void setDriver_id(int driver_id) {
+		this.driver_id = driver_id;
 	}
 	
 	

@@ -10,10 +10,11 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dzbs.www.bean.common.UserFund;
+import com.dzbs.www.service.fund.UserFundService;
 
 @Repository
 @Transactional(propagation = Propagation.REQUIRED)
-public class UserFundDao {
+public class UserFundDao implements UserFundService{
 
 	@Autowired
 	private SessionFactory sessionFactory;

@@ -10,10 +10,11 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dzbs.www.bean.common.DriverFund;
+import com.dzbs.www.service.fund.DriverFundService;
 
 @Repository
 @Transactional(propagation = Propagation.REQUIRED)
-public class DriverFundDao {
+public class DriverFundDao implements DriverFundService{
 
 	@Autowired
 	private SessionFactory sessionFactory;

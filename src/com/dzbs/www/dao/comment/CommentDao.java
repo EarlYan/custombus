@@ -10,10 +10,11 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dzbs.www.bean.common.Comment;
+import com.dzbs.www.service.comment.CommentService;
 
 @Repository
 @Transactional(propagation = Propagation.REQUIRED)
-public class CommentDao {
+public class CommentDao implements CommentService{
 
 	@Autowired
 	private SessionFactory sessionFactory;

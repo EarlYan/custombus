@@ -10,10 +10,11 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dzbs.www.bean.common.Order;
+import com.dzbs.www.service.order.OrderService;
 
 @Repository
 @Transactional(propagation = Propagation.REQUIRED)
-public class OrderDao {
+public class OrderDao implements OrderService{
 	
 	@Autowired
 	private SessionFactory sessionFactory;

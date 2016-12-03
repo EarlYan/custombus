@@ -10,10 +10,11 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dzbs.www.bean.common.Bus;
+import com.dzbs.www.service.bus.BusService;
 
 @Repository
 @Transactional(propagation = Propagation.REQUIRED)
-public class BusDao {
+public class BusDao implements BusService{
 	
 	@Autowired
 	private SessionFactory sessionFactory;

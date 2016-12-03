@@ -10,10 +10,11 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dzbs.www.bean.common.Route;
+import com.dzbs.www.service.route.RouteService;
 
 @Repository
 @Transactional(propagation = Propagation.REQUIRED)
-public class RouteDao {
+public class RouteDao implements RouteService{
 
 	@Autowired
 	private SessionFactory sessionFactory;

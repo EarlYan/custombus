@@ -10,10 +10,11 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dzbs.www.bean.common.License;
+import com.dzbs.www.service.license.LicenseService;
 
 @Repository
 @Transactional(propagation = Propagation.REQUIRED)
-public class LicenseDao {
+public class LicenseDao implements LicenseService{
 
 
 	@Autowired
