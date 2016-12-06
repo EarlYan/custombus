@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+    body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+    </style>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=sYY91vHWc5btABI2DOM7gEfm"></script>
+    <title>地图展示</title>
+</head>
+<body>
+    <div id="allmap"></div>
+</body>
+</html>
+<script type="text/javascript">
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");
+    var point = new BMap.Point(121.204948,31.053888);
+    var marker = new BMap.Marker(point);  // 创建标注
+    map.addOverlay(marker);              // 将标注添加到地图中
+    map.centerAndZoom(point, 18);
+    var opts = {
+      width : 200,     // 信息窗口宽度
+      height: 100,     // 信息窗口高度
+      title : "立信会计金融学院" , // 信息窗口标题
+      enableMessage:true,//设置允许信息窗发送短息
+    }
+    var infoWindow = new BMap.InfoWindow("松江区文翔路2800号", opts);  // 创建信息窗口对象 
+    marker.addEventListener("click", function(){          
+        map.openInfoWindow(infoWindow,point); //开启信息窗口
+    });
+</script>
