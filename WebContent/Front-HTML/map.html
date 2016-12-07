@@ -5,6 +5,7 @@
     <meta name="author" content="Aviators - byaviators.com">
 
     <link rel="shortcut icon" href="assets/img/favicon.png" type="image/png">
+    <!--<link rel="stylesheet" href="assets/libraries/bootstrap.min.css">-->
     <link rel="stylesheet" href="assets/css/bootstrap.css" type="text/css">
     <link rel="stylesheet" href="assets/css/bootstrap-responsive.css" type="text/css">
     <link rel="stylesheet" href="assets/libraries/chosen/chosen.css" type="text/css">
@@ -945,7 +946,7 @@
 </div><!-- /#wrapper-outer -->
 
 
-<script src="http://api.map.baidu.com/api?v=2.0&ak=sYY91vHWc5btABI2DOM7gEfm"></script> 
+<script src="http://api.map.baidu.com/api?v=2.0&ak=sYY91vHWc5btABI2DOM7gEfm"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/library/LuShu/1.2/src/LuShu_min.js"></script>
 <script type="text/javascript" src="assets/js/jquery.js"></script>
 <script type="text/javascript" src="assets/js/jquery.ezmark.js"></script>
@@ -1037,13 +1038,13 @@
     //搜索操作
     $('#searchSubmit').on('click',function(){
     	var searchContent = $('#searchContent').val();
-    	
+
     });
 
 </script>
 
 <!--调用百度地图-->
-<script>   
+<script>
     var map = new BMap.Map('map_cavans');
     map.enableScrollWheelZoom();
     map.centerAndZoom(new BMap.Point(121.47535,31.233588), 12);
@@ -1066,7 +1067,7 @@
                     }
                     map.addOverlay(new BMap.Polyline(arrPois, {strokeColor: '#111'}));
                     map.setViewport(arrPois);
-                    
+
                     lushu = new BMapLib.LuShu(map,arrPois,{
                     defaultContent:output,//标签内容
                     autoView:true,//是否开启自动视野调整，如果开启那么路书在运动过程中会根据视野自动调整
@@ -1074,8 +1075,8 @@
                     speed: 4500,
                     enableRotation:true,//是否设置marker随着道路的走向进行旋转
                     landmarkPois: [
-                    ]});  
-                    lushu.start(); 
+                    ]});
+                    lushu.start();
                 }
             }
         });
@@ -1099,14 +1100,14 @@
 		var value = "";
 		if (e.fromitem.index > -1) {
 			value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
-		}    
+		}
 		str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
-		
+
 		value = "";
 		if (e.toitem.index > -1) {
 			_value = e.toitem.value;
 			value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
-		}    
+		}
 		str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
 		G("searchResultPanel").innerHTML = str;
 	});
@@ -1116,7 +1117,7 @@
 	var _value = e.item.value;
 		myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
 		G("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
-		
+
 		setPlace();
 	});
 
@@ -1131,14 +1132,14 @@
 		var value = "";
 		if (e.fromitem.index > -1) {
 			value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
-		}    
+		}
 		str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
-		
+
 		value = "";
 		if (e.toitem.index > -1) {
 			_value = e.toitem.value;
 			value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
-		}    
+		}
 		str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
 		G("searchResultPanel").innerHTML = str;
 	});
@@ -1149,7 +1150,7 @@
 	var _value = e.item.value;
 		myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
 		G("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
-		
+
 		setPlace();
 	});
 
