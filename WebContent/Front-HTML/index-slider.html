@@ -842,6 +842,7 @@
             <div class="row">
                 <div class="span6 copyright">
                     <p>© Copyright 2016 by More EarlYan. Click to visit my <a href="https://github.com/EarlYan" target="_blank" title="github">Github</a></p>
+                    <input type="hidden" id="routeDistance">
                 </div>
             </div><!-- /.row -->
         </div><!-- /#footer-inner -->
@@ -867,7 +868,54 @@
 <script type="text/javascript" src="assets/js/realia.js"></script>
 <script type="text/javascript" src="assets/js/flatpickr.js"></script><!--时间选择器-->
 <script type="text/javascript">
-//时间选择器
+	//判断是否点击过查看地图
+    var clickOrNot = 0;
+	//调用百度地图
+    var map = new BMap.Map('map_cavans');
+    map.enableScrollWheelZoom();
+    map.centerAndZoom(new BMap.Point(121.47535,31.233588), 12);
+    function LookForLocate(start, end, icon){
+        var lushu;
+        // 实例化一个驾车导航用来生成路线
+        var drv = new BMap.DrivingRoute(map, {
+	        renderOptions: {
+	          map: map,
+	          panel: "allmap-result",
+	        },
+            onSearchComplete: function(res) {
+                if (drv.getStatus() == BMAP_STATUS_SUCCESS) {
+                    var plan = res.getPlan(0);
+                    var arrPois =[];
+                    var output = "";
+                    output += "总时间为：" ;
+                    output += plan.getDuration(true) + "\n";             //获取时间
+                    output += "总路程为：" ;
+                    output += plan.getDistance(true) + "\n";             //获取距离
+                    $('#routeDistance').val(plan.getDistance(true));
+                    for(var j=0;j<plan.getNumRoutes();j++){
+                        var route = plan.getRoute(j);
+                        arrPois= arrPois.concat(route.getPath());
+                    }
+                    map.addOverlay(new BMap.Polyline(arrPois, {strokeColor: '#111'}));
+                    map.setViewport(arrPois);
+                    
+                    lushu = new BMapLib.LuShu(map,arrPois,{
+                    defaultContent:output,//标签内容
+                    autoView:true,//是否开启自动视野调整，如果开启那么路书在运动过程中会根据视野自动调整
+                    icon  : new BMap.Icon(icon, new BMap.Size(52,26),{anchor : new BMap.Size(27, 13)}),
+                    speed: 4500,
+                    enableRotation:true,//是否设置marker随着道路的走向进行旋转
+                    landmarkPois: [
+                    ]});  
+                    lushu.start(); 
+                }else{
+                	alert("未能搜索到相关信息");
+                }
+            }
+        });
+        drv.search(start,end);
+    }
+	//时间选择器
     flatpickr(".flatpickr", {
         minDate: new Date(),
         enableTime: true,
@@ -886,6 +934,7 @@
         var inputStart = $('#inputStart').val();
         var inputEnd = $('#inputEnd').val();
         LookForLocate(inputStart,inputEnd,chooseBusType);
+        clickOrNot += 1;
     });
 
     //重置地图操作
@@ -912,7 +961,20 @@
             alert("若要下单请选择时间");
             return;
         }
-        console.log(chooseTime);
+        var routeDistance = null;
+        if(clickOrNot>0){
+        	routeDistance = $('#routeDistance').val();
+        }else if(clickOrNot == 0){
+        	getDistance(inputStart,inputEnd);
+        	routeDistance = $('#routeDistance').val();
+            // if(document.getElementById(".searchInfoWindow").isclick == 1 ){
+            //     console.log(routeDistance);
+            // }
+        }
+        console.log("击发次数为"+clickOrNot);
+        
+       
+        clickOrNot = 0;
     });
 
     //留言在此操作
@@ -938,48 +1000,26 @@
         var searchContent = $('#searchContent').val();
         
     });
-
-</script>
-
-<!--调用百度地图-->
-<script>   
-    var map = new BMap.Map('map_cavans');
-    map.enableScrollWheelZoom();
-    map.centerAndZoom(new BMap.Point(121.47535,31.233588), 12);
-    function LookForLocate(start, end, icon){
-        var lushu;
-        // 实例化一个驾车导航用来生成路线
-        var drv = new BMap.DrivingRoute('上海', {
-            onSearchComplete: function(res) {
-                if (drv.getStatus() == BMAP_STATUS_SUCCESS) {
-                    var plan = res.getPlan(0);
-                    var arrPois =[];
-                    var output = "";
-                    output += "总时间为：" ;
-                    output += plan.getDuration(true) + "\n";             //获取时间
-                    output += "总路程为：" ;
-                    output += plan.getDistance(true) + "\n";             //获取距离
-                    for(var j=0;j<plan.getNumRoutes();j++){
-                        var route = plan.getRoute(j);
-                        arrPois= arrPois.concat(route.getPath());
-                    }
-                    map.addOverlay(new BMap.Polyline(arrPois, {strokeColor: '#111'}));
-                    map.setViewport(arrPois);
-                    
-                    lushu = new BMapLib.LuShu(map,arrPois,{
-                    defaultContent:output,//标签内容
-                    autoView:true,//是否开启自动视野调整，如果开启那么路书在运动过程中会根据视野自动调整
-                    icon  : new BMap.Icon(icon, new BMap.Size(52,26),{anchor : new BMap.Size(27, 13)}),
-                    speed: 4500,
-                    enableRotation:true,//是否设置marker随着道路的走向进行旋转
-                    landmarkPois: [
-                    ]});  
-                    lushu.start(); 
-                }
+    //计算路径长度
+    function getDistance(start, end){
+    	var distance = null;
+		var searchComplete = function (results){
+            if (transit.getStatus() != BMAP_STATUS_SUCCESS){
+                return ;
             }
-        });
-        drv.search(start,end);
+            var plan = results.getPlan(0);
+            // output += plan.getDuration(true) + "\n";                //获取时间
+            // output += "总路程为：" ;
+            distance = plan.getDistance(true);
     }
+        var transit = new BMap.DrivingRoute(map, {renderOptions: {map: map,panel: "allmap-result"},
+            onSearchComplete: searchComplete,
+            onPolylinesSet: function(){
+                setTimeout(function(){$('#routeDistance').val(distance);},"0");
+        }});
+        transit.search(start, end);
+
+	}
 </script>
 <!--百度地图联想输入-->
 <script type="text/javascript">

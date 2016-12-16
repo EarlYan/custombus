@@ -232,14 +232,14 @@
         <div class="agent">
             <div class="row">
                 <div id="seat-map">
-                  <div class="front-indicator">车头</div>
+                  <div class="front-indicator" style="width: 114px">车头</div>
                 </div>
                 <div class="booking-details">
                   <h3>已选中的座位 (<span id="counter">0</span>):</h3>
                   <ul id="selected-seats">
                   </ul>
-                  <p>总价: <b>¥<span id="total">0</span></b></p>
-                  <p><button class="checkout-button">结算</button></p>      
+                  <p>总价: <b>¥<span id="total">0</span></b></p> 
+                  <p><input type="button" class="btn btn-primary arrow-right checkout-button" value="结算"></p>  
                   <div id="legend"></div>
                 </div>
             </div><!-- /.row -->
@@ -449,15 +449,12 @@
                     $total = $('#total'),
                     sc = $('#seat-map').seatCharts({
                     map: [
-                        'ee_ee',
-                        'ee_ee',
-                        'ee_ee',
-                        'ee_ee',
-                        'ee_ee',
-                        'ee_ee',
-                        'ee_ee',
-                        'ee_ee',
-                        'eeeee',
+                        '___e',
+                        'ee__',
+                        'ee_e',
+                        'ee_e',
+                        'ee_e',
+                        'eeee',
                     ],
                     seats: {
                         e: {
@@ -487,6 +484,7 @@
                                 .appendTo($cart);
                             $counter.text(sc.find('selected').length+1);
                             $total.text(recalculateTotal(sc)+this.data().price);
+                            
                             return 'selected';
                         } else if (this.status() == 'selected') {
                             //update the counter
@@ -514,8 +512,7 @@
                     sc.get($(this).parents('li:first').data('seatId')).click();
                 });
 
-                //let's pretend some seats have already been booked 
-                
+                //let's pretend some seats have already been booked 已经预定设定
                 // sc.get(['1_2','7_1', '7_2']).status('unavailable');
         
         });

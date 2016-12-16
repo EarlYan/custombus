@@ -481,7 +481,7 @@
                     },
                     click: function () {
                         if (this.status() == 'available') {
-                            $('<li>'+this.data().category+this.settings.label+'号座位'+'：<br/>价格：<b>¥'+this.data().price+'</b> <a class="cancel-cart-item">[删除]</a></li>')
+                            $('<li>'+this.data().category+this.settings.label+'号座位'+'：<br/>价格：<b>¥'+this.data().price+'</b> <a href="#" class="cancel-cart-item">[删除]</a></li>')
                                 .attr('id','cart-item-'+this.settings.id)
                                 .data('seatId', this.settings.id)
                                 .appendTo($cart);
