@@ -47,7 +47,14 @@ public class LoginController {
     @RequestMapping(value = "/register", method = {RequestMethod.GET})
 	public ModelAndView register(HttpServletRequest request, HttpServletResponse response){
         ModelAndView modelAndView = new ModelAndView();  
-        modelAndView.setViewName("login/register");
+        modelAndView.setViewName("login/index");
+        return modelAndView;
+    }
+    
+    @RequestMapping(value = "/forgetpassword", method = {RequestMethod.GET})
+	public ModelAndView forgetpassword(HttpServletRequest request, HttpServletResponse response){
+        ModelAndView modelAndView = new ModelAndView();  
+        modelAndView.setViewName("login/forgetpassword");
         return modelAndView;
     }
     
@@ -55,13 +62,6 @@ public class LoginController {
 	public ModelAndView modify(HttpServletRequest request, HttpServletResponse response){
         ModelAndView modelAndView = new ModelAndView();  
         modelAndView.setViewName("login/modify");
-        return modelAndView;
-    }
-    
-    @RequestMapping(value = "/registermb", method = {RequestMethod.GET})
-	public ModelAndView registermb(HttpServletRequest request, HttpServletResponse response){
-        ModelAndView modelAndView = new ModelAndView();  
-        modelAndView.setViewName("login/registermb");
         return modelAndView;
     }
     
@@ -105,6 +105,8 @@ public class LoginController {
     	try{
             UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         	String username = userDetails.getUsername();
+        	Member member = userDetailServiceImpl.findUserByUsername(username);
+        	
         	path = "login/index";
     	}
     	catch(Exception e){

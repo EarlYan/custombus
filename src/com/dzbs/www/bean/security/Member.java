@@ -20,9 +20,10 @@ import javax.persistence.TemporalType;
 /**
  * 用户*/
 @Entity  
-@Table(name = "member")
+@Table(name = "t_member")
 public class Member {
 	
+	/**用户认证信息**/
 	//用户ID	
 	@Id  
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,7 +38,7 @@ public class Member {
 	//用户状态
 	private	boolean enabled;
 	
-	/**用户认证信息**/
+	/**用户基本信息**/
 	//用户真实姓名
 	private String realname;
 
