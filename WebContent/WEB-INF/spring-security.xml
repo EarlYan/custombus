@@ -118,7 +118,8 @@
 		</property>-->
 		<property name="packagesToScan">
 			<list>
-				<value>com.sd</value>
+				<value>com.dzbs.www.bean.common</value>
+				<value>com.dzbs.www.bean.security</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

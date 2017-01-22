@@ -1,86 +1,40 @@
 package com.dzbs.www.dao.comment;
 
 import java.util.List;
-
-import org.hibernate.Query;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.dzbs.www.bean.common.Comment;
-import com.dzbs.www.service.comment.CommentService;
 
-@Repository
-@Transactional(propagation = Propagation.REQUIRED)
-public class CommentDao implements CommentService{
-
-	@Autowired
-	private SessionFactory sessionFactory;
+public interface CommentDao {
 	
-	public void saveComment(Comment comment) {
-		sessionFactory.getCurrentSession().saveOrUpdate(comment);
-	}
-
-	public void updateComment(Comment comment) {
-		sessionFactory.getCurrentSession().update(comment);
-		sessionFactory.getCurrentSession().flush();
-	}
+	public void saveComment(Comment comment);
 	
-	public void deleteComment(Comment comment) {
-		sessionFactory.getCurrentSession().delete(comment);
-		sessionFactory.getCurrentSession().flush();
-	}
+	public void updateComment(Comment comment);
 	
-
+	public void deleteComment(Comment comment);
+	
 	/**
 	 * 用id进行查询
 	 * @param id
 	 * @return List<Comment>
 	 */
-	public List<Comment> findById(Integer id){
-		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Comment WHERE deleted = false AND id = :id");
-		query.setInteger("id", id);
-		@SuppressWarnings("unchecked")
-		List<Comment> temp = query.list();
-		return temp;
-	}
+	public List<Comment> findById(Integer id);
 	
 	/**
 	 * 查询所有评论
 	 * @return List<Comment>
 	 */
-	public List<Comment> findAllComments(){
-		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Comment WHERE deleted = false");
-		@SuppressWarnings("unchecked")
-		List<Comment> temp = query.list();
-		return temp;
-	}
+	public List<Comment> findAllComments();
 	
 	/**
 	 * 用member_id进行查询(评论者查询)
 	 * @param member_id
 	 * @return List<Comment>
 	 */
-	public List<Comment> findByMemberId(Integer member_id){
-		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Comment WHERE deleted = false AND member_id = :member_id");
-		query.setInteger("member_id", member_id);
-		@SuppressWarnings("unchecked")
-		List<Comment> temp = query.list();
-		return temp;
-	}
+	public List<Comment> findByMemberId(Integer member_id);
 	
 	/**
 	 * 用commented_id进行查询(被评论者查询)
 	 * @param commented_id
 	 * @return List<Comment>
 	 */
-	public List<Comment> findByCommentedId(Integer commented_id){
-		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Comment WHERE deleted = false AND commented_id = :commented_id");
-		query.setInteger("commented_id", commented_id);
-		@SuppressWarnings("unchecked")
-		List<Comment> temp = query.list();
-		return temp;
-	}
+	public List<Comment> findByCommentedId(Integer commented_id);
 }
