@@ -1,0 +1,108 @@
+package com.dzbs.controller.img;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Iterator;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+
+import com.alibaba.fastjson.JSONObject;
+import com.dzbs.util.common.CommonUtil;
+import com.dzbs.util.common.CompressImgUtil;
+import com.dzbs.util.common.DZBSConstants;
+
+/**
+ * Created by GuoXiaowu on 2016/3/2.
+ */
+@Controller
+@RequestMapping(value = "/image")
+public class ImgController {
+    /**
+     * 图片上传
+     * @param request
+     * @param response
+     * @return
+     * @throws IllegalStateException
+     * @throws IOException
+     */
+    @RequestMapping(value = "/uploadImage" , method = {RequestMethod.POST})
+    @ResponseBody
+    public String uploadImage (HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException{
+        JSONObject returnJSON = new JSONObject();
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+        if(multipartResolver.isMultipart(request)){
+            MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
+            Iterator<String> iter = multiRequest.getFileNames();
+            while(iter.hasNext()){
+                MultipartFile file = multiRequest.getFile(iter.next());
+                if(file != null){
+                    String fileName = CommonUtil.generateUUID();
+
+                    File path = new File(DZBSConstants.imgDir);
+                    if(!path.exists()){
+                        path.mkdirs();
+                    }
+
+                    //压缩图片
+                    if(!file.isEmpty()){
+                        double fileSize = file.getSize();
+                        fileSize = fileSize / 1024 ; //以k作为计算单位
+                        if(fileSize > 150){
+                            fileName = CompressImgUtil.compressImg(file.getBytes() , fileName.toString(),660, 0.9d);
+                        }else{
+                            file.transferTo(new File(DZBSConstants.imgDir +fileName));
+                        }
+                    }
+                    returnJSON.put("error", 0);
+                    returnJSON.put("fileName", fileName);
+                    return returnJSON.toJSONString();
+                }
+            }
+        }
+        returnJSON.put("result", false);
+        returnJSON.put("name", null);
+        return returnJSON.toJSONString();
+
+    }
+    /**
+     * 图片读取
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    @RequestMapping(value = "/readImage" , method = {RequestMethod.GET})
+    public void readImage(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        String name = request.getParameter("name");
+        if(name == null || name == ""){
+            return;
+        }
+        File file = new File(DZBSConstants.imgDir+name);
+        if(!(file.exists() && file.canRead())) {
+            return;
+        }
+
+        FileInputStream inputStream = new FileInputStream(file);
+        byte[] data = new byte[(int)file.length()];
+        inputStream.read(data);
+        response.setContentType("image/png");
+        OutputStream stream = response.getOutputStream();
+        stream.write(data);
+        stream.flush();
+        stream.close();
+        inputStream.close();
+    }
+
+}
+
