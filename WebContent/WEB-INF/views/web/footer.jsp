@@ -150,7 +150,7 @@
                             </div><!-- /.control-group -->
 
                             <div class="form-actions">
-                                <input type="submit" class="btn btn-primary arrow-right" value="留言" id="sendMessage">
+                                <input type="button" class="btn btn-primary arrow-right" value="留言" id="sendMessage">
                             </div><!-- /.form-actions -->
                         </form>
                     </div><!-- /.content -->

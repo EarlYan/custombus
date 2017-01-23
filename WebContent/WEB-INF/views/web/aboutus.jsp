@@ -140,30 +140,7 @@
         }
     });
     
-  //保存留言
-    $('#sendMessage').on('click',function(){
-    	var inputName = $('#inputName').val();
-    	var inputEmail = $('#inputEmail').val();
-    	var inputMessage = $('#inputMessage').val();
-    	$.ajax(
- 			{
-				type: "post",
-		    	url: "../message/saveMessage",
-		        data: {
-		        	inputName:inputName,
-		        	inputEmail:inputEmail,
-		        	inputMessage:inputMessage
-		            },
-		        dataType: "json",      
-		        success:function(data){
-		            alert("感谢评论");
-		            window.location.href = "../web/index";
-			    },
-			    error:function(data){
-				    alert("error");
-				}
- 			});
-    });
+
 </script>
 </body>
 </html>
