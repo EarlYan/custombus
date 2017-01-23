@@ -9,7 +9,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="t_driverfund")
-public class DriverFund {
+public class DriverFund  extends BasePO{
 
 	//司机id
 	private int driver_id;

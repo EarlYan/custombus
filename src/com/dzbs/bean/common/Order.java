@@ -15,7 +15,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 @Entity
 @Table(name="t_order")
-public class Order {
+public class Order extends BasePO{
 	
 	//乘客id
 	private int user_id;

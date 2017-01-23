@@ -27,8 +27,8 @@ public class MessageContoller {
 	@Autowired
 	private UserDetailServiceImpl userDetailServiceImpl;
 	
-	@Autowired
-	private MessageService messageDao;
+//	@Autowired
+//	private MessageService messageDao;
 	
 	/**
 	 * 获取联系人相关信息
@@ -51,7 +51,7 @@ public class MessageContoller {
 			mes.setEmail(inputEmail);
 			mes.setMessage(inputMessage);
 			mes.setCreate_date(new Date());
-			messageDao.saveMessage(mes);
+//			messageDao.saveMessage(mes);
 			json.put("resultCode", 200);
 		} catch (Exception e) {
 			json.put("resultCode", 500);
