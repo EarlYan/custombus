@@ -728,6 +728,7 @@
     
   //保存留言
     $('#sendMessage').on('click',function(){
+    alert('322');
     	var inputName = $('#inputName').val();
     	var inputEmail = $('#inputEmail').val();
     	var inputMessage = $('#inputMessage').val();
@@ -742,8 +743,9 @@
 		            },
 		        dataType: "json",      
 		        success:function(data){
+		            alert(data);
 		            alert("感谢评论");
-		            window.location.href = "../web/index";
+		            //window.location.href = "../web/index";
 			    },
 			    error:function(data){
 				    alert("error");

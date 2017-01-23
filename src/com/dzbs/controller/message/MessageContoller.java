@@ -37,8 +37,7 @@ public class MessageContoller {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/saveMessage", method = { RequestMethod.GET
-			}, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/saveMessage", method = { RequestMethod.GET, RequestMethod.POST}, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String saveComment(HttpServletRequest request, HttpServletResponse response) {
 		String inputName = request.getParameter("inputName");

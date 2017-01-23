@@ -28,7 +28,7 @@ public class WebController {
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping(value = "/index", method = { RequestMethod.GET })
+	@RequestMapping(value = "/index", method = { RequestMethod.GET,  RequestMethod.POST})
 	public ModelAndView indexPage(HttpServletRequest request,
 			HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView();
