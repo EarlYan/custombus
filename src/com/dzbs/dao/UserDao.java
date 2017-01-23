@@ -5,12 +5,8 @@ import java.util.Iterator;
 import java.util.List;  
 import java.util.Set;
 
-import javax.annotation.Resource;  
-  
 import org.hibernate.SessionFactory;  
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;  
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;  
 import org.springframework.transaction.annotation.Transactional;

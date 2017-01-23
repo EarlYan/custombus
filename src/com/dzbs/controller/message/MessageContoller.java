@@ -15,7 +15,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.dzbs.bean.common.Message;
 import com.dzbs.dao.UserDao;
 import com.dzbs.service.UserDetailServiceImpl;
-import com.dzbs.service.message.MessageService;
+import com.dzbs.service.message.MessageImpl;
 
 @Controller
 @RequestMapping(value = "/message")
@@ -27,8 +27,8 @@ public class MessageContoller {
 	@Autowired
 	private UserDetailServiceImpl userDetailServiceImpl;
 	
-//	@Autowired
-//	private MessageService messageDao;
+	@Autowired
+	private MessageImpl messageDao;
 	
 	/**
 	 * 获取联系人相关信息
@@ -37,8 +37,8 @@ public class MessageContoller {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/saveMessage", method = { RequestMethod.GET,
-			RequestMethod.POST }, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/saveMessage", method = { RequestMethod.GET
+			}, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String saveComment(HttpServletRequest request, HttpServletResponse response) {
 		String inputName = request.getParameter("inputName");
@@ -51,7 +51,7 @@ public class MessageContoller {
 			mes.setEmail(inputEmail);
 			mes.setMessage(inputMessage);
 			mes.setCreate_date(new Date());
-//			messageDao.saveMessage(mes);
+			messageDao.saveMessage(mes);
 			json.put("resultCode", 200);
 		} catch (Exception e) {
 			json.put("resultCode", 500);

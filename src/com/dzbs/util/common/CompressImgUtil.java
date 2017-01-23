@@ -44,7 +44,7 @@ public class CompressImgUtil {
             int deskWidth = 0;// 缩略图宽
             double srcScale = (double) srcHeight / srcWidth;
             /**缩略图宽高算法*/
-            if ((double) srcHeight > comBase || (double) srcWidth > comBase) {
+            if (srcHeight > comBase || srcWidth > comBase) {
                 if (srcScale >= scale || 1 / srcScale > scale) {
                     if (srcScale >= scale) {
                         deskHeight = (int) comBase;
@@ -54,7 +54,7 @@ public class CompressImgUtil {
                         deskHeight = srcHeight * deskWidth / srcWidth;
                     }
                 } else {
-                    if ((double) srcHeight > comBase) {
+                    if (srcHeight > comBase) {
                         deskHeight = (int) comBase;
                         deskWidth = srcWidth * deskHeight / srcHeight;
                     } else {

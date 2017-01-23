@@ -14,20 +14,23 @@ import com.dzbs.dao.bus.BusDao;
 
 @Repository("busDao")
 @Transactional(propagation = Propagation.REQUIRED)
-public class BusService implements BusDao{
+public class BusImpl implements BusDao{
 	
 	@Autowired
 	private SessionFactory sessionFactory;
 	
+	@Override
 	public void saveBus(Bus bus) {
 		sessionFactory.getCurrentSession().saveOrUpdate(bus);
 	}
 
+	@Override
 	public void updateBus(Bus bus) {
 		sessionFactory.getCurrentSession().update(bus);
 		sessionFactory.getCurrentSession().flush();
 	}
 	
+	@Override
 	public void deleteBus(Bus bus) {
 		sessionFactory.getCurrentSession().delete(bus);
 		sessionFactory.getCurrentSession().flush();
@@ -38,6 +41,7 @@ public class BusService implements BusDao{
 	 * @param id
 	 * @return List<Bus>
 	 */
+	@Override
 	public List<Bus> findById(Integer id){
 		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Bus WHERE deleted = false AND id = :id");
 		query.setInteger("id", id);
@@ -50,6 +54,7 @@ public class BusService implements BusDao{
 	 * 查询所有巴士
 	 * @return List<Bus>
 	 */
+	@Override
 	public List<Bus> findAllBuses(){
 		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Bus WHERE deleted = false");
 		@SuppressWarnings("unchecked")
@@ -62,6 +67,7 @@ public class BusService implements BusDao{
 	 * @param member_id
 	 * @return List<Bus>
 	 */
+	@Override
 	public List<Bus> findByMemberId(Integer member_id){
 		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Bus WHERE deleted = false AND member_id = :member_id");
 		query.setInteger("member_id", member_id);
@@ -75,6 +81,7 @@ public class BusService implements BusDao{
 	 * @param plate_number
 	 * @return List<Bus>
 	 */
+	@Override
 	public List<Bus> findByPlateNumber(String plate_number){
 		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Bus WHERE deleted = false AND plate_number = :plate_number");
 		query.setString("plate_number", plate_number);
@@ -88,6 +95,7 @@ public class BusService implements BusDao{
 	 * @param bus_type
 	 * @return List<Bus>
 	 */
+	@Override
 	public List<Bus> findByBusType(Integer bus_type){
 		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Bus WHERE deleted = false AND bus_type = :bus_type");
 		query.setInteger("bus_type", bus_type);

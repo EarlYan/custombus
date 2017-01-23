@@ -14,20 +14,23 @@ import com.dzbs.dao.order.OrderDao;
 
 @Repository("orderDao")
 @Transactional(propagation = Propagation.REQUIRED)
-public class OrderService implements OrderDao{
+public class OrderImpl implements OrderDao{
 	
 	@Autowired
 	private SessionFactory sessionFactory;
 	
+	@Override
 	public void saveOrder(Order order) {
 		sessionFactory.getCurrentSession().saveOrUpdate(order);
 	}
 
+	@Override
 	public void updateOrder(Order order) {
 		sessionFactory.getCurrentSession().update(order);
 		sessionFactory.getCurrentSession().flush();
 	}
 	
+	@Override
 	public void deleteOrder(Order order) {
 		sessionFactory.getCurrentSession().delete(order);
 		sessionFactory.getCurrentSession().flush();
@@ -39,6 +42,7 @@ public class OrderService implements OrderDao{
 	 * @param id
 	 * @return List<Order>
 	 */
+	@Override
 	public List<Order> findById(Integer id){
 		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Order WHERE deleted = false AND id = :id");
 		query.setInteger("id", id);
@@ -51,6 +55,7 @@ public class OrderService implements OrderDao{
 	 * 查询所有订单
 	 * @return List<Order>
 	 */
+	@Override
 	public List<Order> findAllComments(){
 		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Order WHERE deleted = false");
 		@SuppressWarnings("unchecked")
@@ -63,6 +68,7 @@ public class OrderService implements OrderDao{
 	 * @param user_id
 	 * @return List<Order>
 	 */
+	@Override
 	public List<Order> findByUserId(Integer user_id){
 		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Order WHERE deleted = false AND user_id = :user_id");
 		query.setInteger("user_id", user_id);
@@ -76,6 +82,7 @@ public class OrderService implements OrderDao{
 	 * @param user_id,payed
 	 * @return List<Order>
 	 */
+	@Override
 	public List<Order> findByUserIdAndPayStatus(Integer user_id,boolean payed){
 		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Order WHERE deleted = false AND user_id = :user_id And payed = :payed");
 		query.setInteger("user_id", user_id);
@@ -90,6 +97,7 @@ public class OrderService implements OrderDao{
 	 * @param driver_id
 	 * @return List<Order>
 	 */
+	@Override
 	public List<Order> findByDriverId(Integer driver_id){
 		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Order WHERE deleted = false AND driver_id = :driver_id");
 		query.setInteger("driver_id", driver_id);

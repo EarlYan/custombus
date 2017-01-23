@@ -14,20 +14,23 @@ import com.dzbs.dao.fund.UserFundDao;
 
 @Repository("userFundDao")
 @Transactional(propagation = Propagation.REQUIRED)
-public class UserFundService implements UserFundDao{
+public class UserFundImpl implements UserFundDao{
 
 	@Autowired
 	private SessionFactory sessionFactory;
 	
+	@Override
 	public void saveUserFund(UserFund userFund) {
 		sessionFactory.getCurrentSession().saveOrUpdate(userFund);
 	}
 
+	@Override
 	public void updateUserFund(UserFund userFund) {
 		sessionFactory.getCurrentSession().update(userFund);
 		sessionFactory.getCurrentSession().flush();
 	}
 	
+	@Override
 	public void deleteUserFund(UserFund userFund) {
 		sessionFactory.getCurrentSession().delete(userFund);
 		sessionFactory.getCurrentSession().flush();
@@ -38,6 +41,7 @@ public class UserFundService implements UserFundDao{
 	 * @param id
 	 * @return List<UserFund>
 	 */
+	@Override
 	public List<UserFund> findById(Integer id){
 		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM UserFund WHERE deleted = false AND id = :id");
 		query.setInteger("id", id);
@@ -51,6 +55,7 @@ public class UserFundService implements UserFundDao{
 	 * @param user_id
 	 * @return List<UserFund>
 	 */
+	@Override
 	public List<UserFund> findByUserId(Integer user_id){
 		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM UserFund WHERE deleted = false AND user_id = :user_id");
 		query.setInteger("user_id", user_id);

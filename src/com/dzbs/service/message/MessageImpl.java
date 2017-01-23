@@ -14,7 +14,7 @@ import com.dzbs.dao.message.MessageDao;
 
 @Repository("messageDao")
 @Transactional(propagation = Propagation.REQUIRED)
-public class  MessageService implements MessageDao{
+public class  MessageImpl implements MessageDao{
 	
 	@Autowired
 	private SessionFactory sessionFactory;

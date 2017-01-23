@@ -14,20 +14,23 @@ import com.dzbs.dao.comment.CommentDao;
 
 @Repository("commentDao")
 @Transactional(propagation = Propagation.REQUIRED)
-public class CommentService implements CommentDao{
+public class CommentImpl implements CommentDao{
 
 	@Autowired
 	private SessionFactory sessionFactory;
 	
+	@Override
 	public void saveComment(Comment comment) {
 		sessionFactory.getCurrentSession().saveOrUpdate(comment);
 	}
 
+	@Override
 	public void updateComment(Comment comment) {
 		sessionFactory.getCurrentSession().update(comment);
 		sessionFactory.getCurrentSession().flush();
 	}
 	
+	@Override
 	public void deleteComment(Comment comment) {
 		sessionFactory.getCurrentSession().delete(comment);
 		sessionFactory.getCurrentSession().flush();
@@ -39,6 +42,7 @@ public class CommentService implements CommentDao{
 	 * @param id
 	 * @return List<Comment>
 	 */
+	@Override
 	public List<Comment> findById(Integer id){
 		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Comment WHERE deleted = false AND id = :id");
 		query.setInteger("id", id);
@@ -51,6 +55,7 @@ public class CommentService implements CommentDao{
 	 * 查询所有评论
 	 * @return List<Comment>
 	 */
+	@Override
 	public List<Comment> findAllComments(){
 		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Comment WHERE deleted = false");
 		@SuppressWarnings("unchecked")
@@ -63,6 +68,7 @@ public class CommentService implements CommentDao{
 	 * @param member_id
 	 * @return List<Comment>
 	 */
+	@Override
 	public List<Comment> findByMemberId(Integer member_id){
 		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Comment WHERE deleted = false AND member_id = :member_id");
 		query.setInteger("member_id", member_id);
@@ -76,6 +82,7 @@ public class CommentService implements CommentDao{
 	 * @param commented_id
 	 * @return List<Comment>
 	 */
+	@Override
 	public List<Comment> findByCommentedId(Integer commented_id){
 		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Comment WHERE deleted = false AND commented_id = :commented_id");
 		query.setInteger("commented_id", commented_id);

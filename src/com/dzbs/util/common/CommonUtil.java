@@ -57,7 +57,7 @@ public class CommonUtil {
     	map.put("222", "33");
 		System.out.println(MD5Encoder("csstsari"));
 		CommonUtil cu = new CommonUtil();
-		cu.MD5Encoder("dd");
+		CommonUtil.MD5Encoder("dd");
 		map.put("44", "444");
 		String str = "";
     	Iterator<Map.Entry<String, String>> it = map.entrySet().iterator();

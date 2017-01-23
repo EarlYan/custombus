@@ -28,7 +28,8 @@ public class Role {
     @ManyToMany(targetEntity = Member.class,fetch = FetchType.EAGER, mappedBy = "roles")
     private Set<Member> members = new HashSet<Member>();
     
-    public boolean equals(Object other) {
+    @Override
+	public boolean equals(Object other) {
         if (this == other){
         	return true;
         }else {
@@ -37,7 +38,8 @@ public class Role {
 
     }
     
-    public int hashCode() {
+    @Override
+	public int hashCode() {
         return this.id; //any primenumber 
     }
     /*******************SET GET METHOD***********************************************/

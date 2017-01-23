@@ -14,20 +14,23 @@ import com.dzbs.dao.route.RouteDao;
 
 @Repository("routeDao")
 @Transactional(propagation = Propagation.REQUIRED)
-public class RouteService implements RouteDao{
+public class RouteImpl implements RouteDao{
 
 	@Autowired
 	private SessionFactory sessionFactory;
 	
+	@Override
 	public void saveRoute(Route route) {
 		sessionFactory.getCurrentSession().saveOrUpdate(route);
 	}
 
+	@Override
 	public void updateRoute(Route route) {
 		sessionFactory.getCurrentSession().update(route);
 		sessionFactory.getCurrentSession().flush();
 	}
 	
+	@Override
 	public void deleteRoute(Route route) {
 		sessionFactory.getCurrentSession().delete(route);
 		sessionFactory.getCurrentSession().flush();
@@ -38,6 +41,7 @@ public class RouteService implements RouteDao{
 	 * @param id
 	 * @return List<Route>
 	 */
+	@Override
 	public List<Route> findById(Integer id){
 		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Route WHERE deleted = false AND id = :id");
 		query.setInteger("id", id);
@@ -50,6 +54,7 @@ public class RouteService implements RouteDao{
 	 * 查询所有线路
 	 * @return List<Route>
 	 */
+	@Override
 	public List<Route> findAllRoutes(){
 		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Route WHERE deleted = false");
 		@SuppressWarnings("unchecked")
@@ -62,6 +67,7 @@ public class RouteService implements RouteDao{
 	 * @param start_location,end_location
 	 * @return List<Route>
 	 */
+	@Override
 	public List<Route> findByStartAndEndLocation(String start_location,String end_location){
 		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Route as a WHERE a.deleted = false AND a.start_location like :start_location AND a.end_location like :end_location");
 		query.setString("start_location","%"+start_location+"%");
@@ -76,6 +82,7 @@ public class RouteService implements RouteDao{
 	 * @param start_location,end_location,start_time
 	 * @return List<Route>
 	 */
+	@Override
 	public List<Route> findByUserIdAndPayStatus(String start_location,String end_location,String start_time){
 		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Route as a WHERE a.deleted = false AND a.start_location like :start_location AND a.end_location like :end_location AND a.start_time like :start_time");
 		query.setString("start_location","%"+start_location+"%");

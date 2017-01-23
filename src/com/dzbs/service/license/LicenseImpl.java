@@ -14,20 +14,23 @@ import com.dzbs.dao.license.LicenseDao;
 
 @Repository("licenseDao")
 @Transactional(propagation = Propagation.REQUIRED)
-public class LicenseService implements LicenseDao{
+public class LicenseImpl implements LicenseDao{
 
 	@Autowired
 	private SessionFactory sessionFactory;
 	
+	@Override
 	public void saveLicense(License license) {
 		sessionFactory.getCurrentSession().saveOrUpdate(license);
 	}
 
+	@Override
 	public void updateLicense(License license) {
 		sessionFactory.getCurrentSession().update(license);
 		sessionFactory.getCurrentSession().flush();
 	}
 	
+	@Override
 	public void deleteLicense(License license) {
 		sessionFactory.getCurrentSession().delete(license);
 		sessionFactory.getCurrentSession().flush();
@@ -38,6 +41,7 @@ public class LicenseService implements LicenseDao{
 	 * @param id
 	 * @return List<License>
 	 */
+	@Override
 	public List<License> findById(Integer id){
 		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM License WHERE deleted = false AND id = :id");
 		query.setInteger("id", id);
@@ -50,6 +54,7 @@ public class LicenseService implements LicenseDao{
 	 * 查询所有执照
 	 * @return List<License>
 	 */
+	@Override
 	public List<License> findAllRoutes(){
 		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM License WHERE deleted = false");
 		@SuppressWarnings("unchecked")
@@ -62,6 +67,7 @@ public class LicenseService implements LicenseDao{
 	 * @param member_id
 	 * @return List<License>
 	 */
+	@Override
 	public List<License> findByMemberId(Integer member_id){
 		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM License WHERE deleted = false AND member_id = :member_id");
 		query.setInteger("member_id", member_id);
@@ -75,6 +81,7 @@ public class LicenseService implements LicenseDao{
 	 * @param serial_number
 	 * @return List<License>
 	 */
+	@Override
 	public List<License> findBySerialNumber(String serial_number){
 		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM License WHERE deleted = false AND serial_number = :serial_number");
 		query.setString("serial_number", serial_number);
