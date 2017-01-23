@@ -710,7 +710,8 @@
     });
 
     //留言在此操作
-    $("#messageForm").validate({
+    function check(){ 
+    return $("#messageForm").validate({
         rules: {
           inputName: "required",
           inputEmail: {
@@ -725,9 +726,11 @@
           inputMessage: "请输入您对我们的留言",
         }
     });
+    }
     
-  //保存留言
+    //保存留言
     $('#sendMessage').on('click',function(){
+    	if(!check().form()) return; 
     	var inputName = $('#inputName').val();
     	var inputEmail = $('#inputEmail').val();
     	var inputMessage = $('#inputMessage').val();
@@ -741,10 +744,10 @@
 		        	inputMessage:inputMessage
 		            },
 		        dataType: "json",   
-		        async : true,   
+		        async : false,   
 		        success:function(data){
 		            alert("感谢评论");
-		            
+		            window.location.href="../web/index";
 			    },
 			    error:function(data){
 				    alert("error");

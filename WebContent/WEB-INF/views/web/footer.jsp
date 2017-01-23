@@ -117,7 +117,7 @@
                     </div><!-- /.title -->
 
                     <div class="content">
-                        <form method="post" id="messageForm">
+                        <form method="post" id="messageForm" action="../message/saveMessage">
                             <div class="control-group">
                                 <label class="control-label" for="inputName">
                                     姓名

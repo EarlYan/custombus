@@ -37,7 +37,7 @@ public class MessageContoller {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/saveMessage", method = { RequestMethod.GET, RequestMethod.POST}, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/saveMessage", method = {RequestMethod.POST}, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String saveComment(HttpServletRequest request, HttpServletResponse response) {
 		String inputName = request.getParameter("inputName");
@@ -45,6 +45,9 @@ public class MessageContoller {
 		String inputMessage = request.getParameter("inputMessage");
 		JSONObject json = new JSONObject();
 		try {
+			System.out.println(inputName);
+			System.out.println(inputEmail);
+			System.out.println(inputMessage);
 			Message mes = new Message();
 			mes.setName(inputName);
 			mes.setEmail(inputEmail);
