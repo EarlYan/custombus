@@ -697,15 +697,45 @@
         if(clickOrNot>0){
         	routeDistance = $('#routeDistance').val();
         }else if(clickOrNot == 0){
-        	getDistance(inputStart,inputEnd);
+        	alert("请先查看地图");
+/*         	getDistance(inputStart,inputEnd); */
         	routeDistance = $('#routeDistance').val();
-            // if(document.getElementById(".searchInfoWindow").isclick == 1 ){
-            //     console.log(routeDistance);
-            // }
         }
+        $.ajax({
+			type: "post",
+	    	url: "../route/judge",
+	        data: {
+	        	inputStart : inputStart,
+	        	inputEnd : inputEnd,
+	        	chooseBusType : chooseBusType,
+	        	chooseTime : chooseTime,
+	        	routeDistance : routeDistance
+	        },
+	        dataType: "json",   
+/* 	        async : false,   
+	        success:function(data){
+	        	var routes = data.price;
+	        	if(routes != null && routes != ""){
+	        		var price = data.price;
+	        		var chooseBusType = data.chooseBusType;
+	        		if(chooseBusType ==1){
+	        			window.location.href="../web/smallbus?price="+price+"";
+	        		}else if(chooseBusType ==2){
+	        			window.location.href="../web/mediumbus?price="+price+"";
+	        		}else if(chooseBusType ==3){
+	        			window.location.href="../web/bigbus?price="+price+"";
+	        		}        		
+	        	}else{
+	        		alert("暂无相关路线请先众筹");
+	        		window.location.href="../web/property";
+	        	}
+	               
+		    },
+		    error:function(data){
+			    alert("error");
+			} */
+     	});
         console.log("击发次数为"+clickOrNot);
-        
-       
         clickOrNot = 0;
     });
 
@@ -736,7 +766,7 @@
     	var inputMessage = $('#inputMessage').val();
     	$.ajax(
  			{
-				type: "get",
+				type: "post",
 		    	url: "../message/saveMessage",
 		        data: {
 		        	inputName:inputName,
@@ -752,16 +782,11 @@
 			    error:function(data){
 				    alert("error");
 				}
- 			});
+ 		});
     });
 
-    //搜索操作
-    $('#searchSubmit').on('click',function(){
-        var searchContent = $('#searchContent').val();
-        
-    });
     //计算路径长度
-    function getDistance(start, end){
+    /* function getDistance(start, end){
     	var distance = null;
 		var searchComplete = function (results){
             if (transit.getStatus() != BMAP_STATUS_SUCCESS){
@@ -779,7 +804,7 @@
         }});
         transit.search(start, end);
 
-	}
+	} */
 </script>
 <!--百度地图联想输入-->
 <script type="text/javascript">

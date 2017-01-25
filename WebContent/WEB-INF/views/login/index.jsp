@@ -43,28 +43,28 @@
 
     <div class="tab-content">
         <div class="tab-pane active" id="login">
-            <form method="post" action="" id="loginForm">
+            <form method="post" action="../j_spring_security_check" id="loginForm" autocomplete='off'>
                 <div class="control-group">
-                    <label class="control-label" for="inputLoginName">
+                    <label class="control-label" for="j_username">
                         用户名
                         <span class="form-required" title="This field is required.">*</span>
                     </label>
 
                     <div class="controls">
-                        <input type="text" id="inputLoginName" name="inputLoginName">
+                        <input type="text" id="j_username" name="j_username">
                     </div>
                     <!-- /.controls -->
                 </div>
                 <!-- /.control-group -->
 
                 <div class="control-group">
-                    <label class="control-label" for="inputLoginPassword">
+                    <label class="control-label" for="j_password">
                         密码
                         <span class="form-required" title="This field is required.">*</span>
                     </label>
 
                     <div class="controls">
-                        <input type="password" id="inputLoginPassword" name="inputLoginPassword">
+                        <input type="password" id="j_password" name="j_password">
                     </div>
                     <!-- /.controls -->
                 </div>
@@ -266,12 +266,12 @@
 <script type="text/javascript">
     $("#loginForm").validate({
         rules: {
-          inputLoginName: "required",
-          inputLoginPassword: "required"
+        	j_username: "required",
+        	j_password: "required"
         },
         messages: {
-          inputLoginName: "请输入用户名",
-          inputLoginPassword: "请输入密码"
+        	j_username: "请输入用户名",
+        	j_password: "请输入密码"
         }
     });
     $("#registerForm").validate({

@@ -2,6 +2,7 @@ package com.dzbs.bean.common;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -35,10 +36,14 @@ public class Route extends BasePO{
 	private Date start_time = new Date();
 	
 	//里程数
-	private int mileage;
+	private float mileage;
 	
 	//大约时间(分钟)
 	private int about_time;
+	
+	//是否满人
+	@Column(columnDefinition="bit NOT NULL DEFAULT 0")
+	private boolean full;
 
 	public int getMember_id() {
 		return member_id;
@@ -80,11 +85,11 @@ public class Route extends BasePO{
 		this.start_time = start_time;
 	}
 
-	public int getMileage() {
+	public float getMileage() {
 		return mileage;
 	}
 
-	public void setMileage(int mileage) {
+	public void setMileage(float mileage) {
 		this.mileage = mileage;
 	}
 
@@ -94,6 +99,14 @@ public class Route extends BasePO{
 
 	public void setAbout_time(int about_time) {
 		this.about_time = about_time;
+	}
+
+	public boolean getFull() {
+		return full;
+	}
+
+	public void setFull(boolean full) {
+		this.full = full;
 	}
 
 }

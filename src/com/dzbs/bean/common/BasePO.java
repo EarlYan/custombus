@@ -44,7 +44,6 @@ public class BasePO {
 		
 	//是否逻辑删除(0 未删除 1已删除)
 	@Column(columnDefinition="bit NOT NULL DEFAULT 0")
-	@Expose  
 	protected boolean deleted = false;
 
 	public int getId() {

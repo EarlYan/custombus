@@ -83,8 +83,8 @@ public class RouteImpl implements RouteDao{
 	 * @return List<Route>
 	 */
 	@Override
-	public List<Route> findByUserIdAndPayStatus(String start_location,String end_location,String start_time){
-		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Route as a WHERE a.deleted = false AND a.start_location like :start_location AND a.end_location like :end_location AND a.start_time like :start_time");
+	public List<Route> findByStartEndTimeAndNotFull(String start_location,String end_location,String start_time){
+		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Route as a WHERE a.deleted = false AND a.start_location like :start_location AND a.end_location like :end_location AND a.start_time like :start_time AND a.full = :false");
 		query.setString("start_location","%"+start_location+"%");
 		query.setString("end_location","%"+end_location+"%");
 		query.setString("start_time", "%"+start_time+"%");

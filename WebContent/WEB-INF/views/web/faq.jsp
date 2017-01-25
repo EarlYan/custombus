@@ -252,23 +252,51 @@
 <script type="text/javascript" src="../assets/js/realia.js"></script>
 <script type="text/javascript" src="../assets/js/jquery.validate.js"></script> 
 <script type="text/javascript">
-    //留言在此操作
-    $("#messageForm").validate({
-        rules: {
-          inputName: "required",
-          inputEmail: {
-            required: true,
-            email: true
-          },
-          inputMessage: "required"
-        },
-        messages: {
-          inputName: "请输入您的姓名",
-          inputEmail: "请输入一个正确的邮箱",
-          inputMessage: "请输入您对我们的留言",
-        }
-    });
-    
+//留言在此操作
+function check(){ 
+	return $("#messageForm").validate({
+	    rules: {
+	      inputName: "required",
+	      inputEmail: {
+	        required: true,
+	        email: true
+	      },
+	      inputMessage: "required"
+	    },
+	    messages: {
+	      inputName: "请输入您的姓名",
+	      inputEmail: "请输入一个正确的邮箱",
+	      inputMessage: "请输入您对我们的留言",
+	    }
+	});
+}
+
+//保存留言
+$('#sendMessage').on('click',function(){
+	if(!check().form()) return; 
+	var inputName = $('#inputName').val();
+	var inputEmail = $('#inputEmail').val();
+	var inputMessage = $('#inputMessage').val();
+	$.ajax(
+		{
+		type: "get",
+    	url: "../message/saveMessage",
+        data: {
+        	inputName:inputName,
+        	inputEmail:inputEmail,
+        	inputMessage:inputMessage
+            },
+        dataType: "json",   
+        async : false,   
+        success:function(data){
+            alert("感谢评论");
+            window.location.href="../web/index";
+	    },
+	    error:function(data){
+		    alert("error");
+		}
+	});
+});
 </script>
 </body>
 </html>

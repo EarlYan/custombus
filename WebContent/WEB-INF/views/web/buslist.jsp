@@ -32,27 +32,49 @@
     <div>
         <div id="main">
             <div class="about-us">
-    <h2 class="page-header">关于我们</h2>
+    <h2 class="page-header">查询列表</h2>
 
     <div class="row">
         <div class="content">
-            <div class="member span4">
-                <img src="../assets/img/person1.png" alt="Jessie S. Rego">
-                <h2>Jessie S. Rego</h2>
-                <p>高级副总裁</p>
-            </div><!-- /.member -->
-
-            <div class="member span4">
-                <img src="../assets/img/person2.png" alt="Milan M. Clemmons">
-                <h2>Milan M. Clemmons</h2>
-                <p>联合创始人</p>
-            </div><!-- /.member -->
-
-            <div class="member span4">
-                <img src="../assets/img/person3.png" alt="Jerry S. Winstead">
-                <h2>Jerry S. Winstead</h2>
-                <p>公关经理</p>
-            </div><!-- /.member -->
+            <div class="property-detail">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>起点</th>
+                        <th>终点</th>
+                        <th>起始时间</th>
+                        <th>里程数</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                        <td>100</td>
+                        <td><a href=''>预定</a></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                        <td>100</td>
+                        <td><a href=''>预定</a></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                        <td>@twitter</td>
+                        <td>100</td>
+                        <td><a href=''>预定</a></td>
+                    </tr>
+                    </tbody>
+                </table>
         </div><!-- /.content -->
     </div><!-- /.row -->
 </div><!-- /.about-us -->

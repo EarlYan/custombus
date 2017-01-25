@@ -4,11 +4,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dzbs.bean.security.Member;
 import com.dzbs.dao.UserDao;
 import com.dzbs.service.UserDetailServiceImpl;
 
@@ -58,8 +61,13 @@ public class WebController {
 	 */
 	@RequestMapping(value = "/aboutus", method = { RequestMethod.GET })
 	public ModelAndView aboutusPage(HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response) {	
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    	String username = userDetails.getUsername();
+    	Member member = userDetailServiceImpl.findUserByUsername(username);
+    	Integer memberLevel = member.getLevel();
 		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("memberLevel", memberLevel);
 		modelAndView.setViewName("web/aboutus");
 		return modelAndView;
 	}
@@ -117,6 +125,64 @@ public class WebController {
 			HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("web/property");
+		return modelAndView;
+	}
+	
+	/**
+	 * 小巴预定主页
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/smallbus", method = { RequestMethod.GET })
+	public ModelAndView smallbusPage(HttpServletRequest request,
+			HttpServletResponse response) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("web/smallbus");
+		return modelAndView;
+	}
+	
+	/**
+	 * 中巴预定主页
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/mediumbus", method = { RequestMethod.GET })
+	public ModelAndView mediumbusPage(HttpServletRequest request,
+			HttpServletResponse response) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("web/mediumbus");
+		return modelAndView;
+	}
+	
+	/**
+	 * 大巴预定主页
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/bigbus", method = { RequestMethod.GET })
+	public ModelAndView bigbusPage(HttpServletRequest request,
+			HttpServletResponse response) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("web/bigbus");
+		return modelAndView;
+	}
+	
+	/**
+	 * 路线表格主页
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/buslist", method = { RequestMethod.GET })
+	public ModelAndView buslistPage(HttpServletRequest request,
+			HttpServletResponse response) {
+		String price = request.getParameter("price");
+		String routes = request.getParameter("routes");
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("web/buslist");
 		return modelAndView;
 	}
 }

@@ -44,12 +44,12 @@
                     <h4>永久</h4>
                     <ul class="unstyled">
                         <li>工作日上班时间客服</li>
-                        <li class="unimportant">9折优惠</li>
+                        <li class="unimportant">无优惠</li>
                         <li class="unimportant">快速取消订单</li>
                         <li class="unimportant">私人订制座</li>
                     </ul>
                     <div style="visibility: hidden;">
-                    <a href="#" class="btn btn-primary btn-large">Sign up</a>
+                    <input type="button" class="btn btn-primary btn-large" value="购买">
                     </div>
                 </div><!-- /.content -->
             </div><!-- /.column -->
@@ -67,7 +67,9 @@
                         <li>快速取消订单</li>
                         <li class="unimportant">私人订制座位</li>
                     </ul>
-                    <a href="#" class="btn btn-primary btn-large">购买</a>
+                    <div class="levelTwo">
+                    <input type="button" id="levelTwoVip" class="btn btn-primary btn-large" value="购买">
+                    </div>
                 </div><!-- /.content -->
             </div><!-- /.column -->
         </div><!-- /.span4 -->
@@ -84,7 +86,9 @@
                         <li>快速取消订单</li>
                         <li>私人订制座位</li>
                     </ul>
-                    <a href="#" class="btn btn-primary btn-large">购买</a>
+                    <div class="levelThree">
+                    <input type="button" id="levelThreeVip" class="btn btn-primary btn-large" value="购买">
+  					</div>              
                 </div><!-- /.content -->
             </div><!-- /.column -->
         </div><!-- /.span4 -->
@@ -117,23 +121,93 @@
 <script type="text/javascript" src="../assets/js/flatpickr.js"></script><!--时间选择器-->
 <script type="text/javascript" src="../assets/js/jquery.validate.js"></script> 
 <script type="text/javascript">
-    //留言在此操作
-    $("#messageForm").validate({
-        rules: {
-          inputName: "required",
-          inputEmail: {
-            required: true,
-            email: true
-          },
-          inputMessage: "required"
-        },
-        messages: {
-          inputName: "请输入您的姓名",
-          inputEmail: "请输入一个正确的邮箱",
-          inputMessage: "请输入您对我们的留言",
-        }
-    });
-    
+$(document).ready(function(){
+	var memberLevel ='${memberLevel}';
+	if(memberLevel ==1){
+		$('.levelTwo').hide();
+	}else if(memberLevel ==2){
+		$('.levelTwo').hide();
+		$('.levelThree').hide();
+	}
+});
+
+//留言在此操作
+function check(){ 
+	return $("#messageForm").validate({
+	    rules: {
+	      inputName: "required",
+	      inputEmail: {
+	        required: true,
+	        email: true
+	      },
+	      inputMessage: "required"
+	    },
+	    messages: {
+	      inputName: "请输入您的姓名",
+	      inputEmail: "请输入一个正确的邮箱",
+	      inputMessage: "请输入您对我们的留言",
+	    }
+	});
+}
+
+//保存留言
+$('#sendMessage').on('click',function(){
+	if(!check().form()) return; 
+	var inputName = $('#inputName').val();
+	var inputEmail = $('#inputEmail').val();
+	var inputMessage = $('#inputMessage').val();
+	$.ajax(
+		{
+		type: "get",
+    	url: "../message/saveMessage",
+        data: {
+        	inputName:inputName,
+        	inputEmail:inputEmail,
+        	inputMessage:inputMessage
+            },
+        dataType: "json",   
+        async : false,   
+        success:function(data){
+            alert("感谢评论");
+            window.location.href="../web/index";
+	    },
+	    error:function(data){
+		    alert("error");
+		}
+	});
+});
+//购买普通会员
+$('#levelTwoVip').on('click',function(){
+	$.ajax(
+		{
+		type: "post",
+    	url: "../vip/applyNormal",
+        success:function(data){
+            alert("恭喜成为普通会员");
+            window.location.href="../web/index";
+	    },
+	    error:function(data){
+		    alert("error");
+		}
+	});
+});
+
+//购买高级会员
+$('#levelThreeVip').on('click',function(){
+	$.ajax(
+		{
+		type: "post",
+    	url: "../vip/applySuper",
+        success:function(data){
+            alert("恭喜成为高级会员");
+            window.location.href="../web/index";
+	    },
+	    error:function(data){
+		    alert("error");
+		}
+	});
+});
+
 </script>
 </body>
 </html>

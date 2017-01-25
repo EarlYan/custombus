@@ -37,5 +37,5 @@ public interface RouteDao{
 	 * @param start_location,end_location,start_time
 	 * @return List<Route>
 	 */
-	public List<Route> findByUserIdAndPayStatus(String start_location,String end_location,String start_time);
+	public List<Route> findByStartEndTimeAndNotFull(String start_location,String end_location,String start_time);
 }
