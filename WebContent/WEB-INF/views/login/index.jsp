@@ -141,9 +141,24 @@
                         重新输入密码
                         <span class="form-required" title="This field is required.">*</span>
                     </label>
-
                     <div class="controls">
                         <input type="text" id="inputRegisterRetype" name="inputRegisterRetype">
+                    </div>
+                    <!-- /.controls -->
+                </div>
+                <!-- /.control-group -->
+                
+                <div class="control-group">
+                    <label class="control-label" for="inputRegisterType">
+                        选择账号类型
+                        <span class="form-required" title="This field is required.">*</span>
+                    </label>
+
+                    <div class="controls">
+                        <select id="inputRegisterType" name="inputRegisterType">
+						  <option value ="1">乘客</option>
+						  <option value ="2">司机</option>
+						</select>
                     </div>
                     <!-- /.controls -->
                 </div>

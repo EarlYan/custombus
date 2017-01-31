@@ -123,8 +123,12 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	var memberLevel ='${memberLevel}';
-	if(memberLevel ==1){
+	if(memberLevel ==0){
+		$('.levelTwo').show();
+		$('.levelThree').show();
+	}else if(memberLevel ==1){
 		$('.levelTwo').hide();
+		$('.levelThree').show();
 	}else if(memberLevel ==2){
 		$('.levelTwo').hide();
 		$('.levelThree').hide();
