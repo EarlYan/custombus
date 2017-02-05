@@ -35,14 +35,13 @@ public class WebController {
 	public ModelAndView indexPage(HttpServletRequest request,
 			HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView();
-//      UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//    	String username = userDetails.getUsername();
-//    	Member member = userDetailServiceImpl.findUserByUsername(username);
-//    	if(member !=null){
-//    		modelAndView.addObject("member", member);
-//    	}else{
-//    		modelAndView.addObject("member", null);
-//    	}
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Member member = userDetailServiceImpl.findUserByUsername(username);
+        if(member != null){
+        	modelAndView.addObject("member", member);	
+        }else{
+        	modelAndView.addObject("member", null);
+        } 	
 		modelAndView.setViewName("web/index");
 		return modelAndView;
 	}
@@ -57,6 +56,16 @@ public class WebController {
 	public ModelAndView vipPage(HttpServletRequest request,
 			HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView();
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		Member member = userDetailServiceImpl.findUserByUsername(username);
+		if(member != null){
+			Integer memberLevel = member.getLevel();
+			modelAndView.addObject("member", member);	
+			modelAndView.addObject("memberLevel", memberLevel);
+		}else{
+			modelAndView.addObject("member", null);
+			modelAndView.addObject("memberLevel", 0);
+		}
 		modelAndView.setViewName("web/vip");
 		return modelAndView;
 	}
@@ -70,12 +79,14 @@ public class WebController {
 	@RequestMapping(value = "/aboutus", method = { RequestMethod.GET })
 	public ModelAndView aboutusPage(HttpServletRequest request,
 			HttpServletResponse response) {	
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    	String username = userDetails.getUsername();
-    	Member member = userDetailServiceImpl.findUserByUsername(username);
-    	Integer memberLevel = member.getLevel();
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("memberLevel", memberLevel);
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Member member = userDetailServiceImpl.findUserByUsername(username);
+        if(member != null){
+        	modelAndView.addObject("member", member);	
+        }else{
+        	modelAndView.addObject("member", null);
+        } 
 		modelAndView.setViewName("web/aboutus");
 		return modelAndView;
 	}
@@ -90,6 +101,13 @@ public class WebController {
 	public ModelAndView agentsPage(HttpServletRequest request,
 			HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Member member = userDetailServiceImpl.findUserByUsername(username);
+        if(member != null){
+        	modelAndView.addObject("member", member);	
+        }else{
+        	modelAndView.addObject("member", null);
+        } 
 		modelAndView.setViewName("web/agents");
 		return modelAndView;
 	}
@@ -104,6 +122,13 @@ public class WebController {
 	public ModelAndView faqPage(HttpServletRequest request,
 			HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Member member = userDetailServiceImpl.findUserByUsername(username);
+        if(member != null){
+        	modelAndView.addObject("member", member);	
+        }else{
+        	modelAndView.addObject("member", null);
+        } 
 		modelAndView.setViewName("web/faq");
 		return modelAndView;
 	}
@@ -118,6 +143,13 @@ public class WebController {
 	public ModelAndView contactusPage(HttpServletRequest request,
 			HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Member member = userDetailServiceImpl.findUserByUsername(username);
+        if(member != null){
+        	modelAndView.addObject("member", member);	
+        }else{
+        	modelAndView.addObject("member", null);
+        } 
 		modelAndView.setViewName("web/contactus");
 		return modelAndView;
 	}
@@ -132,6 +164,13 @@ public class WebController {
 	public ModelAndView propertyPage(HttpServletRequest request,
 			HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Member member = userDetailServiceImpl.findUserByUsername(username);
+        if(member != null){
+        	modelAndView.addObject("member", member);	
+        }else{
+        	modelAndView.addObject("member", null);
+        } 
 		modelAndView.setViewName("web/property");
 		return modelAndView;
 	}
@@ -146,6 +185,13 @@ public class WebController {
 	public ModelAndView smallbusPage(HttpServletRequest request,
 			HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Member member = userDetailServiceImpl.findUserByUsername(username);
+        if(member != null){
+        	modelAndView.addObject("member", member);	
+        }else{
+        	modelAndView.addObject("member", null);
+        } 
 		modelAndView.setViewName("web/smallbus");
 		return modelAndView;
 	}
@@ -160,6 +206,13 @@ public class WebController {
 	public ModelAndView mediumbusPage(HttpServletRequest request,
 			HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Member member = userDetailServiceImpl.findUserByUsername(username);
+        if(member != null){
+        	modelAndView.addObject("member", member);	
+        }else{
+        	modelAndView.addObject("member", null);
+        } 
 		modelAndView.setViewName("web/mediumbus");
 		return modelAndView;
 	}
@@ -174,6 +227,13 @@ public class WebController {
 	public ModelAndView bigbusPage(HttpServletRequest request,
 			HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Member member = userDetailServiceImpl.findUserByUsername(username);
+        if(member != null){
+        	modelAndView.addObject("member", member);	
+        }else{
+        	modelAndView.addObject("member", null);
+        } 
 		modelAndView.setViewName("web/bigbus");
 		return modelAndView;
 	}
@@ -190,6 +250,13 @@ public class WebController {
 		String price = request.getParameter("price");
 		String routes = request.getParameter("routes");
 		ModelAndView modelAndView = new ModelAndView();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Member member = userDetailServiceImpl.findUserByUsername(username);
+        if(member != null){
+        	modelAndView.addObject("member", member);	
+        }else{
+        	modelAndView.addObject("member", null);
+        } 
 		modelAndView.setViewName("web/buslist");
 		return modelAndView;
 	}

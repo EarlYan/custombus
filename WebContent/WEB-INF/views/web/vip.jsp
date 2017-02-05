@@ -124,14 +124,14 @@
 $(document).ready(function(){
 	var memberLevel ='${memberLevel}';
 	if(memberLevel ==0){
-		$('.levelTwo').show();
-		$('.levelThree').show();
+		$('.levelTwo').css("visibility","visible");
+		$('.levelThree').css("visibility","visible")
 	}else if(memberLevel ==1){
-		$('.levelTwo').hide();
-		$('.levelThree').show();
+		$('.levelTwo').css("visibility","hidden")
+		$('.levelThree').css("visibility","visible")
 	}else if(memberLevel ==2){
-		$('.levelTwo').hide();
-		$('.levelThree').hide();
+		$('.levelTwo').css("visibility","hidden")
+		$('.levelThree').css("visibility","hidden")
 	}
 });
 
