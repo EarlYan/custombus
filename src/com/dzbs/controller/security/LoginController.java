@@ -1,5 +1,6 @@
 package com.dzbs.controller.security;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -78,6 +79,25 @@ public class LoginController {
     	}
     }
     
+    @RequestMapping(value = "/checkExist", method = {RequestMethod.POST}, produces = "text/plain; charset=utf-8")
+    @ResponseBody
+    public String checkExist(HttpServletRequest request, HttpServletResponse response){
+    	String mobile = request.getParameter("mobile");
+    	String username = request.getParameter("username");
+    	Member member = userDetailServiceImpl.findUserByUserNameAndMobile(username,mobile);
+    	if(member != null){
+    		Md5PasswordEncoder md5 = new Md5PasswordEncoder(); 
+        	md5.setEncodeHashAsBase64(false);
+        	String pwd = md5.encodePassword("password", null); 
+        	member.setPassword(pwd);
+    		userDetailServiceImpl.updateUser(member);
+    		return "true";
+    	}
+    	else{
+    		return "false";
+    	}
+    }
+    
     @RequestMapping(value = "/isMobileCanModify", method = {RequestMethod.GET}, produces = "text/plain; charset=utf-8")
     @ResponseBody
     public String isMobileCanModify(HttpServletRequest request, HttpServletResponse response){
@@ -118,22 +138,35 @@ public class LoginController {
         return modelAndView;
     }
     
-    @RequestMapping(value = "/add", method = {RequestMethod.GET})
+    @RequestMapping(value = "/add", method = {RequestMethod.POST})
     @ResponseBody
     public String addMember(HttpServletRequest request, HttpServletResponse response){
+    	String inputRegisterUserName = request.getParameter("inputRegisterUserName");
+    	String inputRegisterTel = request.getParameter("inputRegisterTel");
+    	String inputRegisterEmail = request.getParameter("inputRegisterEmail");
+    	String inputRegisterPassword = request.getParameter("inputRegisterPassword");
+    	String inputRegisterType = request.getParameter("inputRegisterType");
+    	
         Member member = new Member();
-        member.setUsername("admin");
+        member.setUsername(inputRegisterUserName);
     	Md5PasswordEncoder md5 = new Md5PasswordEncoder(); 
     	md5.setEncodeHashAsBase64(false);
-    	String password = md5.encodePassword("admin", null); 
+    	String password = md5.encodePassword(inputRegisterPassword, null); 
     	member.setPassword(password);
-        
+        member.setMobile(inputRegisterTel);
+        member.setEmail(inputRegisterEmail);
+        member.setCreate_date(new Date());
+        member.setUpdate_date(new Date());
         Set<Role> set = new HashSet<Role>();
-        Role ro = userDao.findRoleByRoleCode("ADMIN");
+        Role ro = new Role();
+        if(inputRegisterType.equals("1")){
+        	ro = userDao.findRoleByRoleCode("ROLE_PASSENGER");
+        }else if(inputRegisterType.equals("2")){
+        	ro = userDao.findRoleByRoleCode("ROLE_DRIVER");
+        }    
         set.add(ro);
         member.setRoles(set);
         userDao.saveUser(member);
-        
         return "true";
     }
     

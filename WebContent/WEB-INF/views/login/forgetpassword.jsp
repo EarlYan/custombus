@@ -56,6 +56,7 @@
                         <input id="username" name="name" type="text" class="required">
                         <label for="userphone">手机号 *</label>
                         <input id="userphone" name="phone" type="text" class="required">
+                        <input id="existTest" name="existTest" type="hidden" value="no"> 
                         <p>(*) 必填</p>
                         <div id="demo">
                           <div id="slider" style="margin-left: 0">
@@ -76,7 +77,7 @@
                     <h3>完成</h3>
                     <fieldset>
                         <legend>成功</legend>
-                        <label for="acceptTerms-2">成功找回你的密码,你的密码为:</label><input id="passwordBack" type="text" disabled="disabled">
+                        <label for="acceptTerms-2">成功找回你的密码,你的密码被重设为:</label><input id="passwordBack" type="text" disabled="disabled" value="password">
                     </fieldset>
                 </form>
             </div><!-- /.row -->
@@ -124,8 +125,28 @@
                 successLabelTip : "验证成功"    
             },function(){
                 $('#sliderTest').val("yes");
+                $.ajax({
+                    type:"POST",
+                    url:'../login/checkExist',
+                    async:false,
+                    data:{
+                    	  'mobile':$('#userphone').val(),
+                    	  'username':$('#username').val()
+                    	 },
+                    success: function(msg){
+                       if(msg == 'true'){
+                           $('#existTest').val("yes");
+                        }else if(msg == 'false'){
+                        	$('#existTest').val("no");
+                       }
+                    }
+                  });
             });
         slider.init();
+       	$('.actions.clearfix').find('a').eq(0).on('click',function(){
+       		slider.reset();
+       		slider.init();
+       	})
     })
     var form = $("#example-advanced-form").show();
 
@@ -140,7 +161,7 @@
             {
                 return true;
             }
-            // Forbid next action on "Warning" step if the user is to young
+            // Forbid next action on "Warning" step if test is error
             if (newIndex === 2 && String($("#sliderTest").val()) == "no")
             {
                 alert("请拖动滑块验证");
@@ -159,13 +180,14 @@
         onStepChanged: function (event, currentIndex, priorIndex)
         {
             // Used to skip the "Warning" step if the user is old enough.
-            // if (currentIndex === 2 && String($("#sliderTest").val()) == "yes")
-            // {
-            //     form.steps("next");
-            // }
-            // Used to skip the "Warning" step if the user is old enough and wants to the previous step.
+             if (currentIndex === 2 && String($("#existTest").val()) == "yes")
+             {
+                 form.steps("next");
+             }
+             /* Used to skip the "Warning" step if the user is old enough and wants to the previous step. */
             if (currentIndex === 2 && priorIndex === 3)
             {
+            	
                 form.steps("previous");
             }
         },
@@ -176,7 +198,7 @@
         },
         onFinished: function (event, currentIndex)
         {
-            alert("Submitted!");
+        	location.href ="../login/index";
         }
     }).validate({
         errorPlacement: function errorPlacement(error, element) { element.before(error); },
@@ -202,21 +224,51 @@
     });
 </script>
 <script type="text/javascript">
-    $("#messageForm").validate({
-        rules: {
-          inputName: "required",
-          inputEmail: {
-            required: true,
-            email: true
-          },
-          inputMessage: "required"
-        },
-        messages: {
-          inputName: "请输入您的姓名",
-          inputEmail: "请输入一个正确的邮箱",
-          inputMessage: "请输入您对我们的留言",
-        }
-    });
+//留言在此操作
+function check(){ 
+	return $("#messageForm").validate({
+	    rules: {
+	      inputName: "required",
+	      inputEmail: {
+	        required: true,
+	        email: true
+	      },
+	      inputMessage: "required"
+	    },
+	    messages: {
+	      inputName: "请输入您的姓名",
+	      inputEmail: "请输入一个正确的邮箱",
+	      inputMessage: "请输入您对我们的留言",
+	    }
+	});
+}
+
+//保存留言
+$('#sendMessage').on('click',function(){
+	if(!check().form()) return; 
+	var inputName = $('#inputName').val();
+	var inputEmail = $('#inputEmail').val();
+	var inputMessage = $('#inputMessage').val();
+	$.ajax(
+		{
+		type: "get",
+    	url: "../message/saveMessage",
+        data: {
+        	inputName:inputName,
+        	inputEmail:inputEmail,
+        	inputMessage:inputMessage
+            },
+        dataType: "json",   
+        async : false,   
+        success:function(data){
+            alert("感谢评论");
+            window.location.href="../web/index";
+	    },
+	    error:function(data){
+		    alert("error");
+		}
+	});
+});
 </script>
 </body>
 </html>

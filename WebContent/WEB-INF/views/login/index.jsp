@@ -130,7 +130,7 @@
                     </label>
 
                     <div class="controls">
-                        <input type="text" id="inputRegisterPassword" name="inputRegisterPassword">
+                        <input type="password" id="inputRegisterPassword" name="inputRegisterPassword">
                     </div>
                     <!-- /.controls -->
                 </div>
@@ -142,7 +142,7 @@
                         <span class="form-required" title="This field is required.">*</span>
                     </label>
                     <div class="controls">
-                        <input type="text" id="inputRegisterRetype" name="inputRegisterRetype">
+                        <input type="password" id="inputRegisterRetype" name="inputRegisterRetype">
                     </div>
                     <!-- /.controls -->
                 </div>
@@ -165,7 +165,7 @@
                 <!-- /.control-group -->
 
                 <div class="form-actions">
-                    <input type="submit" value="注册" class="btn btn-primary arrow-right">
+                    <input type="submit" value="注册" class="btn btn-primary arrow-right" id="registerSubmit">
                 </div>
                 <!-- /.form-actions -->
             </form>
@@ -277,6 +277,27 @@
         var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
         return this.optional(element) || (length == 11 && mobile.test(value));
     }, "请正确填写您的手机号码");
+    
+    jQuery.validator.addMethod("phoneSame", function(value, element) {
+        var flag = 1;
+        $.ajax({
+          type:"GET",
+          url:'../login/checkMobile',
+          async:false,
+          data:{'mobile':value},
+          success: function(msg){
+        	console.log(msg);
+            if(msg == 'true'){
+              flag = 0;
+            }
+          }
+        });
+        if(flag == 0){
+          return false;
+        }else{
+          return true;
+        }
+     }, "对不起手机号码已经被注册");
 </script>
 <script type="text/javascript">
     $("#loginForm").validate({
@@ -289,7 +310,8 @@
         	j_password: "请输入密码"
         }
     });
-    $("#registerForm").validate({
+function checkRegister(){ 
+    return $("#registerForm").validate({
         rules: {
           inputRegisterUserName: "required",
           inputRegisterEmail: {
@@ -299,7 +321,8 @@
           inputRegisterTel:{
             required : true,
             minlength : 11,
-            isMobile : true
+            isMobile : true,
+            phoneSame : true
           },
           inputRegisterPassword: {
             required: true,
@@ -314,7 +337,10 @@
         messages: {
           inputRegisterUserName: "请输入用户名",
           inputRegisterEmail: "请输入一个正确的邮箱",
-          inputRegisterTel: "请正确填写您的手机号码",
+          inputRegisterTel: {
+        	  isMobile:  "请正确填写您的手机号码",
+        	  phoneSame:  "对不起手机号码已经被注册"
+          },
           inputRegisterPassword: {
             required: "请输入密码",
             minlength: "密码长度不能小于 5 个字母"
@@ -325,24 +351,86 @@
             equalTo: "两次密码输入不一致"
           }
         }
-    });    
+    }); 
+}
+	
+	$('#registerSubmit').on('click',function(){
+		if(!checkRegister().form()) return; 
+		var inputRegisterUserName = $('#inputRegisterUserName').val();
+		var inputRegisterTel = $('#inputRegisterTel').val();
+		var inputRegisterEmail = $('#inputRegisterEmail').val();
+		var inputRegisterPassword = $('#inputRegisterPassword').val();		
+		var inputRegisterType = $('#inputRegisterType').val();
+		$.ajax(
+			{
+			type: "POST",
+	    	url: "../login/add",
+	        data: {
+	        	inputRegisterUserName:inputRegisterUserName,
+	        	inputRegisterTel:inputRegisterTel,
+	        	inputRegisterEmail:inputRegisterEmail,
+	        	inputRegisterPassword:inputRegisterPassword,
+	        	inputRegisterType:inputRegisterType
+	        },
+	        dataType: "json",   
+	        async : false,   
+	        success:function(data){
+	            alert("注册成功");
+	            window.location.href="../login/index";
+		    },
+		    error:function(data){
+			    alert("error");
+			}
+		});
+	});
+	
 </script>
 <script type="text/javascript">
-    $("#messageForm").validate({
-        rules: {
-          inputName: "required",
-          inputEmail: {
-            required: true,
-            email: true
-          },
-          inputMessage: "required"
-        },
-        messages: {
-          inputName: "请输入您的姓名",
-          inputEmail: "请输入一个正确的邮箱",
-          inputMessage: "请输入您对我们的留言",
-        }
-    });
+//留言在此操作
+function check(){ 
+	return $("#messageForm").validate({
+	    rules: {
+	      inputName: "required",
+	      inputEmail: {
+	        required: true,
+	        email: true
+	      },
+	      inputMessage: "required"
+	    },
+	    messages: {
+	      inputName: "请输入您的姓名",
+	      inputEmail: "请输入一个正确的邮箱",
+	      inputMessage: "请输入您对我们的留言",
+	    }
+	});
+}
+
+//保存留言
+$('#sendMessage').on('click',function(){
+	if(!check().form()) return; 
+	var inputName = $('#inputName').val();
+	var inputEmail = $('#inputEmail').val();
+	var inputMessage = $('#inputMessage').val();
+	$.ajax(
+		{
+		type: "get",
+    	url: "../message/saveMessage",
+        data: {
+        	inputName:inputName,
+        	inputEmail:inputEmail,
+        	inputMessage:inputMessage
+            },
+        dataType: "json",   
+        async : false,   
+        success:function(data){
+            alert("感谢评论");
+            window.location.href="../web/index";
+	    },
+	    error:function(data){
+		    alert("error");
+		}
+	});
+});
 </script>
 </body>
 </html>

@@ -35,6 +35,14 @@ public class WebController {
 	public ModelAndView indexPage(HttpServletRequest request,
 			HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView();
+//      UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//    	String username = userDetails.getUsername();
+//    	Member member = userDetailServiceImpl.findUserByUsername(username);
+//    	if(member !=null){
+//    		modelAndView.addObject("member", member);
+//    	}else{
+//    		modelAndView.addObject("member", null);
+//    	}
 		modelAndView.setViewName("web/index");
 		return modelAndView;
 	}

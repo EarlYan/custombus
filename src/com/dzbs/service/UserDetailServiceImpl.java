@@ -78,6 +78,13 @@ public class UserDetailServiceImpl implements UserDetailsService {
     }
     
     /**
+     * 根据用户名和手机号查询用户信息
+     */
+    public Member findUserByUserNameAndMobile(String username,String mobile){
+    	return userDao.findUserByUserNameAndMobile(username,mobile);
+    }
+    
+    /**
      * 根据用户角色进行查询
      */
     public List<Member> findUserByRole(String roleCode){

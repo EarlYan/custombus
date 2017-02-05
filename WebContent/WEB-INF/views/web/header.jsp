@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
             <!-- BREADCRUMB -->
             <div class="breadcrumb-wrapper">
                 <div class="container">
@@ -10,10 +12,18 @@
                             </ul><!-- /.breadcrumb -->
 
                             <div class="account pull-right">
+                            	<c:if test="${not empty member}">
+                            	<ul class="nav nav-pills">
+                                    <li><a href="../login/index">${member.username}</a></li>
+                                    <li><a href="../j_spring_security_logout">安全退出</a></li>
+                                </ul>
+                            	</c:if>
+                            	<c:if test="${empty member}">
                                 <ul class="nav nav-pills">
                                     <li><a href="../login/index">登录</a></li>
                                     <li><a href="../login/register">注册</a></li>
                                 </ul>
+                                </c:if>
                             </div>
                         </div><!-- /.span12 -->
                     </div><!-- /.row -->

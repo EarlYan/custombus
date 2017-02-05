@@ -52,7 +52,7 @@ public class Member {
 	private String imgurl;
 	
 	//手机号码
-    private String cellphone;
+    private String mobile;
        
 	/**乘客信息**/
     //乘客会员等级（0:基础会员,1:普通会员,2:高级会员）
@@ -135,12 +135,12 @@ public class Member {
 		this.imgurl = imgurl;
 	}
 
-	public String getCellphone() {
-		return cellphone;
+	public String getMobile() {
+		return mobile;
 	}
 
-	public void setCellphone(String cellphone) {
-		this.cellphone = cellphone;
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}
 	public boolean getGender() {
 		return gender;

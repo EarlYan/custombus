@@ -42,7 +42,7 @@ public class Route extends BasePO{
 	private int about_time;
 	
 	//是否满人
-	@Column(columnDefinition="bit NOT NULL DEFAULT 0")
+	@Column(columnDefinition="BIT NOT NULL DEFAULT 0")
 	private boolean full;
 
 	public int getMember_id() {

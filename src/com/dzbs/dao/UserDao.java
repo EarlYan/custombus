@@ -48,6 +48,17 @@ public class UserDao {
     }
     
     /**
+     * 根据用户名和手机号查询用户信息
+     */
+    @SuppressWarnings("unchecked")  
+    public Member findUserByUserNameAndMobile(String username,String mobile){  
+        List<Member> result =  this.sessionFactory.getCurrentSession().createQuery("from Member e where e.username = \'" +username + "\' and e.mobile = \'" + mobile + "\'").list();  
+        if(result != null && !result.isEmpty())      
+            return result.get(0);  
+        return null ;  
+    }
+    
+    /**
      * 根据id查找用户
      */
     @SuppressWarnings("unchecked")  
