@@ -23,7 +23,7 @@ public interface OrderDao{
 	 * 查询所有订单
 	 * @return List<Order>
 	 */
-	public List<Order> findAllComments();
+	public List<Order> findAllOrders();
 	
 	/**
 	 * 用user_id进行查询(乘客查询)

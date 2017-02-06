@@ -60,7 +60,6 @@
             </div><!-- /.span8 -->
         </div><!-- /.row -->
 
-<!--         <form method="post" action="" enctype="multipart/form-data" id="propertyForm"> -->
             <form method="post" action="" id="propertyForm">
             <div class="row">
                 <div class="span4">
@@ -121,7 +120,7 @@
                     </div><!-- /.control-group -->
 
                     <div class="property-type control-group">
-                        <label class="control-label" for="inputPropertyPropertyType">
+                        <label class="control-label" for="inputPropertyTimeStart">
                             出发时间
                             <span class="form-required" title="This field is required.">*</span>
                         </label>
@@ -131,7 +130,7 @@
                     </div><!-- /.control-group -->
 
                     <div class="contract-type control-group">
-                        <label class="control-label" for="inputProertyContractType">
+                        <label class="control-label" for="inputPropertyTimeEnd">
                             回程时间
                             <span class="form-required" title="This field is required.">*</span>
                         </label>
@@ -154,7 +153,7 @@
 
                     <div class="control-group">
                         <div class="controls">
-                            <input type="submit" class="btn btn-primary" value="提交" id="sendProperty">
+                            <input type="button" class="btn btn-primary" value="提交" id="sendProperty">
                         </div><!-- /.input-append -->
                     </div><!-- .fileupload -->
 
@@ -205,7 +204,8 @@
     }, "请正确填写您的手机号码");
 </script>
 <script type="text/javascript">
-    $("#propertyForm").validate({
+function checkProperty(){ 
+	return $("#propertyForm").validate({
         rules: {
           inputPropertyName: "required",
           inputPropertyEmail: {
@@ -232,6 +232,42 @@
           inputPropertyTimeEnd:"请选择回程时间"
         }
     });
+}
+
+$('#sendProperty').on('click',function(){
+	if(!checkProperty().form()) return; 
+	var inputPropertyName = $('#inputPropertyName').val();
+	var inputPropertyEmail = $('#inputPropertyEmail').val();
+	var inputPropertyPhone = $('#inputPropertyPhone').val();
+	var inputPropertyLocationStart = $('#inputPropertyLocationStart').val();
+	var inputPropertyLocationEnd = $('#inputPropertyLocationEnd').val();
+	var inputPropertyTimeStart = $('#inputPropertyTimeStart').val();
+	var inputPropertyTimeEnd = $('#inputPropertyTimeEnd').val();
+	var inputPropertyNotes = $('#inputPropertyNotes').val();
+	$.ajax({
+		type: "POST",
+	   	url: "../property/saveProperty",
+	    data: {
+		    	inputPropertyName:inputPropertyName,
+		    	inputPropertyEmail:inputPropertyEmail,
+		    	inputPropertyPhone:inputPropertyPhone,
+		    	inputPropertyLocationStart:inputPropertyLocationStart,
+		    	inputPropertyLocationEnd:inputPropertyLocationEnd,
+		    	inputPropertyTimeStart:inputPropertyTimeStart,
+		    	inputPropertyTimeEnd:inputPropertyTimeEnd,
+		    	inputPropertyNotes:inputPropertyNotes
+	    },
+	    dataType: "json",   
+	    async : false,   
+	    success:function(data){
+	        alert("感谢提交我们会留意");
+	        window.location.href="../web/index";
+	    },
+	    error:function(data){
+		    alert("error");
+		}
+	});
+});
 </script>
 <script type="text/javascript">
 //留言在此操作
@@ -261,7 +297,7 @@ $('#sendMessage').on('click',function(){
 	var inputMessage = $('#inputMessage').val();
 	$.ajax(
 		{
-		type: "get",
+		type: "POST",
 	   	url: "../message/saveMessage",
 	       data: {
 	       	inputName:inputName,

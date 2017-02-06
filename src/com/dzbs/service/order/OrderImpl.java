@@ -56,7 +56,7 @@ public class OrderImpl implements OrderDao{
 	 * @return List<Order>
 	 */
 	@Override
-	public List<Order> findAllComments(){
+	public List<Order> findAllOrders(){
 		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Order WHERE deleted = false");
 		@SuppressWarnings("unchecked")
 		List<Order> temp = query.list();

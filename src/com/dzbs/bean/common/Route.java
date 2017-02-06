@@ -43,7 +43,7 @@ public class Route extends BasePO{
 	
 	//是否满人
 	@Column(columnDefinition="BIT NOT NULL DEFAULT 0")
-	private boolean full;
+	private boolean isFull;
 
 	public int getMember_id() {
 		return member_id;
@@ -101,12 +101,11 @@ public class Route extends BasePO{
 		this.about_time = about_time;
 	}
 
-	public boolean getFull() {
-		return full;
+	public boolean isFull() {
+		return isFull;
 	}
 
-	public void setFull(boolean full) {
-		this.full = full;
+	public void setFull(boolean isFull) {
+		this.isFull = isFull;
 	}
-
 }

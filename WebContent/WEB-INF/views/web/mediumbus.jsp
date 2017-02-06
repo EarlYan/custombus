@@ -299,7 +299,7 @@
 		var inputMessage = $('#inputMessage').val();
 		$.ajax(
 			{
-			type: "get",
+			type: "POST",
 	    	url: "../message/saveMessage",
 	        data: {
 	        	inputName:inputName,
