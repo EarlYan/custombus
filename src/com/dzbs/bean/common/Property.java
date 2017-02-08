@@ -44,6 +44,9 @@ public class Property extends BasePO{
 	
 	//提议
 	private String notes;
+	
+	//距离
+	private double distance;
 
 	public String getName() {
 		return name;
@@ -107,5 +110,13 @@ public class Property extends BasePO{
 
 	public void setNotes(String notes) {
 		this.notes = notes;
+	}
+
+	public double getDistance() {
+		return distance;
+	}
+
+	public void setDistance(double distance) {
+		this.distance = distance;
 	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -61,6 +62,14 @@ public class PropertyImpl implements PropertyDao{
 		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Property WHERE deleted = false AND startLoaction = :startLoaction And endLocation = :endLocation");
 		query.setString("startLoaction", startLoaction);
 		query.setString("endLocation", endLocation);
+		@SuppressWarnings("unchecked")
+		List<Property> temp = query.list();
+		return temp;
+	}
+
+	@Override
+	public List<Property> findLatestProperties() {
+		Query query=this.sessionFactory.getCurrentSession().createSQLQuery("SELECT * FROM t_property order by id desc limit 6").setResultTransformer(Transformers.aliasToBean(Property.class));
 		@SuppressWarnings("unchecked")
 		List<Property> temp = query.list();
 		return temp;

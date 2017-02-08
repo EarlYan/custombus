@@ -1,5 +1,7 @@
 package com.dzbs.controller.web;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dzbs.bean.common.Property;
 import com.dzbs.bean.security.Member;
 import com.dzbs.dao.UserDao;
 import com.dzbs.service.UserDetailServiceImpl;
+import com.dzbs.service.property.PropertyImpl;
 
 @Controller
 @RequestMapping(value = "/web")
@@ -24,6 +28,9 @@ public class WebController {
 	
 	@Autowired
 	private UserDetailServiceImpl userDetailServiceImpl;
+	
+	@Autowired
+	private PropertyImpl propertyDao;
 	
 	/**
 	 * 主页
@@ -41,7 +48,9 @@ public class WebController {
         	modelAndView.addObject("member", member);	
         }else{
         	modelAndView.addObject("member", null);
-        } 	
+        } 
+        List<Property> propertyList = propertyDao.findLatestProperties();
+        modelAndView.addObject("propertyList",propertyList);
 		modelAndView.setViewName("web/index");
 		return modelAndView;
 	}

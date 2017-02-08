@@ -18,6 +18,7 @@ import com.dzbs.bean.common.Property;
 import com.dzbs.bean.security.Member;
 import com.dzbs.service.UserDetailServiceImpl;
 import com.dzbs.service.property.PropertyImpl;
+import com.dzbs.util.baidu.GetLatAndLngByBaidu;
 
 @Controller
 @RequestMapping(value = "/property")
@@ -71,6 +72,11 @@ public class PropertyController {
 			property.setGoTime(go);
 			property.setBackTime(back);
 			property.setNotes(inputPropertyNotes);
+			String[] strsStart = GetLatAndLngByBaidu.getCoordinate(inputPropertyLocationStart);
+			String[] strsEnd = GetLatAndLngByBaidu.getCoordinate(inputPropertyLocationEnd);
+			double distance = GetLatAndLngByBaidu.
+					getDistance(Double.valueOf(strsStart[0]), Double.valueOf(strsStart[1]), Double.valueOf(strsEnd[0]), Double.valueOf(strsEnd[1]));
+			property.setDistance(distance);
 			propertyDao.saveProperty(property);
 			json.put("resultCode", 200);
 		} catch (Exception e) {

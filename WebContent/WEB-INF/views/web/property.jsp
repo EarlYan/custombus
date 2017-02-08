@@ -59,7 +59,7 @@
                 </p>
             </div><!-- /.span8 -->
         </div><!-- /.row -->
-
+		<div id="l-map" style="visibility: hidden;"></div>
             <form method="post" action="" id="propertyForm">
             <div class="row">
                 <div class="span4">
@@ -106,6 +106,7 @@
                         </label>
                         <div class="controls">
                             <input type="text" id="inputPropertyLocationStart" name="inputPropertyLocationStart">
+                            <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
                         </div><!-- /.controls -->
                     </div><!-- /.control-group -->
 
@@ -172,7 +173,7 @@
 </div><!-- /#wrapper -->
 </div><!-- /#wrapper-outer -->
 
-
+<script src="http://api.map.baidu.com/api?v=2.0&ak=sYY91vHWc5btABI2DOM7gEfm"></script> 
 <script type="text/javascript" src="../assets/js/jquery.js"></script>
 <script type="text/javascript" src="../assets/js/jquery.ezmark.js"></script>
 <script type="text/javascript" src="../assets/js/jquery.currency.js"></script>
@@ -202,6 +203,94 @@
         var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
         return this.optional(element) || (length == 11 && mobile.test(value));
     }, "请正确填写您的手机号码");
+  
+</script>
+<!--百度地图联想输入-->
+<script type="text/javascript">
+    function G(id) {
+        return document.getElementById(id);
+    }
+    
+	var map = new BMap.Map("l-map");
+	map.centerAndZoom("上海",12);   
+	
+    var start = new BMap.Autocomplete(    //建立一个自动完成的对象
+        {"input" : "inputPropertyLocationStart"
+        ,"location" : map
+    });
+
+    start.addEventListener("onhighlight", function(e) {  //鼠标放在下拉列表上的事件
+    var str = "";
+        var _value = e.fromitem.value;
+        var value = "";
+        if (e.fromitem.index > -1) {
+            value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+        }    
+        str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+        
+        value = "";
+        if (e.toitem.index > -1) {
+            _value = e.toitem.value;
+            value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+        }    
+        str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+        G("searchResultPanel").innerHTML = str;
+    });
+
+    var myValue;
+    start.addEventListener("onconfirm", function(e) {    //鼠标点击下拉列表后的事件
+    var _value = e.item.value;
+        myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+        G("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+        
+        setPlace();
+    });
+
+    var end = new BMap.Autocomplete(    //建立一个自动完成的对象
+        {"input" : "inputPropertyLocationEnd"
+        ,"location" : map
+    });
+
+    end.addEventListener("onhighlight", function(e) {  //鼠标放在下拉列表上的事件
+    var str = "";
+        var _value = e.fromitem.value;
+        var value = "";
+        if (e.fromitem.index > -1) {
+            value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+        }    
+        str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+        
+        value = "";
+        if (e.toitem.index > -1) {
+            _value = e.toitem.value;
+            value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+        }    
+        str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+        G("searchResultPanel").innerHTML = str;
+    });
+
+    var myValue;
+
+    end.addEventListener("onconfirm", function(e) {    //鼠标点击下拉列表后的事件
+    var _value = e.item.value;
+        myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+        G("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+        
+        setPlace();
+    });
+
+    function setPlace(){
+        map.clearOverlays();    //清除地图上所有覆盖物
+        function myFun(){
+            var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+            map.centerAndZoom(pp, 18);
+            map.addOverlay(new BMap.Marker(pp));    //添加标注
+        }
+        var local = new BMap.LocalSearch(map, { //智能搜索
+          onSearchComplete: myFun
+        });
+        local.search(myValue);
+    }
 </script>
 <script type="text/javascript">
 function checkProperty(){ 
@@ -266,7 +355,7 @@ $('#sendProperty').on('click',function(){
 	    error:function(data){
 		    alert("error");
 		}
-	});
+	}); 
 });
 </script>
 <script type="text/javascript">

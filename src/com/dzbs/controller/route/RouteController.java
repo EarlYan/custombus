@@ -89,11 +89,11 @@ public class RouteController {
 	public static float priceCal(float routeDistance,int busType){
 		float price = 0.0f;
 		if(busType ==1){
-			price = routeDistance * 2.5f;
+			price = routeDistance * 3.5f;
 		}else if(busType ==2){
-			price = routeDistance * 1.5f;
+			price = routeDistance * 2.5f;
 		}else if(busType ==3){
-			price = routeDistance * 0.5f;
+			price = routeDistance * 1.5f;
 		}
 		return price;
 	}

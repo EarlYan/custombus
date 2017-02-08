@@ -30,4 +30,10 @@ public interface PropertyDao {
 	 * @return List<Property>
 	 */
 	public List<Property> findPropertiesByLocation(String startLoaction,String endLocation);
+	
+	/**
+	 * 最新众筹信息
+	 * @return List<Property>
+	 */
+	public List<Property> findLatestProperties();
 }
