@@ -5,7 +5,9 @@ import java.util.Iterator;
 import java.util.List;  
 import java.util.Set;
 
-import org.hibernate.SessionFactory;  
+import org.hibernate.Query;
+import org.hibernate.SessionFactory;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;  
@@ -34,7 +36,6 @@ public class UserDao {
             return result.get(0);  
         return null ;  
     }  
-    
     
     /**
      * 根据手机号查询用户
@@ -102,6 +103,20 @@ public class UserDao {
         if(result != null && !result.isEmpty())    
             return result.get(0);  
         return null ;  
+    } 
+    
+    /** 
+     * 根据用户名和密码查询用户 
+     * @param username 
+     * @param password 
+     * @return 
+     */  
+    public List<Member> findRandomDriver(){ 
+    	String sql="SELECT * FROM t_member t WHERE t.license = '1' ORDER BY RAND() LIMIT 4";
+    	Query query=this.sessionFactory.getCurrentSession().createSQLQuery(sql).setResultTransformer(Transformers.aliasToBean(Member.class));
+		@SuppressWarnings("unchecked")
+		List<Member> temp = query.list();
+		return temp;
     } 
     
   

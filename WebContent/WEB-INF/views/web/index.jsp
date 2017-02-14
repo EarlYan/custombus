@@ -8,7 +8,7 @@
 
     <link rel="shortcut icon" href="../assets/img/favicon.png" type="image/png">
     <link rel="stylesheet" href="../assets/css/bootstrap.css" type="text/css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/flatpickr.min.css"> <!--日期选择器-->
+    <link rel="stylesheet" href="../assets/css/flatpickr.min.css" type="text/css"> <!--日期选择器-->
     <link rel="stylesheet" href="../assets/css/bootstrap-responsive.css" type="text/css">
     <link rel="stylesheet" href="../assets/libraries/chosen/chosen.css" type="text/css">
     <link rel="stylesheet" href="../assets/libraries/bootstrap-fileupload/bootstrap-fileupload.css" type="text/css">
@@ -18,6 +18,13 @@
     .error{
         color: red;
     }
+    .properties-grid .property {
+		margin-bottom:0;
+	}
+	
+	.properties-grid .property:nth-child(n+4){
+		margin-top:30px
+	}
     </style>
     <title>定制巴士</title>
 </head>
@@ -122,16 +129,16 @@
 	            </div><!-- /.image -->
 	
 	            <div class="title">
-	                <h2  style="width:100px;text-overflow:ellipsis;white-space:nowrap;"><a href="detail.html">${p.startLoaction}</a></h2>
+	                <h2><a style="display: block;width:100%;text-overflow:ellipsis;white-space:nowrap;overflow: hidden;">${p.startLoaction}</a></h2>
 	            </div><!-- /.title -->
 	
-	            <div class="location">到${p.endLocation}</div><!-- /.location -->
+	            <div class="location" style="display: block;width:90%;text-overflow:ellipsis;white-space:nowrap;overflow: hidden;">到${p.endLocation}</div><!-- /.location -->
 	            <div class="area">
 	                <span class="key">距离:</span><!-- /.key -->
 	                <span class="value">${p.distance}</span><!-- /.value -->
 	            </div><!-- /.area -->
-	            <div class="bedrooms"><div class="content">4</div></div><!-- /.bedrooms -->
-	            <div class="bathrooms"><div class="content">3</div></div><!-- /.bathrooms -->
+	            <div class="bedrooms"><div class="content">1</div></div><!-- /.bedrooms -->
+	            <div class="bathrooms"><div class="content">2</div></div><!-- /.bathrooms -->
 	        </div><!-- /.property -->
         </c:forEach>
     </div><!-- /.row -->
@@ -166,77 +173,28 @@
                 <div class="hidden-tablet">
                     <div class="widget properties last">
     <div class="title">
-        <h2>明星司机</h2>
+        <h2>司机展示</h2>
     </div><!-- /.title -->
 
     <div class="content">
+    	<c:forEach var="d" items="${drivers}">
         <div class="property">
             <div class="image">
                 <a href="detail.html"></a>
-                <img src="../assets/img/tmp/property-small-4.png" alt="">
+                <img src="${d.imgurl}" alt="" style="width:70px;">
             </div><!-- /.image -->
 
             <div class="wrapper">
                 <div class="title">
                     <h3>
-                        <a href="detail.html">27523 Pacific Coast</a>
+                        <a>${d.realname}</a>
                     </h3>
                 </div><!-- /.title -->
-                <div class="location">Palo Alto CA</div><!-- /.location -->
-                <div class="price">€2 300 000</div><!-- /.price -->
+                <div class="location">${d.mobile}</div><!-- /.location -->
+                <div class="price"><a href="${d.email}">${d.email}</a></div><!-- /.price -->
             </div><!-- /.wrapper -->
         </div><!-- /.property -->
-
-        <div class="property">
-            <div class="image">
-                <a href="detail.html"></a>
-                <img src="../assets/img/tmp/property-small-5.png" alt="">
-            </div><!-- /.image -->
-
-            <div class="wrapper">
-                <div class="title">
-                    <h3>
-                        <a href="detail.html">27523 Pacific Coast</a>
-                    </h3>
-                </div><!-- /.title -->
-                <div class="location">Palo Alto CA</div><!-- /.location -->
-                <div class="price">€2 300 000</div><!-- /.price -->
-            </div><!-- /.wrapper -->
-        </div><!-- /.property -->
-
-        <div class="property">
-            <div class="image">
-                <a href="detail.html"></a>
-                <img src="../assets/img/tmp/property-small-6.png" alt="">
-            </div><!-- /.image -->
-
-            <div class="wrapper">
-                <div class="title">
-                    <h3>
-                        <a href="detail.html">27523 Pacific Coast</a>
-                    </h3>
-                </div><!-- /.title -->
-                <div class="location">Palo Alto CA</div><!-- /.location -->
-                <div class="price">€2 300 000</div><!-- /.price -->
-            </div><!-- /.wrapper -->
-        </div><!-- /.property -->
-
-        <div class="property">
-            <div class="image">
-                <a href="detail.html"></a>
-                <img src="../assets/img/tmp/property-small-2.png" alt="">
-            </div><!-- /.image -->
-
-            <div class="wrapper">
-                <div class="title">
-                    <h3>
-                        <a href="detail.html">27523 Pacific Coast</a>
-                    </h3>
-                </div><!-- /.title -->
-                <div class="location">Palo Alto CA</div><!-- /.location -->
-                <div class="price">€2 300 000</div><!-- /.price -->
-            </div><!-- /.wrapper -->
-        </div><!-- /.property -->
+        </c:forEach>
     </div><!-- /.content -->
 </div><!-- /.properties -->
                 </div>

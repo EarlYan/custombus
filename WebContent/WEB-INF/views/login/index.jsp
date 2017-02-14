@@ -375,7 +375,7 @@ function checkRegister(){
 	        dataType: "json",   
 	        async : false,   
 	        success:function(data){
-	            alert("注册成功");
+	            alert("注册成功,填写详细信息");
 	            window.location.href="../login/index";
 		    },
 		    error:function(data){

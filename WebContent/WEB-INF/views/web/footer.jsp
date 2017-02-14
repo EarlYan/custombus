@@ -163,7 +163,7 @@
         <div id="footer-inner">
             <div class="row">
                 <div class="span6 copyright">
-                    <p>© Copyright 2016 by More EarlYan. Click to visit my <a href="https://github.com/EarlYan" target="_blank" title="github">Github</a></p>
+                    <p>© Copyright 2017 by More EarlYan. Click to visit my <a href="https://github.com/EarlYan" target="_blank" title="github">Github</a></p>
                     <input type="hidden" id="routeDistance">
                 </div>
             </div><!-- /.row -->

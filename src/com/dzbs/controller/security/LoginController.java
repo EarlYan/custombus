@@ -157,6 +157,7 @@ public class LoginController {
         member.setEmail(inputRegisterEmail);
         member.setCreate_date(new Date());
         member.setUpdate_date(new Date());
+        member.setImgurl("../assets/img/defaulthead.png");
         Set<Role> set = new HashSet<Role>();
         Role ro = new Role();
         if(inputRegisterType.equals("1")){

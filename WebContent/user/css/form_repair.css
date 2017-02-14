@@ -1,0 +1,85 @@
+.nowarp{
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.nav-tabs{
+	border-bottom: none;
+	position: relative;
+	z-index: 9;
+	margin:-13px 0 -10px;
+}
+.nav.nav-tabs li{
+	background-color: #fff;
+	border-right: solid 1px #eee;
+}
+.nav.nav-tabs a{
+	display: inline-block;
+	line-height: 42px;
+    padding: 0 15px;
+    color: #999;
+    font-weight:normal;
+}
+.nav.nav-tabs li.active a{
+	background: #5faee3;
+	color: #fff;
+}
+.tab-content .row{
+	line-height: 40px;
+	font-size: 16px;
+/* 	font-weight: bold;  */
+}
+.txt-b{
+	color: #457abc;
+}
+.txt-star{
+	color: #f2c93b;
+	font-size: 24px;
+}
+.tab-pane .kuang-b{
+	box-shadow:0px 0px 0px 2px #406ba0 inset;
+	border-radius: 5px;
+	padding:35px;
+	margin:30px 10px 10px;
+	position: relative;
+}
+.tab-pane .kuang-label{
+	position: absolute;
+	top:-20px;
+	left: 30px;
+	background-color: #406ba0;
+	color: #fff;
+	padding: 0 30px;
+}
+.tab-pane .void-box{
+	padding-top: 30px;
+}
+
+.tab-pane .img-box img{
+	margin:0 20px 20px 0;
+}
+.tab-pane .img-box .img-list{
+	margin-top:15px;
+}
+.tab-pane .tab-th,.tab-pane .tab-tb{
+	border-right: 2px  solid #e6e6e6;
+	border-bottom: 2px  solid #e6e6e6;
+	margin: 0;
+}
+.tab-pane .tab-th{
+	background-color: #406ba0;
+	color:#FFF;
+	margin-top:15px;
+}
+.tab-pane .tab-th div,.tab-pane .tab-tb div{
+	text-align: center;
+	border-left: 2px  solid #e6e6e6;
+}
+
+.tab-pane .sign-box{
+	margin-top:30px;
+}
+.tab-pane .sign-box img{
+	outline:3px solid #406ba0;
+	margin-top:15px;
+}

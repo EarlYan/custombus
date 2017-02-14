@@ -14,7 +14,7 @@
                             <div class="account pull-right">
                             	<c:if test="${not empty member}">
                             	<ul class="nav nav-pills">
-                                    <li><a href="../login/index">${member.username}</a></li>
+                                    <li><a href="../manage/index">${member.username}</a></li>
                                     <li><a href="../j_spring_security_logout">安全退出</a></li>
                                 </ul>
                             	</c:if>

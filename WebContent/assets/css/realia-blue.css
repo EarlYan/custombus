@@ -2271,17 +2271,17 @@ iframe.map {
 }
 
 .properties-grid .property .bedrooms .content {
-	background-image: url("../img/icons/bedrooms.png");
+	background-image: url("../img/icons/emergency.png");
 	background-position: left center;
 	background-repeat: no-repeat;
-	background-size: 21px 12px;
+	background-size: 16px 16px;
 	color: #313131;
 	padding-left: 30px
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
 	.properties-grid .property .bedrooms .content {
-		background-image: url("../img/icons/bedrooms@2x.png")
+		background-image: url("../img/icons/emergency@2x.png")
 	}
 }
 
@@ -2292,17 +2292,17 @@ iframe.map {
 }
 
 .properties-grid .property .bathrooms .content {
-	background-image: url("../img/icons/bathrooms.png");
+	background-image: url("../img/icons/hammer.png");
 	background-position: left center;
 	background-repeat: no-repeat;
-	background-size: 14px 20px;
+	background-size: 16px 16px;
 	color: #313131;
 	padding-left: 25px
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
 	.properties-grid .property .bathrooms .content {
-		background-image: url("../img/icons/bathrooms@2x.png")
+		background-image: url("../img/icons/hammer@2x.png")
 	}
 }
 

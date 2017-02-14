@@ -51,6 +51,9 @@ public class WebController {
         } 
         List<Property> propertyList = propertyDao.findLatestProperties();
         modelAndView.addObject("propertyList",propertyList);
+        List<Member> drivers = userDao.findRandomDriver();
+        modelAndView.addObject("drivers",drivers);
+        System.out.println(drivers);
 		modelAndView.setViewName("web/index");
 		return modelAndView;
 	}

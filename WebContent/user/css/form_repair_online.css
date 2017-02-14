@@ -1,0 +1,114 @@
+	.repair-content {
+		margin-left: 20px;
+	}
+	.repair-content .row input{
+		width: 100%;
+		line-height: 30px;
+
+	}
+	.repair-content .row .btn{
+		background-color: #406ba0;
+		color: #fff;
+	}
+	.repair-content textarea{
+		resize: none;
+		line-height: 30px;
+		width: 100%;
+	}
+	.repair-content .row{
+		margin-top:20px;
+	}
+
+	.repair-content .input-group {
+		position: relative;
+		width: 100%;
+	}
+	.repair-content .input-group input{
+		/*border: none;*/
+	}
+	.repair-content .input-group .input-group-addon{
+		border: none;
+		position: absolute;
+		top:3px;
+		right: 20px;
+		font-size: 22px;
+		color: #406ba0;
+	}
+	.repair-content .chosen-container-single .chosen-single{
+		border: 1px solid #aaa;
+		border-radius:0px;
+	}
+	.repair-content .txt-a-box{
+		position: relative;
+	}
+	.repair-content .txt-a-box .txt-count{
+		position:absolute;
+		bottom:10px;
+		right:20px;
+		font-size: 14px;
+	}
+	.repair-content .chosen-container .chosen-results li.highlighted{
+		background-color: #406ba0;
+		background-image: linear-gradient(#406ba0 20%, #406ba0 90%);
+	}
+	.repair-content .img-box{
+		border:1px solid #aaa;
+		width:30%;
+		height:86px;
+		position: relative;
+		float: left;
+		margin:3px 1%;
+		overflow: hidden;
+		text-align: center;
+		vertical-align: middle;
+		line-height: 86px;
+	}
+	.repair-content .video-box{
+		margin-left: 1%;
+		width:94%;
+		height:180px;
+		border:1px solid #aaa;
+		position: relative;
+		overflow: hidden;
+		text-align: center;
+		line-height: 180px;
+		vertical-align: middle;
+	}
+	@media (min-width: 1500px){
+		.repair-content .img-box{
+			height:100px;
+		}
+		.repair-content .video-box{
+			height:208px;
+		}
+	}
+	@media (min-width: 767px){
+		.repair-content .video-box{
+			margin-top:2px;
+			margin-left: -1%;
+			width:101%;
+		}
+	}
+	.repair-content .img-box img,.repair-content .video-box video{
+		max-width: 100%;
+		max-height:100%;
+		padding: 0;
+		margin: 0;
+	}
+	.repair-content .img-box input,.repair-content .video-box input{
+		position: absolute;
+		top:0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		opacity: 0;
+	}
+
+	.repair-content .note {
+		margin: 0;
+	}
+	.repair-content .note>div{
+		font-size: 14px;
+		font-weight: normal;
+	}
+

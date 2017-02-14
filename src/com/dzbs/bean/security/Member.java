@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.google.gson.annotations.Expose;
+
 
 /**
  * 用户*/
@@ -27,6 +29,7 @@ public class Member {
 	//用户ID	
 	@Id  
     @GeneratedValue(strategy = GenerationType.AUTO)
+	@Expose 
 	private int id;
 	
 	//注册用户
@@ -40,18 +43,23 @@ public class Member {
 	
 	/**用户基本信息**/
 	//用户真实姓名
+	 @Expose 
 	private String realname;
 
 	//邮箱
+	 @Expose 
 	private String email;
 	
-	//性别
+	//性别（男0,女1）
+	 @Expose 
 	private boolean gender;
 	
 	//头像
+	 @Expose 
 	private String imgurl;
 	
 	//手机号码
+	 @Expose 
     private String mobile;
        
 	/**乘客信息**/
@@ -61,6 +69,9 @@ public class Member {
 	/**巴士司机信息**/
     //巴士司机审核状态（0:未审核（未通过）,1:通过）
     private boolean license;
+    
+    //巴士司机证件备份图
+    private String licenseUrl;
     
 	//角色列表
 	@ManyToMany(targetEntity = Role.class,fetch = FetchType.EAGER)  
@@ -188,6 +199,14 @@ public class Member {
 
 	public void setLicense(boolean license) {
 		this.license = license;
+	}
+
+	public String getLicenseUrl() {
+		return licenseUrl;
+	}
+
+	public void setLicenseUrl(String licenseUrl) {
+		this.licenseUrl = licenseUrl;
 	}
 
 }

@@ -69,7 +69,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
     public Member findUserByUsername(String username){
     	return userDao.findUserByUserName(username);
     }
-    
+       
     /**
      * 根据手机号查询用户信息
      */
