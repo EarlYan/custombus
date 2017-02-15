@@ -98,7 +98,7 @@
 		        "targets": 4},
 	            {
 	            "render": function(data, type, row) {
-	                return "<a href='../self/modifyPage?id=" + data + "'><i class=\"fa fa-edit text-navy\"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a value='" + data + "' onclick='deletefunc(" + data +")'><i class=\"fa fa-times text-navy\"></i></a>";
+	                return "<a href='../self/modifyPage?id=" + data + "'><i class=\"fa fa-edit text-navy\"></i></a>";
 	            },
 	            "targets": 5},
 	            {
@@ -120,22 +120,6 @@
 	    });	    
   
 	});	
-	function deletefunc(data){
-	    var result = confirm("确定要删除吗？");
-       	if(result){
-           $.ajax
-           ({ 
-               url: "delete?id="+data,
-               method: 'GET',
-               dataType: "json", 
-               data: { 
-               },
-               success: function (data) {
-                   window.location.reload();
-               }
-           })
-       	}
-	}
 </script>
 
 </body>

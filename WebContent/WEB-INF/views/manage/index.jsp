@@ -83,7 +83,6 @@
                         <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
                             <li>
                                 <a class="J_menuItem" href="../driver/index" data-index="0">司机信息管理</a>
-                                <a class="J_menuItem" href="../commonmember/index?type=0" data-index="0">司机审核管理</a>
                             </li>
                         </ul>
                     </li>

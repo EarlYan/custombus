@@ -1,5 +1,7 @@
 package com.dzbs.controller.driver;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,9 +18,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
+import com.dzbs.bean.common.Bus;
+import com.dzbs.bean.common.License;
 import com.dzbs.bean.security.Member;
 import com.dzbs.dao.UserDao;
 import com.dzbs.service.UserDetailServiceImpl;
+import com.dzbs.service.bus.BusImpl;
+import com.dzbs.service.license.LicenseImpl;
 import com.dzbs.util.common.DataTableUtil;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -32,6 +40,12 @@ public class DriverController {
 	
 	@Autowired
 	private UserDetailServiceImpl userDetailServiceImpl;
+	
+	@Autowired
+	private LicenseImpl licenseDao;
+	
+	@Autowired
+	private BusImpl busDao;
 	
 	/**
 	 * 客户主页
@@ -107,6 +121,23 @@ public class DriverController {
 	public ModelAndView identifyPage(HttpServletRequest request,
 			HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView();
+		UserDetails userDetails = (UserDetails) SecurityContextHolder
+				.getContext().getAuthentication().getPrincipal();
+		String username = userDetails.getUsername();
+		Member member = userDetailServiceImpl.findUserByUsername(username);
+		modelAndView.addObject("member", member);
+		if(licenseDao.findByMemberId(member.getId()).size()>0){
+			License license  = licenseDao.findByMemberId(member.getId()).get(0);
+			modelAndView.addObject("license", license);
+		}else{
+			modelAndView.addObject("license", null);
+		}
+		if(busDao.findByMemberId(member.getId()).size()>0){
+			Bus bus = busDao.findByMemberId(member.getId()).get(0);
+			modelAndView.addObject("bus", bus);
+		}else{
+			modelAndView.addObject("bus", null);
+		}
 		modelAndView.setViewName("driver/identify");
 		return modelAndView;
 	}
@@ -125,16 +156,86 @@ public class DriverController {
 			HttpServletResponse response) throws Exception {
 		JSONObject json = new JSONObject();
 		try {
+			UserDetails userDetails = (UserDetails) SecurityContextHolder
+					.getContext().getAuthentication().getPrincipal();
+			String username = userDetails.getUsername();		
 			String id = request.getParameter("id");
-			String licenseUrl = request.getParameter("licenseUrl");
-			Member member = userDao.findUserById(Integer.valueOf(id));
-			member.setLicenseUrl(licenseUrl);
-			userDao.updateUser(member);
+			String bus_plate_number = request.getParameter("bus_plate_number");
+			String bus_seat_number = request.getParameter("bus_seat_number");
+			String bus_type = request.getParameter("bus_type");
+			String licenseType = request.getParameter("licenseType");
+			String license_serial_number = request.getParameter("license_serial_number");
+			String license_start_time = request.getParameter("license_start_time");
+			String license_time_limit = request.getParameter("license_time_limit");
+			String imgurl = request.getParameter("imgurl");
+			if(busDao.findByMemberId(Integer.valueOf(id)).size()>0){
+				Bus bus = busDao.findByMemberId(Integer.valueOf(id)).get(0);
+				bus.setMember_id(Integer.valueOf(id));
+				bus.setPlate_number(bus_plate_number);
+				bus.setSeat_number(Integer.valueOf(bus_seat_number));
+				bus.setBus_type(Integer.valueOf(bus_type));
+				bus.setCreate_date(new Date());
+				bus.setCreate_man(username);
+				busDao.updateBus(bus);
+			}else{
+				Bus bus = new Bus();
+				bus.setMember_id(Integer.valueOf(id));
+				bus.setPlate_number(bus_plate_number);
+				bus.setSeat_number(Integer.valueOf(bus_seat_number));
+				bus.setBus_type(Integer.valueOf(bus_type));
+				bus.setCreate_date(new Date());
+				bus.setCreate_man(username);
+				busDao.saveBus(bus);
+			}
+			if(licenseDao.findByMemberId(Integer.valueOf(id)).size()>0){
+				License license =licenseDao.findByMemberId(Integer.valueOf(id)).get(0);
+				license.setMember_id(Integer.valueOf(id));
+				license.setType(licenseType);
+				license.setSerial_number(license_serial_number);
+				Date  start_time =  new SimpleDateFormat("yyyy-MM-dd").parse(license_start_time);
+				license.setStart_time(start_time);
+				license.setTime_limit(Integer.valueOf(license_time_limit));
+				license.setImgurl(imgurl);
+				license.setCreate_date(new Date());
+				license.setCreate_man(username);
+				licenseDao.updateLicense(license);
+			}else{
+				License license = new License();
+				license.setMember_id(Integer.valueOf(id));
+				license.setType(licenseType);
+				license.setSerial_number(license_serial_number);
+				Date  start_time =  new SimpleDateFormat("yyyy-MM-dd").parse(license_start_time);
+				license.setStart_time(start_time);
+				license.setTime_limit(Integer.valueOf(license_time_limit));
+				license.setImgurl(imgurl);
+				license.setCreate_date(new Date());
+				license.setCreate_man(username);
+				licenseDao.saveLicense(license);
+			}			
 			json.put("resultCode", 200);
 		} catch (Exception e) {
 			json.put("resultCode", 500);
 			e.printStackTrace();
 		}
 		return json.toJSONString();
+	}
+	
+	/**
+	 * 打开修改页面
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+
+	@RequestMapping(value = "/checkPage", method = { RequestMethod.GET })
+	public ModelAndView modifyPage(
+			HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView modelAndView = new ModelAndView();
+		String id = request.getParameter("id");
+		Member member = userDao.findUserById(Integer.valueOf(id));
+		modelAndView.addObject("member", member);
+		modelAndView.setViewName("driver/checkPage");
+		return modelAndView;
 	}
 }

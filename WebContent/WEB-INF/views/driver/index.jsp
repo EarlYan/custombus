@@ -84,7 +84,8 @@
 	            { "data": "gender","orderable":false},
 	            { "data": "mobile","orderable":false},
 	            { "data": "imgurl","orderable":false},
-	            { "data": "id","orderable":false}
+	            { "data": "id","orderable":false},
+	            { "data": "license","orderable":false,"visible":false}
 	        ],
 	        "columnDefs": [
 	            {
@@ -98,7 +99,11 @@
 		        "targets": 4},
 	            {
 	            "render": function(data, type, row) {
-	                return "<a href='../self/modifyPage?id=" + data + "'><i class=\"fa fa-edit text-navy\"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a value='" + data + "' onclick='deletefunc(" + data +")'><i class=\"fa fa-times text-navy\"></i></a>";
+	            	if(row.license == 1){
+	            		return "<a href='../self/modifyPage?id=" + data + "'><i class=\"fa fa-edit text-navy\"></i></a>";
+	            	}else if(row.license == 0){
+	            		return "<a href='../self/modifyPage?id=" + data + "'><i class=\"fa fa-edit text-navy\"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='../self/checkPage?id=" + data + "'><i class=\"fa fa-certificate text-navy\"></i></a>";
+	            	}	                
 	            },
 	            "targets": 5},
 	            {
@@ -120,22 +125,6 @@
 	    });	    
   
 	});	
-	function deletefunc(data){
-	    var result = confirm("确定要删除吗？");
-       	if(result){
-           $.ajax
-           ({ 
-               url: "delete?id="+data,
-               method: 'GET',
-               dataType: "json", 
-               data: { 
-               },
-               success: function (data) {
-                   window.location.reload();
-               }
-           })
-       	}
-	}
 </script>
 
 </body>

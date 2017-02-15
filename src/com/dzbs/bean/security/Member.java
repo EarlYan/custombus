@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -61,17 +62,15 @@ public class Member {
 	//手机号码
 	 @Expose 
     private String mobile;
-       
+	   
 	/**乘客信息**/
     //乘客会员等级（0:基础会员,1:普通会员,2:高级会员）
     private int level;
 
 	/**巴士司机信息**/
     //巴士司机审核状态（0:未审核（未通过）,1:通过）
+	 @Expose 
     private boolean license;
-    
-    //巴士司机证件备份图
-    private String licenseUrl;
     
 	//角色列表
 	@ManyToMany(targetEntity = Role.class,fetch = FetchType.EAGER)  
@@ -200,14 +199,5 @@ public class Member {
 	public void setLicense(boolean license) {
 		this.license = license;
 	}
-
-	public String getLicenseUrl() {
-		return licenseUrl;
-	}
-
-	public void setLicenseUrl(String licenseUrl) {
-		this.licenseUrl = licenseUrl;
-	}
-
 }
 
