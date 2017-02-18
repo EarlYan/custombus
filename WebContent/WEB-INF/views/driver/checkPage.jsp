@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@	taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
@@ -12,7 +12,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>司机资格认证</title>
+<title>司机资格审核</title>
 <link href="<%=path%>/user/css/bootstrap.min.css?v=3.4.0"
 	rel="stylesheet">
 <link href="<%=path%>/user/css/font-awesome.min.css?v=4.3.0"
@@ -70,7 +70,7 @@
 	<div class="col-sm-12">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
-				<h5>资格认证</h5>
+				<h5>资格审核</h5>
 				<div class="ibox-tools">
 					<a class="collapse-link"> <i class="fa fa-chevron-up"></i> </a> <a
 						class="close-link"> <i class="fa fa-times"></i> </a>
@@ -84,7 +84,7 @@
 						<div class="col-sm-8">
 							<input id="bus_plate_number" name="bus_plate_number" class="form-control"
 								type="text" aria-required="true" aria-invalid="true"
-								class="error" value="${bus.plate_number}">
+								class="error" value="${bus.plate_number}" readonly>
 						</div>
 					</div>
 					<div class="form-group">
@@ -92,13 +92,13 @@
 						<div class="col-sm-8">
 							<input id="bus_seat_number" name="bus_seat_number" class="form-control"
 								type="text" aria-required="true" aria-invalid="true"
-								class="error" value="${bus.seat_number}">
+								class="error" value="${bus.seat_number}" readonly>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-3 control-label">巴士车型：</label>
 						<div class="col-sm-8">
-							<select name="bus_type" id="bus_type" class="select">
+							<select name="bus_type" id="bus_type" class="select" disabled="disabled">
 							<option value="1">小型客车</option>
 							<option value="2">中型客车</option>
 							<option value="3">大型客车</option>
@@ -110,7 +110,7 @@
 						<div class="col-sm-8">
 							<input id="licenseType" name="licenseType" class="form-control"
 								type="text" aria-required="true" aria-invalid="true"
-								class="error" value="${license.type}">
+								class="error" value="${license.type}" readonly>
 						</div>
 					</div>
 					<div class="form-group">
@@ -118,7 +118,7 @@
 						<div class="col-sm-8">
 							<input id="license_serial_number" name="license_serial_number" class="form-control"
 								type="text" aria-required="true" aria-invalid="true"
-								class="error" value="${license.serial_number}">
+								class="error" value="${license.serial_number}" readonly>
 						</div>
 					</div>
 					<div class="form-group">
@@ -127,7 +127,7 @@
 							<input id="license_start_time" name="license_start_time" class="flatpickr"
 								type="text" aria-required="true" aria-invalid="true"
 								data-time_24hr="true" placeholder="请选择时间" readonly="readonly"
-								class="error" value="${license.start_time}">
+								class="error" value="${license.start_time}" disabled="disabled">
 						</div>
 					</div>
 					<div class="form-group">
@@ -135,7 +135,7 @@
 						<div class="col-sm-8">
 							<input id="license_time_limit" name="license_time_limit" class="form-control"
 								type="text" aria-required="true" aria-invalid="true"
-								class="error" value="${license.time_limit}">
+								class="error" value="${license.time_limit}" readonly>
 						</div>
 					</div>
 					<div class="form-group">
@@ -145,14 +145,14 @@
 								<div class="img-box plus" id="headImg1"
 									style="background-image: url('${license.imgurl}');">
 									<input type="file" id="img1" name="img1"> <input
-										type="hidden" name="img" id="img" value="${license.imgurl}">
+										type="hidden" name="img" id="img" value="${license.imgurl}" readonly>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-sm-8 col-sm-offset-3">
-							<input onClick="user_submit();" class="btn btn-primary" type="button" value="提交">
+							<input onClick="user_submit();" class="btn btn-primary" type="button" value="审核">
 						</div>
 					</div>
 				</form>
@@ -172,107 +172,38 @@
 	<script src="<%=path%>/user/js/plugins/validate/messages_zh.min.js"></script>
 	<script type="text/javascript" src="<%=path%>/js/ajaxfileupload.js"></script>
 	<script type="text/javascript" src="../assets/js/flatpickr.js"></script><!--时间选择器-->
-	<script type="text/javascript" src="../assets/js/jquery.validate.js"></script> 
 	<script type="text/javascript">
-	    jQuery.validator.addMethod("isVehicle", function(value, element) {
-	        var length = value.length;
-	        var express = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$/;
-	        return this.optional(element) || (length == 7 && express.test(value));
-	    }, "请正确填写您车牌号");
+		$(document).ready(function(){
+		  var bus_type = '${bus.bus_type}';
+		  $('#bus_type').val(bus_type);
+		});
 	</script>
 	<script>
 	    flatpickr(".flatpickr", {
 	        minuteIncrement: 1
 	    });
-		$('.form-single-img').on('change', 'input[type=file]', function(){
-		var fileid = $(this).attr('id');
-		var parent = $(this).parent();
-		var child1 = $(this).parent().children('input[type=file]').first().next();
-		$.ajaxFileUpload({
-			url:'../image/uploadImage',
-			secureuri:false,
-			dataType:'text',
-			fileElementId:fileid,//file标签的id
-			success: function (data, status) {
-				//图片预览
-				var jsonobj=eval('('+data+')');
-				var imageurl = "/custombus/image/readImage?name="+jsonobj.fileName;
-				parent.css('background-image', 'url('+ imageurl+')');
-				//图片地址赋值给后台
-				child1.val(imageurl);
-			},
-			error: function (data, status, e) {
-			}
-		});
-	});
 	</script>
 	<script type="text/javascript">	
-    function check(){ 
-        return $("#identifyForm").validate({
-            rules: {
-              bus_plate_number: {
-            	  required: true, 
-            	  isVehicle :true
-              },
-        	  bus_seat_number: {
-                required: true,
-                digits:true
-              },
-              licenseType: "required",
-              license_serial_number : "required",
-              license_time_limit : {
-                  required: true,
-                  digits:true
-              }
-            },
-            messages: {
-              bus_plate_number: {
-            	  required: "请输入车牌号",
-            	  isVehicle : "请正确填写车牌号",
-              },
-              bus_seat_number: {
-            	  required:  "请输入座位数",
-            	  digits: "座位数必须为数字"
-              },
-              licenseType: "请输入驾驶证类型",
-              license_serial_number :"请输入驾驶证编号",
-              license_time_limit:{
-            	  required: "请输入有效年限",
-                  digits:"有效年限必须为数字"
-              }
-            }
-        });
-    }
-    
-	function user_submit()
-	{   
-		if(!check().form()) return; 
-		$.ajax(
-		{
-			type: "post",
-	    	url: "upload",
-	        data: {
-	            id:$("#driverId").val(),
-	            bus_plate_number:$("#bus_plate_number").val(),
-	            bus_seat_number:$("#bus_seat_number").val(),
-	            bus_type:$("#bus_type").val(),
-	            licenseType:$("#licenseType").val(),
-	            license_serial_number:$("#license_serial_number").val(),
-	            license_start_time:$("#license_start_time").val(),
-	            license_time_limit:$("#license_time_limit").val(),
-	            imgurl:$("#img").val()
-	        },
-	        dataType: "text",
-	        async : true,
-	        success:function(data){
-	            alert("上传成功请等待管理员审核");
-	            window.location.href = "../manage/front";
-		    },
-		    error:function(data){
-			    alert("error");
-	    	}
-		});
-	};
+		function user_submit()
+		{   
+			$.ajax(
+			{
+				type: "post",
+		    	url: "../driver/check",
+		        data: {
+		            id:$("#driverId").val()
+		        },
+		        dataType: "json",
+		        async : true,
+		        success:function(data){
+		            alert("审核成功已经为其开通权限");
+		            window.location.href = "../manage/front";
+			    },
+			    error:function(data){
+				    alert("error");
+		    	}
+			});
+		};
 	</script>
 </body>
 </html>

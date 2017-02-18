@@ -1,6 +1,7 @@
 package com.dzbs.controller.self;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -146,6 +147,7 @@ public class SelfController {
 			member.setGender(Boolean.valueOf(memberGender));
 			member.setMobile(memberMobile);
 			member.setImgurl(memberImageURL);
+			member.setUpdate_date(new Date());
 			userDao.updateUser(member);
 			json.put("resultCode", 200);
 		} catch (Exception e) {

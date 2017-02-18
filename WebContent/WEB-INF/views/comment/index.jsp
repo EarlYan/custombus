@@ -27,12 +27,10 @@
 							<table id="data-Table" class="table table-border table-bordered table-bg table-hover table-sort">
 								<thead>
 									<tr class="text-c">
-										<th>真实姓名</th>
-										<th>邮箱</th>
-										<th>性别</th>
-										<th>手机号</th>
-										<th>会员等级</th>
-										<th>头像</th>
+										<th>评论者</th>
+										<th>被评论者</th>
+										<th>内容</th>
+										<th>评论时间</th>
 										<th>操作</th>
 									</tr>
 								</thead>
@@ -57,7 +55,7 @@
 	var myParam;
 	
 	$(document).ready(function(){
-	
+		var userLogin = '${member.realname}';
 		var table = $('#data-Table').dataTable( {
 		    "lengthChange":false,
 		    "info": false,
@@ -66,7 +64,7 @@
 			"processing" : false,
 			"serverSide" : true,
 	        "ajax": {
-	        	url:"../customer/data",
+	        	url:"../comment/data",
 	    		headers: {
 				        Accept: "application/json; charset=utf-8"
 				    },
@@ -80,12 +78,10 @@
 			        }
 	        },
 	        "columns": [
-	            { "data": "realname","orderable":false},
-	            { "data": "email","orderable":false},
-	            { "data": "gender","orderable":false},
-	            { "data": "mobile","orderable":false},
-	            { "data": "level","orderable":false},
-	            { "data": "imgurl","orderable":false},
+	            { "data": "commentPerson","orderable":false},
+	            { "data": "commentedPerson","orderable":false},
+	            { "data": "content","orderable":false},
+	            { "data": "create_date","orderable":false},
 	            { "data": "id","orderable":false}
 	        ],
 	        "columnDefs": [
@@ -94,35 +90,22 @@
 	            "targets":['_all']
 	            },
 	            {
-		        "render": function(data, type, row) {
-		                return "<img src=\'"+data+"\' height='50' width='50'></img>";
-		            },
-		        "targets": 5},
-	            {
 	            "render": function(data, type, row) {
-	                return "<a href='../self/modifyPage?id=" + data + "'><i class=\"fa fa-edit text-navy\"></i></a>";
+	                return "<a href='../comment/modifyPage?id=" + data + "'><i class=\"fa fa-edit text-navy\"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a value='" + data + "' onclick='deletefunc(" + data +")'><i class=\"fa fa-times text-navy\"></i></a>";
 	            },
-	            "targets": 6},
+	            "targets": 4},
 	            {
 		            "render": function(data) {
-		                if(data ==0){
-		                	return "男";
-		                }else if(data ==1){
-		                	return "女";
-		                }
-		            },
-		        "targets": 2},
+		                return  new Date(data).Format("yyyy-MM-dd hh:mm:ss");
+		        },
+		        "targets": 3},
 		        {
 		            "render": function(data) {
-		            	if(data ==0){
-		                	return "基础会员";
-		                }else if(data ==1){
-		                	return "普通会员";
-		                }else if(data ==2){
-		                	return "高级会员";
-		                }
-		            },
-		        "targets": 4}
+		               if(data == userLogin){
+		            	   return "您";
+		               }
+		        },
+		        "targets": 0}
 	        ]
 	    } );
 	    
@@ -133,8 +116,38 @@
 	    });	    
   
 	});	
+	function deletefunc(data){
+	    var result = confirm("确定要删除吗？");
+       	if(result){
+           $.ajax
+           ({ 
+               url: "delete?id="+data,
+               method: 'GET',
+               dataType: "json", 
+               data: { 
+               },
+               success: function (data) {
+                   window.location.reload();
+               }
+           })
+       	}
+	}
+	//时间信息format 函数
+    Date.prototype.Format = function (fmt) { 
+	    var o = {
+	        "M+": this.getMonth() + 1, 
+	        "d+": this.getDate(), 
+	        "h+": this.getHours(), 
+	        "m+": this.getMinutes(), 
+	        "s+": this.getSeconds(), 
+	        "q+": Math.floor((this.getMonth() + 3) / 3), 
+	        "S": this.getMilliseconds() 
+	    };
+	    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+	    for (var k in o)
+	    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+	    return fmt;
+	}
 </script>
-
 </body>
-
 </html>

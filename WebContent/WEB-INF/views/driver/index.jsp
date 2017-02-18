@@ -102,7 +102,7 @@
 	            	if(row.license == 1){
 	            		return "<a href='../self/modifyPage?id=" + data + "'><i class=\"fa fa-edit text-navy\"></i></a>";
 	            	}else if(row.license == 0){
-	            		return "<a href='../self/modifyPage?id=" + data + "'><i class=\"fa fa-edit text-navy\"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='../self/checkPage?id=" + data + "'><i class=\"fa fa-certificate text-navy\"></i></a>";
+	            		return "<a href='../self/modifyPage?id="+data+"'><i class=\"fa fa-edit text-navy\"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='../driver/checkPage?id="+data+"'><i class=\"fa fa-certificate text-navy\"></i></a>";
 	            	}	                
 	            },
 	            "targets": 5},

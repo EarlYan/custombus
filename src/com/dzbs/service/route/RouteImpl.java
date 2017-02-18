@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dzbs.bean.common.Route;
+import com.dzbs.bean.common.RouteVO;
 import com.dzbs.dao.route.RouteDao;
 
 @Repository("routeDao")
@@ -60,6 +62,74 @@ public class RouteImpl implements RouteDao{
 		@SuppressWarnings("unchecked")
 		List<Route> temp = query.list();
 		return temp;
+	}
+	
+	/**
+	 * 查询所有线路
+	 * @return List<RouteVO>
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<RouteVO> findAllRoutesVO(){
+		String sql = "SELECT"+
+				" m.username,"+
+				" m.mobile,"+
+				" b.plate_number,"+
+				" b.bus_type,"+
+				" t.start_location,"+
+				" t.end_location,"+
+				" t.start_time,"+
+				" t.mileage,"+
+				" t.about_time,"+
+				" t.isFull,"+
+				" t.id"+
+			" FROM"+
+				" t_bus b,"+
+				" t_member m,"+
+				" t_route t"+
+			 " WHERE"+
+				" t.member_id = m.id"+
+			 " AND t.bus_id = b.id"+
+			 " AND t.deleted = 0";
+		Query query=this.sessionFactory.getCurrentSession().createQuery(sql)
+				.setResultTransformer(Transformers.aliasToBean(RouteVO.class));
+		return query.list();
+	}
+	
+	/**
+	 * 查询所有线路
+	 * @return List<RouteVO>
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<RouteVO> findAllRoutesVO(Integer pageNo,Integer pageSize){
+		String sql = "SELECT"+
+				" m.username,"+
+				" m.mobile,"+
+				" b.plate_number,"+
+				" b.bus_type,"+
+				" t.start_location,"+
+				" t.end_location,"+
+				" t.start_time,"+
+				" t.mileage,"+
+				" t.about_time,"+
+				" t.isFull,"+
+				" t.id"+
+			" FROM"+
+				" t_bus b,"+
+				" t_member m,"+
+				" t_route t"+
+			 " WHERE"+
+				" t.member_id = m.id"+
+			 " AND t.bus_id = b.id"+
+			 " AND t.deleted = 0";
+		Query query=this.sessionFactory.getCurrentSession().createQuery(sql)
+				.setResultTransformer(Transformers.aliasToBean(RouteVO.class));
+		if(pageSize != -1 && pageNo != -1) {
+			query.setFirstResult((pageNo - 1) * pageSize);
+			query.setMaxResults(pageSize);
+		}
+		return query.list();
 	}
 	
 	/**

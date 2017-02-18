@@ -65,6 +65,7 @@ public class Member {
 	   
 	/**乘客信息**/
     //乘客会员等级（0:基础会员,1:普通会员,2:高级会员）
+	 @Expose 
     private int level;
 
 	/**巴士司机信息**/

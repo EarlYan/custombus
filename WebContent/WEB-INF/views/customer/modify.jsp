@@ -13,7 +13,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>个人资料编辑</title>
+<title>客户资料编辑</title>
 <link href="<%=path%>/user/css/bootstrap.min.css?v=3.4.0"
 	rel="stylesheet">
 <link href="<%=path%>/user/css/font-awesome.min.css?v=4.3.0"
@@ -65,7 +65,7 @@
 	<div class="col-sm-12">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
-				<h5>编辑个人信息</h5>
+				<h5>编辑客户信息</h5>
 				<div class="ibox-tools">
 					<a class="collapse-link"> <i class="fa fa-chevron-up"></i> </a> <a
 						class="close-link"> <i class="fa fa-times"></i> </a>

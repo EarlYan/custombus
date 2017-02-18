@@ -111,10 +111,10 @@
                     </li>
 
                     <li>
-                        <a href="index.html#"><i class="fa fa-comment"></i> <span class="nav-label">评论管理管理</span><span class="fa arrow"></span></a>
+                        <a href="index.html#"><i class="fa fa-comment"></i> <span class="nav-label">评论管理</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a class="J_menuItem" href="../modular/index">模块管理 </a>
+                                <a class="J_menuItem" href="../comment/index">评论查看</a>
                             </li>
                         </ul>
                     </li>
@@ -128,7 +128,7 @@
                         <span>XXXXXXXXXX有限公司</span>
                          ©️Copyright 2017 by More EarlYan.
                     </div>
-                    <div class="logo-element">SD</div>
+                    <div class="logo-element">DZBS</div>
                     <!--</a>-->
                    
                 </div>
@@ -154,16 +154,24 @@
                     <span><img alt="image" class="img-circle" src="../user/img/profile_small.jpg"></span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#" aria-expanded="false">
                                 <span class="clear">
-                              	<span class="block m-t-xs"><strong class="font-bold"></strong></span>
-                                <span class="text-muted text-xs block">管理员<b class="caret"></b></span>                 
+                              	<span class="block m-t-xs"><strong class="font-bold"><security:authentication property='principal.username'/></strong></span>
+                                <security:authorize ifAnyGranted="ROLE_ADMIN">
+                                <span class="text-muted text-xs block">管理员<b class="caret"></b></span>
+                                </security:authorize>
+                                <security:authorize ifAnyGranted="ROLE_PASSENGER">
+                                <span class="text-muted text-xs block">乘客<b class="caret"></b></span>
+                                </security:authorize>
+                                <security:authorize ifAnyGranted="ROLE_DRIVER">
+                                <span class="text-muted text-xs block">司机<b class="caret"></b></span>
+                                </security:authorize>
                                 </span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a class="J_menuItem" href="form_avatar.html" data-index="0">修改头像</a>
+                        <li><a class="J_menuItem" href="../self/modifyPage" data-index="0">修改头像</a>
                         </li>
-                        <li><a class="J_menuItem" href="profile.html" data-index="1">个人资料</a>
+                        <li><a class="J_menuItem" href="../self/modifyPage" data-index="1">个人资料</a>
                         </li>
-                        <li><a class="J_menuItem" href="contacts.html" data-index="2">联系我们</a>
+                        <li><a class="J_menuItem" href="../web/contactus" data-index="2">联系我们</a>
                         </li>
                         <li><a class="J_menuItem" href="mailbox.html" data-index="3">信箱</a>
                         </li>

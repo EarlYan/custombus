@@ -198,6 +198,7 @@ public class DriverController {
 				license.setImgurl(imgurl);
 				license.setCreate_date(new Date());
 				license.setCreate_man(username);
+				license.setApply_date(new Date());
 				licenseDao.updateLicense(license);
 			}else{
 				License license = new License();
@@ -210,6 +211,7 @@ public class DriverController {
 				license.setImgurl(imgurl);
 				license.setCreate_date(new Date());
 				license.setCreate_man(username);
+				license.setApply_date(new Date());
 				licenseDao.saveLicense(license);
 			}			
 			json.put("resultCode", 200);
@@ -228,14 +230,54 @@ public class DriverController {
 	 * @return
 	 */
 
-	@RequestMapping(value = "/checkPage", method = { RequestMethod.GET })
-	public ModelAndView modifyPage(
+	@RequestMapping(value = "/checkPage", method = { RequestMethod.GET }, produces = "application/json; charset=utf-8")
+	public ModelAndView checkPage(
 			HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView();
 		String id = request.getParameter("id");
 		Member member = userDao.findUserById(Integer.valueOf(id));
+		Bus bus = busDao.findByMemberId(member.getId()).get(0);
+		License license = licenseDao.findByMemberId(member.getId()).get(0);
 		modelAndView.addObject("member", member);
+		modelAndView.addObject("bus", bus);
+		modelAndView.addObject("license", license);
 		modelAndView.setViewName("driver/checkPage");
 		return modelAndView;
+	}
+	
+	/**
+	 * 资格审核
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/check", method = { RequestMethod.GET,
+			RequestMethod.POST }, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String check(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		JSONObject json = new JSONObject();
+		try {
+			UserDetails userDetails = (UserDetails) SecurityContextHolder
+					.getContext().getAuthentication().getPrincipal();
+			String username = userDetails.getUsername();
+			Member adminMember = userDetailServiceImpl.findUserByUsername(username);
+			String id = request.getParameter("id");
+			Member driver = userDao.findUserById(Integer.valueOf(id));
+			driver.setUpdate_date(new Date());
+			driver.setLicense(true);
+			userDao.updateUser(driver);
+			License  license = licenseDao.findByMemberId(driver.getId()).get(0);
+			license.setConfirm_date(new Date());
+			license.setUpdate_man(adminMember.getUsername());
+			license.setUpdate_date(new Date());
+			licenseDao.updateLicense(license);
+			json.put("resultCode", 200);
+		} catch (Exception e) {
+			json.put("resultCode", 500);
+			e.printStackTrace();
+		}
+		return json.toJSONString();
 	}
 }

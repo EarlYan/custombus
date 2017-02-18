@@ -1,6 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
@@ -11,15 +10,10 @@
 %>
 <!DOCTYPE html>
 <html>
-
 <head>
-
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-<title>个人资料编辑</title>
-
+<title>修改评价</title>
 <link href="<%=path%>/user/css/bootstrap.min.css?v=3.4.0"
 	rel="stylesheet">
 <link href="<%=path%>/user/css/font-awesome.min.css?v=4.3.0"
@@ -71,49 +65,33 @@
 	<div class="col-sm-12">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
-				<h5>编辑个人信息</h5>
+				<h5>修改评价</h5>
 				<div class="ibox-tools">
 					<a class="collapse-link"> <i class="fa fa-chevron-up"></i> </a> <a
 						class="close-link"> <i class="fa fa-times"></i> </a>
 				</div>
 			</div>
 			<div class="ibox-content">
-				<form class="form-horizontal m-t" id="signupForm">
-				    <input type="hidden" id="memberid" value="${member.id}"/>
-					
-					<div class="form-group">
-						<label class="col-sm-3 control-label">密码：</label>
-						<div class="col-sm-3">
-							<input id="password1" name="password1"
-								class="form-control" type="password" aria-required="true"
-								aria-invalid="true" class="error" >
+				<form class="form-horizontal m-t" id="modifyForm">
+				    <input type="hidden" id="commentId" value="${comment.id}"/>
+				    <div class="form-group">
+						<label class="col-sm-3 control-label">评论内容：</label>
+						<div class="col-sm-8">
+							<textarea id="commentContent" name="commentContent" class="form-control"
+								aria-required="true" aria-invalid="true"
+								class="error" value="${comment.content}">
+							</textarea>
 						</div>
 					</div>
-					
-					<div class="form-group">
-						<label class="col-sm-3 control-label">确认密码：</label>
-						<div class="col-sm-3">
-							<input id="password2" name="password2" 
-								class="form-control" type="password" aria-required="true"
-								aria-invalid="true" class="error"  onblur="onblus()">
-							<font id="errorpass" style="display:none" color="red">两次输入的密码不同，请重新输入</font>
-						</div>
-					</div>
-
-					
 					<div class="form-group">
 						<div class="col-sm-8 col-sm-offset-3">
-							<button id="subbutton"  onClick="user_submit();" class="btn btn-primary" type="button">提交</button>
+							<input onClick="user_submit();" class="btn btn-primary" type="button" value="提交">
 						</div>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-	</div>
-
-	</div>
-
 
 	<!-- 全局js -->
 	<script src="<%=path%>/user/js/jquery-2.1.1.min.js"></script>
@@ -126,44 +104,28 @@
 	<script src="<%=path%>/user/js/plugins/validate/jquery.validate.min.js"></script>
 	<script src="<%=path%>/user/js/plugins/validate/messages_zh.min.js"></script>
 	<script type="text/javascript" src="<%=path%>/js/ajaxfileupload.js"></script>
-	<script>
-		function onblus(){ 
-			if($("#password1").val()!=$("#password2").val()){
-				$('#errorpass').css('display','block');
-			}
-			else{
-				$('#errorpass').css('display','none');
-			}
-		}
-	</script>
 	<script type="text/javascript">
-		var type = '${type}';
-		function user_submit() {
-		if($("#password1").val()==$("#password2").val()){
-			$.ajax({
-				type : "post",
-				url : "passwordupdate",
-				data : {
-					id : $("#memberid").val(),
-					password : $("#password2").val(),
-				},
-				dataType : "text",
-				async : true,
-				success : function(data) {
-					alert("succeed");
-					window.location.href = "../manage/front";
-				},
-				error : function(data) {
-					alert("error");
-				}
-			});
-		}
-		else{
-			$('#errorpass').css('display','block');
-		}
-		};
-		
+	function user_submit()
+	{   
+		$.ajax(
+		{
+			type: "post",
+	    	url: "update",
+	        data: {
+	            id:$("#commentId").val(),
+	            commentContent:$("#commentContent").val()
+	        },
+	        dataType: "text",
+	        async : true,
+	        success:function(data){
+	            alert("succeed");
+	            window.location.href = "../comment/index";
+		    },
+		    error:function(data){
+			    alert("error");
+	    	}
+		});
+	};
 	</script>
 </body>
-
 </html>
