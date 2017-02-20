@@ -53,6 +53,92 @@ public class RouteImpl implements RouteDao{
 	}
 	
 	/**
+	 * 用driverid进行查询
+	 * @param id
+	 * @return List<Route>
+	 */
+	@Override
+	public List<Route> findByDriverId(Integer member_id){
+		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Route WHERE deleted = false AND member_id = :member_id");
+		query.setInteger("member_id", member_id);
+		@SuppressWarnings("unchecked")
+		List<Route> temp = query.list();
+		return temp;
+	}
+	
+	/**
+	 * 用driverid进行查询
+	 * @return List<RouteVO>
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<RouteVO> findByDriverIdVO(Integer member_id){
+		String sql = "SELECT"+
+				" m.username as 'd_username',"+
+				" m.mobile as 'd_mobile',"+
+				" b.plate_number,"+
+				" b.bus_type,"+
+				" t.start_location,"+
+				" t.end_location,"+
+				" t.start_time,"+
+				" t.mileage,"+
+				" t.about_time,"+
+				" t.isFull,"+
+				" t.id"+
+			" FROM"+
+				" t_bus b,"+
+				" t_member m,"+
+				" t_route t"+
+			 " WHERE"+
+				" t.member_id = m.id"+
+			 " AND t.bus_id = b.id"+
+			 " AND t.deleted = 0"+
+			 " AND t.member_id = :member_id";
+		Query query=this.sessionFactory.getCurrentSession().createSQLQuery(sql)
+				.setResultTransformer(Transformers.aliasToBean(RouteVO.class));
+		query.setInteger("member_id", member_id);
+		return query.list();
+	}
+	
+	/**
+	 * 用driverid进行分页查询
+	 * @return List<RouteVO>
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<RouteVO> findByDriverIdVO(Integer pageNo,Integer pageSize,Integer member_id){
+		String sql = "SELECT"+
+				" m.username as 'd_username',"+
+				" m.mobile as 'd_mobile',"+
+				" b.plate_number,"+
+				" b.bus_type,"+
+				" t.start_location,"+
+				" t.end_location,"+
+				" t.start_time,"+
+				" t.mileage,"+
+				" t.about_time,"+
+				" t.isFull,"+
+				" t.id"+
+			" FROM"+
+				" t_bus b,"+
+				" t_member m,"+
+				" t_route t"+
+			 " WHERE"+
+				" t.member_id = m.id"+
+			 " AND t.bus_id = b.id"+
+			 " AND t.deleted = 0"+
+			 " AND t.member_id = :member_id";
+		Query query=this.sessionFactory.getCurrentSession().createSQLQuery(sql)
+				.setResultTransformer(Transformers.aliasToBean(RouteVO.class));
+		query.setInteger("member_id", member_id);
+		if(pageSize != -1 && pageNo != -1) {
+			query.setFirstResult((pageNo - 1) * pageSize);
+			query.setMaxResults(pageSize);
+		}
+		return query.list();
+	}
+	
+	/**
 	 * 查询所有线路
 	 * @return List<Route>
 	 */
@@ -72,8 +158,8 @@ public class RouteImpl implements RouteDao{
 	@Override
 	public List<RouteVO> findAllRoutesVO(){
 		String sql = "SELECT"+
-				" m.username,"+
-				" m.mobile,"+
+				" m.username as 'd_username',"+
+				" m.mobile as 'd_mobile',"+
 				" b.plate_number,"+
 				" b.bus_type,"+
 				" t.start_location,"+
@@ -91,7 +177,7 @@ public class RouteImpl implements RouteDao{
 				" t.member_id = m.id"+
 			 " AND t.bus_id = b.id"+
 			 " AND t.deleted = 0";
-		Query query=this.sessionFactory.getCurrentSession().createQuery(sql)
+		Query query=this.sessionFactory.getCurrentSession().createSQLQuery(sql)
 				.setResultTransformer(Transformers.aliasToBean(RouteVO.class));
 		return query.list();
 	}
@@ -104,8 +190,8 @@ public class RouteImpl implements RouteDao{
 	@Override
 	public List<RouteVO> findAllRoutesVO(Integer pageNo,Integer pageSize){
 		String sql = "SELECT"+
-				" m.username,"+
-				" m.mobile,"+
+				" m.username as 'd_username',"+
+				" m.mobile as 'd_mobile',"+
 				" b.plate_number,"+
 				" b.bus_type,"+
 				" t.start_location,"+
@@ -123,7 +209,7 @@ public class RouteImpl implements RouteDao{
 				" t.member_id = m.id"+
 			 " AND t.bus_id = b.id"+
 			 " AND t.deleted = 0";
-		Query query=this.sessionFactory.getCurrentSession().createQuery(sql)
+		Query query=this.sessionFactory.getCurrentSession().createSQLQuery(sql)
 				.setResultTransformer(Transformers.aliasToBean(RouteVO.class));
 		if(pageSize != -1 && pageNo != -1) {
 			query.setFirstResult((pageNo - 1) * pageSize);

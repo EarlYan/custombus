@@ -95,8 +95,8 @@
                         </a>
                         <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
                             <li>
-                                <a class="J_menuItem" href="../waiter/index" data-index="0">现有路线管理</a>
-                                <a class="J_menuItem" href="../maintenanceman/index" data-index="0">现有众筹管理</a>
+                                <a class="J_menuItem" href="../route/index" data-index="0">现有路线管理</a>
+                                <a class="J_menuItem" href="../property/index" data-index="0">现有众筹管理</a>
                             </li>
                         </ul>
                     </li>

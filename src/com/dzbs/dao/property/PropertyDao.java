@@ -26,6 +26,12 @@ public interface PropertyDao {
 	public List<Property> findAllProperties();
 	
 	/**
+	 * 查询所有众筹
+	 * @return List<Property>
+	 */
+	public List<Property> findAllProperties(Integer pageNo,Integer pageSize);
+	
+	/**
 	 * 通过位置查询众筹信息
 	 * @return List<Property>
 	 */

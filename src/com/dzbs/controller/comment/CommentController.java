@@ -115,22 +115,10 @@ public class CommentController {
 			Integer recordsFiltered = recordsTotal;
 			dataTableUtil.setResult(recordsTotal, recordsFiltered,commentDao.findByMemberIdVO(dataTableUtil.getPage(), dataTableUtil.getLength(),member.getId()));
 		}
-		
-//		//Google JSon解析
-//		Gson gson = new GsonBuilder()  
-//				        .excludeFieldsWithoutExposeAnnotation() 
-//				        .enableComplexMapKeySerialization() 
-//				        .serializeNulls().setDateFormat("yyyy-MM-dd")
-//				        .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
-//				        .setPrettyPrinting()  
-//				        .setVersion(1.0)       
-//				        .create();  
-//		String s2 = gson.toJson(comment);
-//		List<Comment> comments = gson.fromJson(s2,  
-//		                new TypeToken<List<Member>>() {  
-//		                }.getType());  		
+			
 		return dataTableUtil.result();
 	}
+	
 	/**
 	 * 打开修改页面
 	 * 
@@ -138,7 +126,6 @@ public class CommentController {
 	 * @param response
 	 * @return
 	 */
-
 	@RequestMapping(value = "/modifyPage", method = { RequestMethod.GET })
 	public ModelAndView modifyPage(
 			HttpServletRequest request, HttpServletResponse response) {
@@ -176,7 +163,7 @@ public class CommentController {
 	}
 	
 	/**
-	 * 删除设备信息
+	 * 删除评论信息
 	 * @param id
 	 * @param request
 	 * @param response

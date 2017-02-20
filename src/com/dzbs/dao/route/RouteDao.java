@@ -21,6 +21,27 @@ public interface RouteDao{
 	public List<Route> findById(Integer id);
 	
 	/**
+	 * 用driverid进行查询
+	 * @param id
+	 * @return List<Route>
+	 */
+	public List<Route> findByDriverId(Integer member_id);
+	
+	/**
+	 * 用driverid进行查询
+	 * @param id
+	 * @return List<RouteVO>
+	 */
+	public List<RouteVO> findByDriverIdVO(Integer member_id);
+	
+	/**
+	 * 用driverid进行分页查询
+	 * @param id
+	 * @return List<RouteVO>
+	 */
+	public List<RouteVO> findByDriverIdVO(Integer pageNo,Integer pageSize,Integer member_id);
+		
+	/**
 	 * 查询所有线路
 	 * @return List<Route>
 	 */

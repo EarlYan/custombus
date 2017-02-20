@@ -51,8 +51,19 @@ public class PropertyImpl implements PropertyDao{
 
 	@Override
 	public List<Property> findAllProperties() {
-		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Property WHERE deleted = false");
+		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Property WHERE deleted = 0");
 		@SuppressWarnings("unchecked")
+		List<Property> temp = query.list();
+		return temp;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Property> findAllProperties(Integer pageNo,Integer pageSize) {
+		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Property WHERE deleted = 0");
+		if(pageSize != -1 && pageNo != -1) {
+			query.setFirstResult((pageNo - 1) * pageSize);
+			query.setMaxResults(pageSize);
+		}
 		List<Property> temp = query.list();
 		return temp;
 	}

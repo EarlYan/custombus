@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;  
 import org.springframework.transaction.annotation.Transactional;
 
+import com.dzbs.bean.common.DriverVO;
 import com.dzbs.bean.security.Member;
 import com.dzbs.bean.security.Role;
 
@@ -117,8 +118,67 @@ public class UserDao {
 		@SuppressWarnings("unchecked")
 		List<Member> temp = query.list();
 		return temp;
+    }
+    
+    /** 
+     * 查询暂无路线的司机 
+     * @param username 
+     * @param password 
+     * @return 
+     */  
+    public List<DriverVO> findFreeDriver(){ 
+    	String sql= "SELECT"+
+		    			" m.realname,"+
+		    			" m.email,"+
+		    			" m.mobile,"+
+		    			" b.plate_number,"+
+		    			" b.seat_number,"+
+		    			" m.id"+
+		    		" FROM"+
+		    			" t_member m,"+
+		    			" t_route t,"+
+		    			" t_bus b"+
+		    		" WHERE"+
+		    			" not t.member_id = m.id"+
+		    			" and m.license=1"+
+		    			" and b.member_id = m.id";
+    	Query query=this.sessionFactory.getCurrentSession().createSQLQuery(sql).setResultTransformer(Transformers.aliasToBean(DriverVO.class));
+		@SuppressWarnings("unchecked")
+		List<DriverVO> temp = query.list();
+		return temp;
     } 
     
+    /** 
+     * 查询暂无路线的司机 
+     * @param username 
+     * @param password 
+     * @return 
+     */  
+    @SuppressWarnings("unchecked")
+	public List<DriverVO> findFreeDriver(Integer pageNo,Integer pageSize){ 
+    	String sql= "SELECT"+
+		    			" m.realname,"+
+		    			" m.email,"+
+		    			" m.mobile,"+
+		    			" b.plate_number,"+
+		    			" b.seat_number,"+
+		    			" m.id"+
+		    		" FROM"+
+		    			" t_member m,"+
+		    			" t_route t,"+
+		    			" t_bus b"+
+		    		" WHERE"+
+		    			" not t.member_id = m.id"+
+		    			" and m.license=1"+
+		    			" and b.member_id = m.id";
+    	Query query=this.sessionFactory.getCurrentSession().createSQLQuery(sql).setResultTransformer(Transformers.aliasToBean(DriverVO.class));
+		if(pageSize != -1 && pageNo != -1) {
+			query.setFirstResult((pageNo - 1) * pageSize);
+			query.setMaxResults(pageSize);
+		}
+		List<DriverVO> temp = query.list();
+		return temp;
+    } 
   
     /**
      * 注册用户

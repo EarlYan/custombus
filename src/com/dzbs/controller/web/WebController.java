@@ -53,7 +53,7 @@ public class WebController {
         modelAndView.addObject("propertyList",propertyList);
         List<Member> drivers = userDao.findRandomDriver();
         modelAndView.addObject("drivers",drivers);
-        System.out.println(drivers);
+//      System.out.println(drivers);
 		modelAndView.setViewName("web/index");
 		return modelAndView;
 	}
