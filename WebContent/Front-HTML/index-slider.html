@@ -13,7 +13,28 @@
     <link rel="stylesheet" href="../assets/libraries/bootstrap-fileupload/bootstrap-fileupload.css" type="text/css">
     <link rel="stylesheet" href="../assets/libraries/jquery-ui-1.10.2.custom/css/ui-lightness/jquery-ui-1.10.2.custom.min.css" type="text/css">
     <link rel="stylesheet" href="../assets/css/realia-blue.css" type="text/css" id="color-variant-default">
-
+    <link rel="stylesheet" href="../dist/css/swiper.min.css">
+    <style type="text/css">
+    .content .play {
+        background: #eee;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color:#000;
+        margin: 0;
+        padding: 0;
+    }
+    .swiper-container {
+        width: 500px;
+        height: 300px;
+        margin: 20px auto;
+    }
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        line-height: 300px;
+    }
+    </style>
     <title>定制巴士</title>
 </head>
 <body>
@@ -468,17 +489,17 @@
         <div class="carousel">
     <h2 class="page-header">所有线路</h2>
 
-    <div class="content">
-        <a class="carousel-prev" href="detail.html">Previous</a>
-        <a class="carousel-next" href="detail.html">Next</a>
-        <ul>
+    <div class="content play">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
             <li>
                 <div class="image">
                     <a href="detail.html"></a>
-                    <img src="assets/img/tmp/property-small-1.png" alt="">
+                    <img src="../assets/img/tmp/property-small-3.png" alt="">
                 </div><!-- /.image -->
                 <div class="title">
-                    <h3><a href="detail.html">27523 Pacific Coast</a></h3>
+                    <h3><a href="detail.html">1 Pacific Coast</a></h3>
                 </div><!-- /.title -->
                 <div class="location">Palo Alto CA</div><!-- /.location-->
                 <div class="price">€2 300 000</div><!-- .price -->
@@ -489,13 +510,34 @@
                 <div class="bathrooms"><div class="inner">3</div></div><!-- /.bathrooms -->
                 <div class="bedrooms"><div class="inner">3</div></div><!-- /.bedrooms -->
             </li>
-            <li>
+            </div>
+            <div class="swiper-slide">
+                <li>
+                    <div class="image">
+                        <a href="detail.html"></a>
+                        <img src="../assets/img/tmp/property-small-3.png" alt="">
+                    </div><!-- /.image -->
+                    <div class="title">
+                        <h3><a href="detail.html">2 Pacific Coast</a></h3>
+                    </div><!-- /.title -->
+                    <div class="location">Palo Alto CA</div><!-- /.location-->
+                    <div class="price">€2 300 000</div><!-- .price -->
+                    <div class="area">
+                        <span class="key">Area:</span>
+                        <span class="value">750m<sup>2</sup></span>
+                    </div><!-- /.area -->
+                    <div class="bathrooms"><div class="inner">3</div></div><!-- /.bathrooms -->
+                    <div class="bedrooms"><div class="inner">3</div></div><!-- /.bedrooms -->
+                </li>
+            </div>
+            <div class="swiper-slide">
+                <li>
                 <div class="image">
                     <a href="detail.html"></a>
-                    <img src="assets/img/tmp/property-small-2.png" alt="">
+                    <img src="../assets/img/tmp/property-small-3.png" alt="">
                 </div><!-- /.image -->
                 <div class="title">
-                    <h3><a href="detail.html">27523 Pacific Coast</a></h3>
+                    <h3><a href="detail.html">3 Pacific Coast</a></h3>
                 </div><!-- /.title -->
                 <div class="location">Palo Alto CA</div><!-- /.location-->
                 <div class="price">€2 300 000</div><!-- .price -->
@@ -506,14 +548,15 @@
                 <div class="bathrooms"><div class="inner">3</div></div><!-- /.bathrooms -->
                 <div class="bedrooms"><div class="inner">3</div></div><!-- /.bedrooms -->
             </li>
-
-            <li>
+            </div>
+            <div class="swiper-slide">
+                <li>
                 <div class="image">
                     <a href="detail.html"></a>
-                    <img src="assets/img/tmp/property-small-3.png" alt="">
+                    <img src="../assets/img/tmp/property-small-3.png" alt="">
                 </div><!-- /.image -->
                 <div class="title">
-                    <h3><a href="detail.html">27523 Pacific Coast</a></h3>
+                    <h3><a href="detail.html">4 Pacific Coast</a></h3>
                 </div><!-- /.title -->
                 <div class="location">Palo Alto CA</div><!-- /.location-->
                 <div class="price">€2 300 000</div><!-- .price -->
@@ -524,14 +567,15 @@
                 <div class="bathrooms"><div class="inner">3</div></div><!-- /.bathrooms -->
                 <div class="bedrooms"><div class="inner">3</div></div><!-- /.bedrooms -->
             </li>
-
-            <li>
+            </div>
+            <div class="swiper-slide">
+                <li>
                 <div class="image">
                     <a href="detail.html"></a>
-                    <img src="assets/img/tmp/property-small-4.png" alt="">
+                    <img src="../assets/img/tmp/property-small-3.png" alt="">
                 </div><!-- /.image -->
                 <div class="title">
-                    <h3><a href="detail.html">27523 Pacific Coast</a></h3>
+                    <h3><a href="detail.html">5 Pacific Coast</a></h3>
                 </div><!-- /.title -->
                 <div class="location">Palo Alto CA</div><!-- /.location-->
                 <div class="price">€2 300 000</div><!-- .price -->
@@ -542,14 +586,15 @@
                 <div class="bathrooms"><div class="inner">3</div></div><!-- /.bathrooms -->
                 <div class="bedrooms"><div class="inner">3</div></div><!-- /.bedrooms -->
             </li>
-
-            <li>
+            </div>
+            <div class="swiper-slide">
+                <li>
                 <div class="image">
                     <a href="detail.html"></a>
-                    <img src="assets/img/tmp/property-small-5.png" alt="">
+                    <img src="../assets/img/tmp/property-small-3.png" alt="">
                 </div><!-- /.image -->
                 <div class="title">
-                    <h3><a href="detail.html">27523 Pacific Coast</a></h3>
+                    <h3><a href="detail.html">6 Pacific Coast</a></h3>
                 </div><!-- /.title -->
                 <div class="location">Palo Alto CA</div><!-- /.location-->
                 <div class="price">€2 300 000</div><!-- .price -->
@@ -560,14 +605,15 @@
                 <div class="bathrooms"><div class="inner">3</div></div><!-- /.bathrooms -->
                 <div class="bedrooms"><div class="inner">3</div></div><!-- /.bedrooms -->
             </li>
-
-            <li>
+            </div>
+            <div class="swiper-slide">
+                <li>
                 <div class="image">
                     <a href="detail.html"></a>
-                    <img src="assets/img/tmp/property-small-6.png" alt="">
+                    <img src="../assets/img/tmp/property-small-3.png" alt="">
                 </div><!-- /.image -->
                 <div class="title">
-                    <h3><a href="detail.html">27523 Pacific Coast</a></h3>
+                    <h3><a href="detail.html">7 Pacific Coast</a></h3>
                 </div><!-- /.title -->
                 <div class="location">Palo Alto CA</div><!-- /.location-->
                 <div class="price">€2 300 000</div><!-- .price -->
@@ -578,14 +624,15 @@
                 <div class="bathrooms"><div class="inner">3</div></div><!-- /.bathrooms -->
                 <div class="bedrooms"><div class="inner">3</div></div><!-- /.bedrooms -->
             </li>
-
-            <li>
+            </div>
+            <div class="swiper-slide">
+                <li>
                 <div class="image">
                     <a href="detail.html"></a>
-                    <img src="assets/img/tmp/property-small-1.png" alt="">
+                    <img src="../assets/img/tmp/property-small-3.png" alt="">
                 </div><!-- /.image -->
                 <div class="title">
-                    <h3><a href="detail.html">27523 Pacific Coast</a></h3>
+                    <h3><a href="detail.html">8 Pacific Coast</a></h3>
                 </div><!-- /.title -->
                 <div class="location">Palo Alto CA</div><!-- /.location-->
                 <div class="price">€2 300 000</div><!-- .price -->
@@ -596,61 +643,14 @@
                 <div class="bathrooms"><div class="inner">3</div></div><!-- /.bathrooms -->
                 <div class="bedrooms"><div class="inner">3</div></div><!-- /.bedrooms -->
             </li>
-
-            <li>
-                <div class="image">
-                    <a href="detail.html"></a>
-                    <img src="assets/img/tmp/property-small-2.png" alt="">
-                </div><!-- /.image -->
-                <div class="title">
-                    <h3><a href="detail.html">27523 Pacific Coast</a></h3>
-                </div><!-- /.title -->
-                <div class="location">Palo Alto CA</div><!-- /.location-->
-                <div class="price">€2 300 000</div><!-- .price -->
-                <div class="area">
-                    <span class="key">Area:</span>
-                    <span class="value">750m<sup>2</sup></span>
-                </div><!-- /.area -->
-                <div class="bathrooms"><div class="inner">3</div></div><!-- /.bathrooms -->
-                <div class="bedrooms"><div class="inner">3</div></div><!-- /.bedrooms -->
-            </li>
-
-            <li>
-                <div class="image">
-                    <a href="detail.html"></a>
-                    <img src="assets/img/tmp/property-small-3.png" alt="">
-                </div><!-- /.image -->
-                <div class="title">
-                    <h3><a href="detail.html">27523 Pacific Coast</a></h3>
-                </div><!-- /.title -->
-                <div class="location">Palo Alto CA</div><!-- /.location-->
-                <div class="price">€2 300 000</div><!-- .price -->
-                <div class="area">
-                    <span class="key">Area:</span>
-                    <span class="value">750m<sup>2</sup></span>
-                </div><!-- /.area -->
-                <div class="bathrooms"><div class="inner">3</div></div><!-- /.bathrooms -->
-                <div class="bedrooms"><div class="inner">3</div></div><!-- /.bedrooms -->
-            </li>
-
-            <li>
-                <div class="image">
-                    <a href="detail.html"></a>
-                    <img src="assets/img/tmp/property-small-4.png" alt="">
-                </div><!-- /.image -->
-                <div class="title">
-                    <h3><a href="detail.html">27523 Pacific Coast</a></h3>
-                </div><!-- /.title -->
-                <div class="location">Palo Alto CA</div><!-- /.location-->
-                <div class="price">€2 300 000</div><!-- .price -->
-                <div class="area">
-                    <span class="key">Area:</span>
-                    <span class="value">750m<sup>2</sup></span>
-                </div><!-- /.area -->
-                <div class="bathrooms"><div class="inner">3</div></div><!-- /.bathrooms -->
-                <div class="bedrooms"><div class="inner">3</div></div><!-- /.bedrooms -->
-            </li>
-        </ul>
+            </div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- Add Arrows -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
     </div><!-- /.content -->
 </div><!-- /.carousel -->          
 </div><!-- /.main -->          
@@ -873,6 +873,16 @@
 <script type="text/javascript" src="assets/libraries/bootstrap-fileupload/bootstrap-fileupload.js"></script>
 <script type="text/javascript" src="assets/js/realia.js"></script>
 <script type="text/javascript" src="assets/js/flatpickr.js"></script><!--时间选择器-->
+<!-- Swiper JS -->
+<script type="text/javascript" src="../dist/js/swiper.min.js"></script>
+<script type="text/javascript">
+var swiper = new Swiper('.swiper-container', {
+    nextButton: '.swiper-button-next',
+    prevButton: '.swiper-button-prev',
+    pagination: '.swiper-pagination',
+    paginationType: 'progress'
+});
+</script>
 <script type="text/javascript">
 	//判断是否点击过查看地图
     var clickOrNot = 0;
