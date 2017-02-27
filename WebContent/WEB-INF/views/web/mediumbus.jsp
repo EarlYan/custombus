@@ -176,26 +176,24 @@
 <script type="text/javascript" src="../assets/js/jquery.seat-charts.min.js"></script> 
 <script>
             var firstSeatLabel = 1;
-        
+            var seatsOccupied = '${seatsOccupied}';
             $(document).ready(function() {
+            	var price =Math.floor('${price}'); 
                 var $cart = $('#selected-seats'),
                     $counter = $('#counter'),
                     $total = $('#total'),
                     sc = $('#seat-map').seatCharts({
                     map: [
-                          'ee_ee',
-                          'ee_ee',
-                          'ee_ee',
-                          'ee_ee',
-                          'ee_ee',
-                          'ee_ee',
-                          'ee_ee',
-                          'ee_ee',
-                          'eeeee',
+                          '___e',
+                          'ee__',
+                          'ee_e',
+                          'ee_e',
+                          'ee_e',
+                          'eeee',
                     ],
                     seats: {
                         e: {
-                            price   : 40,
+                            price   : price,
                             classes : 'economy-class', //your custom CSS class
                             category: '未预定'
                         }                           
@@ -249,11 +247,19 @@
                     sc.get($(this).parents('li:first').data('seatId')).click();
                 });
 
-                //let's pretend some seats have already been booked 已经预定设定
-                // sc.get(['1_2','7_1', '7_2']).status('unavailable');
-        
+                //let's pretend some seats have already been booked   
+                sc.get(getUnavailable()).status('unavailable');
         });
-
+        function getUnavailable(){
+        	var uns=new Array();
+        	<c:forEach var="s" items="${seatsOccupied}">
+        	var i = ${s};
+        	var id = $('.seatCharts-seat.seatCharts-cell.economy-class.available').eq(i).attr('id');
+        	uns.push(id);
+        	</c:forEach>
+        	return uns;
+        }
+        
         function recalculateTotal(sc) {
             var total = 0;
         
@@ -266,9 +272,33 @@
         }
         //结算
         $('.checkout-button').on('click',function(){
+        	var routeId = '${route.id}';
+        	console.log(routeId);
+        	var array = new Array();
+        	var len = $('.seatCharts-seat.seatCharts-cell.economy-class.selected').size();
+        	for(var i=0;i<len;i++){
+        		array.push($('.seatCharts-seat.seatCharts-cell.economy-class.selected').eq(i).text());
+        	}
             var price = $('#total').text();
-            console.log(price);
-            
+            $.ajax(
+       			{
+       			type: "POST",
+       	    	url: "../order/book",
+       	        data: {
+       	        	price : price,
+       	        	array : array,
+       	        	routeId : routeId
+       	        },
+       	        dataType: "json",   
+       	        async : false,   
+       	        success:function(data){
+       	            alert("感谢评论");
+       	            window.location.href="../web/index";
+       		    },
+       		    error:function(data){
+       			    alert("error");
+       			}
+        	});
         });
 </script>
 <script type="text/javascript">

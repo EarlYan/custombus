@@ -1,6 +1,7 @@
 package com.dzbs.controller.route;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -135,32 +136,20 @@ public class RouteController {
 		String inputStart = request.getParameter("inputStart");
 		String inputEnd = request.getParameter("inputEnd");
 		String chooseBusType = request.getParameter("chooseBusType");
-		String chooseTime = request.getParameter("chooseTime");
-		String routeDistance = request.getParameter("routeDistance");
+		String inputDate = request.getParameter("inputDate");
 		JSONObject json = new JSONObject();
 		try {
-			//判断是否已经开此路线
-			List<Route> routes = routeDao.
-					findByStartEndTimeAndNotFull(inputStart, inputEnd, chooseTime);	
+//			判断是否已经开此路线
+			List<RouteVO> routes = routeDao.
+					findByStartAndEndLocationVO(inputStart, inputEnd);	
 			if(routes.size()>0){
-				for(int i=0;i<routes.size();i++){
-					Integer busType = busDao.
-							findById(routes.get(i).getBus_id()).get(0).getBus_type();
-					if(busType != Integer.valueOf(chooseBusType)){
-						//从路线中移除
-						routes.remove(routes.get(i));
-					}
-				}
-			}
-			if(routes.size()>0){
-				float price = priceCal(Float.valueOf(routeDistance),Integer.valueOf(chooseBusType));
-				ModelAndView mav = new ModelAndView("redirect:../web/buslist");
-				mav.addObject("price",price);
-				mav.addObject("routes", routes);
-				mav.setViewName("../web/buslist");
+				json.put("start", inputStart);
+				json.put("end", inputEnd);
+				json.put("type", chooseBusType);
+				json.put("time", inputDate);
+				json.put("have", true);
 			}else{
-				ModelAndView mav = new ModelAndView("redirect:../web/property");
-				mav.setViewName("../web/property");
+				json.put("have", false);
 			}				
 			json.put("resultCode", 200);
 		} catch (Exception e) {
@@ -170,17 +159,38 @@ public class RouteController {
 		return json.toJSONString();
 	}
 	
-	//路程计算器
-	public static float priceCal(float routeDistance,int busType){
-		float price = 0.0f;
-		if(busType ==1){
-			price = routeDistance * 3.5f;
-		}else if(busType ==2){
-			price = routeDistance * 2.5f;
-		}else if(busType ==3){
-			price = routeDistance * 1.5f;
+	/**
+	 * 联系我们主页
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/recommend", method = { RequestMethod.GET })
+	public ModelAndView contactusPage(HttpServletRequest request,
+			HttpServletResponse response) {
+		ModelAndView modelAndView = new ModelAndView();
+		String start = request.getParameter("start");
+		String end = request.getParameter("end");
+		String type = request.getParameter("type");
+		String time = request.getParameter("time");
+		//推荐路线
+		List<RouteVO> recommendRoutes = routeDao.
+				findByStartEndTimeBusTypeAndNotFullVO(start,end,time,Integer.valueOf(type));
+		//其他路线
+		List<RouteVO> otherRoutes = routeDao.
+				findByStartEndTimeAndNotFullVO(start,end,time);
+		System.out.println(otherRoutes);
+		for(int i=0;i<otherRoutes.size();i++){
+			for(int j=0;j<recommendRoutes.size();j++){
+				if(otherRoutes.get(i).getId() == recommendRoutes.get(j).getId()){
+					otherRoutes.remove(otherRoutes.get(i));
+				}
+			}
 		}
-		return price;
+		modelAndView.addObject("recommendRoutes", recommendRoutes);
+		modelAndView.addObject("otherRoutes", otherRoutes);
+		modelAndView.setViewName("web/buslist");
+		return modelAndView;
 	}
 	
 	/**

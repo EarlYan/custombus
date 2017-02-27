@@ -14,9 +14,19 @@
     <link rel="stylesheet" href="../assets/libraries/bootstrap-fileupload/bootstrap-fileupload.css" type="text/css">
     <link rel="stylesheet" href="../assets/libraries/jquery-ui-1.10.2.custom/css/ui-lightness/jquery-ui-1.10.2.custom.min.css" type="text/css">
     <link rel="stylesheet" href="../assets/css/realia-blue.css" type="text/css" id="color-variant-default">
+    <link rel="stylesheet" href="../dist/css/swiper.min.css" type="text/css">
     <style type="text/css">
     .error{
         color: red;
+    }
+    #inputStart-error{
+    	color: red;
+    }
+    #inputEnd-error{
+    	color: red;
+    }
+    #inputDate-error{
+    	color: red;
     }
     .properties-grid .property {
 		margin-bottom:0;
@@ -25,6 +35,39 @@
 	.properties-grid .property:nth-child(n+4){
 		margin-top:30px
 	}
+    .content .play{
+        background: #eee;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color:#000;
+        margin: 0;
+        padding: 0;
+    }
+    .swiper-container {
+        width: 100%;
+        height: 300px;
+        margin: 20px auto;
+    }
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        width: 250px;
+
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
     </style>
     <title>定制巴士</title>
 </head>
@@ -52,13 +95,13 @@
                 <div class="span3">
                     <div class="property-filter">
                         <div class="content">
-                            <form method="post" action="">
+                            <form method="post" action="" id="orderForm">
                                 <div class="start control-group">
                                     <label class="control-label" for="inputStart">
                                         起点
                                     </label>
                                     <div class="controls">
-                                        <input placeholder="请输入起点" type="text" name="" id="inputStart">
+                                        <input placeholder="请输入起点" type="text" name="inputStart" id="inputStart">
                                         <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
                                     </div>
                                 </div>
@@ -68,7 +111,7 @@
                                         终点
                                     </label>
                                     <div class="controls">
-                                        <input placeholder="请输入终点" type="text" name="" id="inputEnd">
+                                        <input placeholder="请输入终点" type="text" name="inputEnd" id="inputEnd">
                                     </div>
                                 </div>
 
@@ -89,7 +132,7 @@
                                         选择时间
                                     </label>
                                     <div class="controls">
-                                        <input class="flatpickr" type="text" data-time_24hr="true" placeholder="请选择时间" readonly="readonly" style="width: 230px;height: 40px;">
+                                        <input id="inputDate" name="inputDate" class="flatpickr" type="text" data-time_24hr="true" placeholder="请选择时间" readonly="readonly" style="width: 230px;height: 40px;">
                                     </div>
                                 </div>
                                 <div class="form-actions">
@@ -203,52 +246,17 @@
         <div class="carousel">
     <h2 class="page-header">所有线路</h2>
 
-    <div class="content">
-        <a class="carousel-prev" href="detail.html">Previous</a>
-        <a class="carousel-next" href="detail.html">Next</a>
-        <ul>
-            <li>
-                <div class="image">
-                    <a href="detail.html"></a>
-                    <img src="../assets/img/tmp/property-small-1.png" alt="">
-                </div><!-- /.image -->
-                <div class="title">
-                    <h3><a href="detail.html">27523 Pacific Coast</a></h3>
-                </div><!-- /.title -->
-                <div class="location">Palo Alto CA</div><!-- /.location-->
-                <div class="price">€2 300 000</div><!-- .price -->
-                <div class="area">
-                    <span class="key">Area:</span>
-                    <span class="value">750m<sup>2</sup></span>
-                </div><!-- /.area -->
-                <div class="bathrooms"><div class="inner">3</div></div><!-- /.bathrooms -->
-                <div class="bedrooms"><div class="inner">3</div></div><!-- /.bedrooms -->
-            </li>
-            <li>
-                <div class="image">
-                    <a href="detail.html"></a>
-                    <img src="../assets/img/tmp/property-small-2.png" alt="">
-                </div><!-- /.image -->
-                <div class="title">
-                    <h3><a href="detail.html">27523 Pacific Coast</a></h3>
-                </div><!-- /.title -->
-                <div class="location">Palo Alto CA</div><!-- /.location-->
-                <div class="price">€2 300 000</div><!-- .price -->
-                <div class="area">
-                    <span class="key">Area:</span>
-                    <span class="value">750m<sup>2</sup></span>
-                </div><!-- /.area -->
-                <div class="bathrooms"><div class="inner">3</div></div><!-- /.bathrooms -->
-                <div class="bedrooms"><div class="inner">3</div></div><!-- /.bedrooms -->
-            </li>
-
+    <div class="content play">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
             <li>
                 <div class="image">
                     <a href="detail.html"></a>
                     <img src="../assets/img/tmp/property-small-3.png" alt="">
                 </div><!-- /.image -->
                 <div class="title">
-                    <h3><a href="detail.html">27523 Pacific Coast</a></h3>
+                    <h3><a href="detail.html">1 Pacific Coast</a></h3>
                 </div><!-- /.title -->
                 <div class="location">Palo Alto CA</div><!-- /.location-->
                 <div class="price">€2 300 000</div><!-- .price -->
@@ -259,104 +267,15 @@
                 <div class="bathrooms"><div class="inner">3</div></div><!-- /.bathrooms -->
                 <div class="bedrooms"><div class="inner">3</div></div><!-- /.bedrooms -->
             </li>
-
-            <li>
-                <div class="image">
-                    <a href="detail.html"></a>
-                    <img src="../assets/img/tmp/property-small-4.png" alt="">
-                </div><!-- /.image -->
-                <div class="title">
-                    <h3><a href="detail.html">27523 Pacific Coast</a></h3>
-                </div><!-- /.title -->
-                <div class="location">Palo Alto CA</div><!-- /.location-->
-                <div class="price">€2 300 000</div><!-- .price -->
-                <div class="area">
-                    <span class="key">Area:</span>
-                    <span class="value">750m<sup>2</sup></span>
-                </div><!-- /.area -->
-                <div class="bathrooms"><div class="inner">3</div></div><!-- /.bathrooms -->
-                <div class="bedrooms"><div class="inner">3</div></div><!-- /.bedrooms -->
-            </li>
-
-            <li>
-                <div class="image">
-                    <a href="detail.html"></a>
-                    <img src="../assets/img/tmp/property-small-5.png" alt="">
-                </div><!-- /.image -->
-                <div class="title">
-                    <h3><a href="detail.html">27523 Pacific Coast</a></h3>
-                </div><!-- /.title -->
-                <div class="location">Palo Alto CA</div><!-- /.location-->
-                <div class="price">€2 300 000</div><!-- .price -->
-                <div class="area">
-                    <span class="key">Area:</span>
-                    <span class="value">750m<sup>2</sup></span>
-                </div><!-- /.area -->
-                <div class="bathrooms"><div class="inner">3</div></div><!-- /.bathrooms -->
-                <div class="bedrooms"><div class="inner">3</div></div><!-- /.bedrooms -->
-            </li>
-
-            <li>
-                <div class="image">
-                    <a href="detail.html"></a>
-                    <img src="../assets/img/tmp/property-small-6.png" alt="">
-                </div><!-- /.image -->
-                <div class="title">
-                    <h3><a href="detail.html">27523 Pacific Coast</a></h3>
-                </div><!-- /.title -->
-                <div class="location">Palo Alto CA</div><!-- /.location-->
-                <div class="price">€2 300 000</div><!-- .price -->
-                <div class="area">
-                    <span class="key">Area:</span>
-                    <span class="value">750m<sup>2</sup></span>
-                </div><!-- /.area -->
-                <div class="bathrooms"><div class="inner">3</div></div><!-- /.bathrooms -->
-                <div class="bedrooms"><div class="inner">3</div></div><!-- /.bedrooms -->
-            </li>
-
-            <li>
-                <div class="image">
-                    <a href="detail.html"></a>
-                    <img src="../assets/img/tmp/property-small-1.png" alt="">
-                </div><!-- /.image -->
-                <div class="title">
-                    <h3><a href="detail.html">27523 Pacific Coast</a></h3>
-                </div><!-- /.title -->
-                <div class="location">Palo Alto CA</div><!-- /.location-->
-                <div class="price">€2 300 000</div><!-- .price -->
-                <div class="area">
-                    <span class="key">Area:</span>
-                    <span class="value">750m<sup>2</sup></span>
-                </div><!-- /.area -->
-                <div class="bathrooms"><div class="inner">3</div></div><!-- /.bathrooms -->
-                <div class="bedrooms"><div class="inner">3</div></div><!-- /.bedrooms -->
-            </li>
-
-            <li>
-                <div class="image">
-                    <a href="detail.html"></a>
-                    <img src="../assets/img/tmp/property-small-2.png" alt="">
-                </div><!-- /.image -->
-                <div class="title">
-                    <h3><a href="detail.html">27523 Pacific Coast</a></h3>
-                </div><!-- /.title -->
-                <div class="location">Palo Alto CA</div><!-- /.location-->
-                <div class="price">€2 300 000</div><!-- .price -->
-                <div class="area">
-                    <span class="key">Area:</span>
-                    <span class="value">750m<sup>2</sup></span>
-                </div><!-- /.area -->
-                <div class="bathrooms"><div class="inner">3</div></div><!-- /.bathrooms -->
-                <div class="bedrooms"><div class="inner">3</div></div><!-- /.bedrooms -->
-            </li>
-
-            <li>
+            </div>          
+            <div class="swiper-slide">
+                <li>
                 <div class="image">
                     <a href="detail.html"></a>
                     <img src="../assets/img/tmp/property-small-3.png" alt="">
                 </div><!-- /.image -->
                 <div class="title">
-                    <h3><a href="detail.html">27523 Pacific Coast</a></h3>
+                    <h3><a href="detail.html">7 Pacific Coast</a></h3>
                 </div><!-- /.title -->
                 <div class="location">Palo Alto CA</div><!-- /.location-->
                 <div class="price">€2 300 000</div><!-- .price -->
@@ -367,14 +286,15 @@
                 <div class="bathrooms"><div class="inner">3</div></div><!-- /.bathrooms -->
                 <div class="bedrooms"><div class="inner">3</div></div><!-- /.bedrooms -->
             </li>
-
-            <li>
+            </div>
+            <div class="swiper-slide">
+                <li>
                 <div class="image">
                     <a href="detail.html"></a>
-                    <img src="../assets/img/tmp/property-small-4.png" alt="">
+                    <img src="../assets/img/tmp/property-small-3.png" alt="">
                 </div><!-- /.image -->
                 <div class="title">
-                    <h3><a href="detail.html">27523 Pacific Coast</a></h3>
+                    <h3><a href="detail.html">8 Pacific Coast</a></h3>
                 </div><!-- /.title -->
                 <div class="location">Palo Alto CA</div><!-- /.location-->
                 <div class="price">€2 300 000</div><!-- .price -->
@@ -385,7 +305,11 @@
                 <div class="bathrooms"><div class="inner">3</div></div><!-- /.bathrooms -->
                 <div class="bedrooms"><div class="inner">3</div></div><!-- /.bedrooms -->
             </li>
-        </ul>
+            </div>
+        </div>
+        <!-- Add Scrollbar -->
+        <div class="swiper-scrollbar"></div>
+    </div>
     </div><!-- /.content -->
 </div><!-- /.carousel -->          
 </div><!-- /.main -->          
@@ -440,9 +364,18 @@
 <script type="text/javascript" src="../assets/js/realia.js"></script>
 <script type="text/javascript" src="../assets/js/flatpickr.js"></script><!--时间选择器-->
 <script type="text/javascript" src="../assets/js/jquery.validate.js"></script> 
+<script type="text/javascript" src="../dist/js/swiper.min.js"></script><!-- Swiper JS -->
 <script type="text/javascript">
-	//判断是否点击过查看地图
-    var clickOrNot = 0;
+    var swiper = new Swiper('.swiper-container', {
+        scrollbar: '.swiper-scrollbar',
+        scrollbarHide: true,
+        slidesPerView: 'auto',
+        centeredSlides: true,
+        spaceBetween: 30,
+        grabCursor: true
+    });
+</script>
+<script type="text/javascript">
 	//调用百度地图
     var map = new BMap.Map('map_cavans');
     map.enableScrollWheelZoom();
@@ -463,15 +396,13 @@
                     output += "总时间为：" ;
                     output += plan.getDuration(true) + "\n";             //获取时间
                     output += "总路程为：" ;
-                    output += plan.getDistance(true) + "\n";             //获取距离
-                    $('#routeDistance').val(plan.getDistance(true));
+                    output += plan.getDistance(true) + "\n";             //获取距离                  
                     for(var j=0;j<plan.getNumRoutes();j++){
                         var route = plan.getRoute(j);
                         arrPois= arrPois.concat(route.getPath());
                     }
                     map.addOverlay(new BMap.Polyline(arrPois, {strokeColor: '#111'}));
-                    map.setViewport(arrPois);
-                    
+                    map.setViewport(arrPois);                   
                     lushu = new BMapLib.LuShu(map,arrPois,{
                     defaultContent:output,//标签内容
                     autoView:true,//是否开启自动视野调整，如果开启那么路书在运动过程中会根据视野自动调整
@@ -490,8 +421,8 @@
     }
 	//时间选择器
     flatpickr(".flatpickr", {
-        minDate: new Date(),
         enableTime: true,
+        noCalendar: true,
         minuteIncrement: 1
     });
     //查询地图操作
@@ -507,7 +438,6 @@
         var inputStart = $('#inputStart').val();
         var inputEnd = $('#inputEnd').val();
         LookForLocate(inputStart,inputEnd,chooseBusType);
-        clickOrNot += 1;
     });
 
     //重置地图操作
@@ -517,86 +447,76 @@
         $('#inputEnd').val("");
         $('#chooseBusType option:selected').val('1');
     });
-
+	
+    function checkorder(){ 
+        return $("#orderForm").validate({
+            rules: {
+              inputStart: "required",
+              inputEnd: "required",             
+              inputDate: "required"
+            },
+            messages: {
+              inputStart: "请输入起点",
+              inputEnd: "请输入终点",
+              inputDate: "请选择日期",
+            }
+        });
+    }
+    
     //我要下单操作
     $('#placeOrder').on('click',function(){
+    	if(!checkorder().form()) return; 
         var inputStart = $('#inputStart').val();
         var inputEnd = $('#inputEnd').val();
         var chooseBusType = $('#chooseBusType').val();
-        var chooseTime = $('#chooseTime').val();
-        if(inputStart == ""){
-            alert("若要下单请输入起点");
-            return;
-        }else if(inputEnd == ""){
-            alert("若要下单请输入终点");
-            return;
-        }else if(chooseTime == ""){
-            alert("若要下单请选择时间");
-            return;
-        }
-        var routeDistance = null;
-        if(clickOrNot>0){
-        	routeDistance = $('#routeDistance').val();
-        }else if(clickOrNot == 0){
-        	alert("请先查看地图");
-/*         	getDistance(inputStart,inputEnd); */
-        	routeDistance = $('#routeDistance').val();
-        }
+        var inputDate = $('#inputDate').val();
         $.ajax({
-			type: "post",
+			type: "POST",
 	    	url: "../route/judge",
 	        data: {
 	        	inputStart : inputStart,
 	        	inputEnd : inputEnd,
 	        	chooseBusType : chooseBusType,
-	        	chooseTime : chooseTime,
-	        	routeDistance : routeDistance
+	        	inputDate : inputDate,        	
 	        },
 	        dataType: "json",   
-/* 	        async : false,   
+ 	        async : false,   
 	        success:function(data){
-	        	var routes = data.price;
-	        	if(routes != null && routes != ""){
-	        		var price = data.price;
-	        		var chooseBusType = data.chooseBusType;
-	        		if(chooseBusType ==1){
-	        			window.location.href="../web/smallbus?price="+price+"";
-	        		}else if(chooseBusType ==2){
-	        			window.location.href="../web/mediumbus?price="+price+"";
-	        		}else if(chooseBusType ==3){
-	        			window.location.href="../web/bigbus?price="+price+"";
-	        		}        		
-	        	}else{
-	        		alert("暂无相关路线请先众筹");
-	        		window.location.href="../web/property";
-	        	}
-	               
+				var have = data.have;
+				if(false == have){
+					alert("暂无该路线，请先众筹")
+					window.location.href="../web/property";
+				}else{
+					var start = data.start;
+					var end = data.end;
+					var type = data.type;
+					var time = data.time;
+					window.location.href="../route/recommend?start="+start+"&end="+end+"&type="+type+"&time="+time+"";
+				}
 		    },
 		    error:function(data){
 			    alert("error");
-			} */
+			}
      	});
-        console.log("击发次数为"+clickOrNot);
-        clickOrNot = 0;
     });
 
     //留言在此操作
     function check(){ 
-    return $("#messageForm").validate({
-        rules: {
-          inputName: "required",
-          inputEmail: {
-            required: true,
-            email: true
-          },
-          inputMessage: "required"
-        },
-        messages: {
-          inputName: "请输入您的姓名",
-          inputEmail: "请输入一个正确的邮箱",
-          inputMessage: "请输入您对我们的留言",
-        }
-    });
+	    return $("#messageForm").validate({
+	        rules: {
+	          inputName: "required",
+	          inputEmail: {
+	            required: true,
+	            email: true
+	          },
+	          inputMessage: "required"
+	        },
+	        messages: {
+	          inputName: "请输入您的姓名",
+	          inputEmail: "请输入一个正确的邮箱",
+	          inputMessage: "请输入您对我们的留言",
+	        }
+	    });
     }
     
     //保存留言
@@ -625,26 +545,6 @@
 				}
  		});
     });
-    //计算路径长度
-    /* function getDistance(start, end){
-    	var distance = null;
-		var searchComplete = function (results){
-            if (transit.getStatus() != BMAP_STATUS_SUCCESS){
-                return ;
-            }
-            var plan = results.getPlan(0);
-            // output += plan.getDuration(true) + "\n";                //获取时间
-            // output += "总路程为：" ;
-            distance = plan.getDistance(true);
-    }
-        var transit = new BMap.DrivingRoute(map, {renderOptions: {map: map,panel: "allmap-result"},
-            onSearchComplete: searchComplete,
-            onPolylinesSet: function(){
-                setTimeout(function(){$('#routeDistance').val(distance);},"0");
-        }});
-        transit.search(start, end);
-
-	} */
 </script>
 <!--百度地图联想输入-->
 <script type="text/javascript">

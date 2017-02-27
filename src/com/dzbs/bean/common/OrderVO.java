@@ -3,7 +3,9 @@ package com.dzbs.bean.common;
 import java.util.Date;
 
 public class OrderVO {
-
+	
+	private int id;
+	
 	//乘客用户名
 	private String p_username;
 	
@@ -25,9 +27,6 @@ public class OrderVO {
 	//车牌号
 	private String plate_number; 
 	
-	//巴士车型(1:小型客车,2:中型客车,3:大型客车)
-	private int bus_type;
-	
 	//司机用户名
 	private String d_username;
 	
@@ -39,6 +38,14 @@ public class OrderVO {
 	
 	//支付时间
 	private Date pay_time = new Date();
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getP_username() {
 		return p_username;
@@ -94,14 +101,6 @@ public class OrderVO {
 
 	public void setPlate_number(String plate_number) {
 		this.plate_number = plate_number;
-	}
-
-	public int getBus_type() {
-		return bus_type;
-	}
-
-	public void setBus_type(int bus_type) {
-		this.bus_type = bus_type;
 	}
 
 	public String getD_username() {

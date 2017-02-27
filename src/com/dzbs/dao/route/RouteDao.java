@@ -67,9 +67,30 @@ public interface RouteDao{
 	public List<Route> findByStartAndEndLocation(String start_location,String end_location);
 	
 	/**
+	 * 用start_location,end_location进行查询(起终点查询)
+	 * @param start_location,end_location
+	 * @return List<RouteVO>
+	 */
+	public List<RouteVO> findByStartAndEndLocationVO(String start_location,String end_location);
+	
+	/**
 	 * 用start_location,end_location,start_time进行查询(起终点时间查询)
 	 * @param start_location,end_location,start_time
 	 * @return List<Route>
 	 */
 	public List<Route> findByStartEndTimeAndNotFull(String start_location,String end_location,String start_time);
+	
+	/**
+	 * 用start_location,end_location,start_time进行查询(起终点时间查询)
+	 * @param start_location,end_location,start_time
+	 * @return List<RouteVO>
+	 */
+	public List<RouteVO> findByStartEndTimeAndNotFullVO(String start_location,String end_location,String start_time);
+	
+	/**
+	 * 用start_location,end_location,start_time,bus_type进行查询(起终点时间车型查询)
+	 * @param start_location,end_location,start_time
+	 * @return List<RouteVO>
+	 */
+	public List<RouteVO> findByStartEndTimeBusTypeAndNotFullVO(String start_location,String end_location,String start_time,Integer bus_type);
 }

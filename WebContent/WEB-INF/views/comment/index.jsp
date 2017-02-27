@@ -103,6 +103,8 @@
 		            "render": function(data) {
 		               if(data == userLogin){
 		            	   return "您";
+		               }else{
+		            	   return data;
 		               }
 		        },
 		        "targets": 0}

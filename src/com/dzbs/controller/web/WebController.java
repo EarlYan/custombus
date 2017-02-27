@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dzbs.bean.common.Property;
+import com.dzbs.bean.common.RouteVO;
 import com.dzbs.bean.security.Member;
 import com.dzbs.dao.UserDao;
 import com.dzbs.service.UserDetailServiceImpl;
 import com.dzbs.service.property.PropertyImpl;
+import com.dzbs.service.route.RouteImpl;
 
 @Controller
 @RequestMapping(value = "/web")
@@ -31,6 +33,9 @@ public class WebController {
 	
 	@Autowired
 	private PropertyImpl propertyDao;
+	
+	@Autowired
+	private RouteImpl routeDao;
 	
 	/**
 	 * 主页
@@ -53,7 +58,8 @@ public class WebController {
         modelAndView.addObject("propertyList",propertyList);
         List<Member> drivers = userDao.findRandomDriver();
         modelAndView.addObject("drivers",drivers);
-//      System.out.println(drivers);
+        List<RouteVO> routes = routeDao.findAllRoutesVO();
+        modelAndView.addObject("routes",routes);
 		modelAndView.setViewName("web/index");
 		return modelAndView;
 	}
@@ -249,27 +255,18 @@ public class WebController {
 		modelAndView.setViewName("web/bigbus");
 		return modelAndView;
 	}
-	
+		
 	/**
-	 * 路线表格主页
+	 * 联系我们主页
 	 * @param request
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping(value = "/buslist", method = { RequestMethod.GET })
-	public ModelAndView buslistPage(HttpServletRequest request,
+	@RequestMapping(value = "/companyshow", method = { RequestMethod.GET })
+	public ModelAndView companyshowPage(HttpServletRequest request,
 			HttpServletResponse response) {
-		String price = request.getParameter("price");
-		String routes = request.getParameter("routes");
 		ModelAndView modelAndView = new ModelAndView();
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        Member member = userDetailServiceImpl.findUserByUsername(username);
-        if(member != null){
-        	modelAndView.addObject("member", member);	
-        }else{
-        	modelAndView.addObject("member", null);
-        } 
-		modelAndView.setViewName("web/buslist");
+		modelAndView.setViewName("web/companyshow");
 		return modelAndView;
 	}
 }

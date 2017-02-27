@@ -66,7 +66,7 @@
                     </p></div>
                 <div class="span6">
                     <h2>公司展示</h2>
-                    <iframe src="" width="500" height="281"></iframe><p><a href="http://vimeo.com/61702922">EVERYBODY WANTS TO KILL BRUCE</a> from <a href="http://vimeo.com/user7408417">Pierre-Alexandre Chauvat</a> on <a href="http://vimeo.com">Vimeo</a>.</p>
+                    <iframe src="../web/companyshow" width="500" height="281"></iframe>
                 </div>
             </div>
             <div class="partners">

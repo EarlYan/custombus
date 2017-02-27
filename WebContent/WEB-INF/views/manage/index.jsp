@@ -106,6 +106,7 @@
                         <ul class="nav nav-second-level">
                             <li>
                                <a class="J_menuItem" href="../orderback/index">统计报表</a>
+                               <a class="J_menuItem" href="../order/index">订单管理</a>
                             </li>
                         </ul>
                     </li>
