@@ -27,15 +27,17 @@
 							<table id="data-Table" class="table table-border table-bordered table-bg table-hover table-sort">
 								<thead>
 									<tr class="text-c">
-										<th>姓名</th>
-										<th>邮箱</th>
-										<th>手机号</th>
+										<th>乘客用户名</th>
+										<th>乘客手机号</th>
 										<th>起点</th>
 										<th>终点</th>
-										<th>起始时间</th>
-										<th>回程时间</th>
-										<th>提议</th>
-										<th>距离</th>
+										<th>出发时间</th>
+										<th>价格</th>
+										<th>车牌号</th>
+										<th>司机用户名</th>
+										<th>司机手机号</th>
+										<th>所选座位号</th>
+										<th>支付时间</th>								
 										<th>操作</th>
 									</tr>
 								</thead>
@@ -60,6 +62,7 @@
 	var myParam;
 	
 	$(document).ready(function(){
+		var userLogin = '${member.username}';
 		var table = $('#data-Table').dataTable( {
 		    "lengthChange":false,
 		    "info": false,
@@ -68,7 +71,7 @@
 			"processing" : false,
 			"serverSide" : true,
 	        "ajax": {
-	        	url:"../property/data",
+	        	url:"../order/data",
 	    		headers: {
 				        Accept: "application/json; charset=utf-8"
 				    },
@@ -82,15 +85,17 @@
 			        }
 	        },
 	        "columns": [
-	            { "data": "name","orderable":false},
-	            { "data": "email","orderable":false},
-	            { "data": "mobile","orderable":false},
-	            { "data": "startLocation","orderable":false},
-	            { "data": "endLocation","orderable":false},
-	            { "data": "goTime","orderable":false},
-	            { "data": "backTime","orderable":false},
-	            { "data": "notes","orderable":false},
-	            { "data": "distance","orderable":false},
+	            { "data": "p_username","orderable":false},
+	            { "data": "p_mobile","orderable":false},
+	            { "data": "start_location","orderable":false},
+	            { "data": "end_location","orderable":false},
+	            { "data": "start_time","orderable":false},
+	            { "data": "price","orderable":false},
+	            { "data": "plate_number","orderable":false},
+	            { "data": "d_username","orderable":false},
+	            { "data": "d_mobile","orderable":false},
+	            { "data": "seat_id","orderable":false},
+	            { "data": "pay_time","orderable":false},
 	            { "data": "id","orderable":false}
 	        ],
 	        "columnDefs": [
@@ -100,19 +105,28 @@
 	            },
 	            {
 	            "render": function(data, type, row) {
-	            	return "<a href='../property/modifyPage?id=" + data + "'><i class=\"fa fa-edit text-navy\"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a value='" + data + "' onclick='deletefunc(" + data +")'><i class=\"fa fa-times text-navy\"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='../property/assignPage?id=" + data + "'><i class=\"fa fa-user-plus\" style=\"color:#1ab394\"></i></a>";	
+	                return "<a href='../order/modifyPage?id=" + data + "'><i class=\"fa fa-edit text-navy\"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a value='" + data + "' onclick='deletefunc(" + data +")'><i class=\"fa fa-times text-navy\"></i></a>";
 	            },
-	            "targets": 9},
+	            "targets": 11},
 	            {
-		        "render": function(data) {
-		            return  new Date(data).Format("hh:mm:ss");
+		            "render": function(data) {
+		                return  new Date(data).Format("hh:mm:ss");
 		        },
-		        "targets": 5},
+		        "targets": 4},
+	            {
+		            "render": function(data) {
+		                return  new Date(data).Format("yyyy-MM-dd hh:mm:ss");
+		        },
+		        "targets": 10},
 		        {
-		        "render": function(data) {
-		            return  new Date(data).Format("hh:mm:ss");
+		            "render": function(data) {
+		               if(data == userLogin){
+		            	   return "您";
+		               }else{
+		            	   return data;
+		               }
 		        },
-		        "targets": 6}
+		        "targets": 0}
 	        ]
 	    } );
 	    
@@ -134,7 +148,7 @@
                data: { 
                },
                success: function (data) {
-                   window.location.href("../manage/front");
+                   window.location.reload();
                }
            })
        	}

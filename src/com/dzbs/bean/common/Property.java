@@ -27,7 +27,7 @@ public class Property extends BasePO{
 	private String mobile;
 	
 	//起点 
-	private String startLoaction;
+	private String startLocation;
 	
 	//终点 
 	private String endLocation;
@@ -72,12 +72,12 @@ public class Property extends BasePO{
 		this.mobile = mobile;
 	}
 
-	public String getStartLoaction() {
-		return startLoaction;
+	public String getStartLocation() {
+		return startLocation;
 	}
 
-	public void setStartLoaction(String startLoaction) {
-		this.startLoaction = startLoaction;
+	public void setStartLocation(String startLocation) {
+		this.startLocation = startLocation;
 	}
 
 	public String getEndLocation() {

@@ -4441,6 +4441,14 @@ h3.email {
 	padding-left: 55px
 }
 
+h3.funding {
+	background-image: url("../img/icons/bubble-funding.png");
+	background-position: left center;
+	background-repeat: no-repeat;
+	background-size: 34px 35px;
+	padding-left: 55px
+}
+
 @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
 	h3.address {
 		background-image: url("../img/icons/bubble-address@2x.png")
@@ -4452,6 +4460,10 @@ h3.email {
 
 	h3.email {
 		background-image: url("../img/icons/bubble-email@2x.png")
+	}
+	
+	h3.funding {
+		background-image: url("../img/icons/bubble-funding@2x.png")
 	}
 }
 

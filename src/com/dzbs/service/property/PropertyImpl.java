@@ -22,20 +22,17 @@ public class PropertyImpl implements PropertyDao{
 
 	@Override
 	public void saveProperty(Property property) {
-		// TODO Auto-generated method stub
 		sessionFactory.getCurrentSession().saveOrUpdate(property);
 	}
 
 	@Override
 	public void updateProperty(Property property) {
-		// TODO Auto-generated method stub
 		sessionFactory.getCurrentSession().update(property);
 		sessionFactory.getCurrentSession().flush();
 	}
 
 	@Override
 	public void deleteProperty(Property property) {
-		// TODO Auto-generated method stub
 		sessionFactory.getCurrentSession().delete(property);
 		sessionFactory.getCurrentSession().flush();
 	}
@@ -69,9 +66,9 @@ public class PropertyImpl implements PropertyDao{
 	}
 
 	@Override
-	public List<Property> findPropertiesByLocation(String startLoaction, String endLocation) {
-		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Property WHERE deleted = false AND startLoaction = :startLoaction And endLocation = :endLocation");
-		query.setString("startLoaction", startLoaction);
+	public List<Property> findPropertiesByLocation(String startLocation, String endLocation) {
+		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Property WHERE deleted = false AND startLocation = :startLocation And endLocation = :endLocation");
+		query.setString("startLocation", startLocation);
 		query.setString("endLocation", endLocation);
 		@SuppressWarnings("unchecked")
 		List<Property> temp = query.list();
@@ -80,7 +77,7 @@ public class PropertyImpl implements PropertyDao{
 
 	@Override
 	public List<Property> findLatestProperties() {
-		Query query=this.sessionFactory.getCurrentSession().createSQLQuery("SELECT * FROM t_property order by id desc limit 6").setResultTransformer(Transformers.aliasToBean(Property.class));
+		Query query=this.sessionFactory.getCurrentSession().createSQLQuery("SELECT * FROM t_property WHERE deleted = false order by id desc limit 6").setResultTransformer(Transformers.aliasToBean(Property.class));
 		@SuppressWarnings("unchecked")
 		List<Property> temp = query.list();
 		return temp;

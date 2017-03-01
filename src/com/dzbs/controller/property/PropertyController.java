@@ -2,9 +2,7 @@ package com.dzbs.controller.property;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,21 +20,17 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSONObject;
 import com.dzbs.bean.common.DriverVO;
 import com.dzbs.bean.common.Property;
+import com.dzbs.bean.common.PropertyCF;
 import com.dzbs.bean.common.Route;
-import com.dzbs.bean.common.RouteVO;
 import com.dzbs.bean.security.Member;
-import com.dzbs.bean.security.Role;
 import com.dzbs.dao.UserDao;
 import com.dzbs.service.UserDetailServiceImpl;
 import com.dzbs.service.bus.BusImpl;
+import com.dzbs.service.property.PropertyCFImpl;
 import com.dzbs.service.property.PropertyImpl;
 import com.dzbs.service.route.RouteImpl;
 import com.dzbs.util.baidu.GetLatAndLngByBaidu;
 import com.dzbs.util.common.DataTableUtil;
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
 @Controller
 @RequestMapping(value = "/property")
@@ -56,6 +50,9 @@ public class PropertyController {
 	
 	@Autowired
 	private BusImpl busDao;
+	
+	@Autowired
+	private PropertyCFImpl propertyCFDao;
 	
 	/**
 	 * 保存众筹
@@ -92,7 +89,7 @@ public class PropertyController {
 			property.setName(inputPropertyName);
 			property.setEmail(inputPropertyEmail);
 			property.setMobile(inputPropertyPhone);
-			property.setStartLoaction(inputPropertyLocationStart);
+			property.setStartLocation(inputPropertyLocationStart);
 			property.setEndLocation(inputPropertyLocationEnd);
 			Date  go =  new SimpleDateFormat("HH:mm:ss").parse(inputPropertyTimeStart);
 			Date  back =  new SimpleDateFormat("HH:mm:ss").parse(inputPropertyTimeEnd);
@@ -215,14 +212,14 @@ public class PropertyController {
 					.getContext().getAuthentication().getPrincipal();
 			String username = userDetails.getUsername();
 			String id = request.getParameter("id");
-			String startLoaction = request.getParameter("startLoaction");
+			String startLocation = request.getParameter("startLocation");
 			String endLocation = request.getParameter("endLocation");
 			String goTime = request.getParameter("goTime");
 			String backTime = request.getParameter("backTime");
 			String notes = request.getParameter("notes");
 			String distance = request.getParameter("distance");
 			Property property = propertyDao.findById(Integer.valueOf(id)).get(0);
-			property.setStartLoaction(startLoaction);
+			property.setStartLocation(startLocation);
 			property.setEndLocation(endLocation);
 			Date go = new SimpleDateFormat("HH:mm:ss").parse(goTime);
 			Date back = new SimpleDateFormat("HH:mm:ss").parse(backTime);
@@ -309,7 +306,7 @@ public class PropertyController {
 			route.setCreate_man(username);
 			route.setDeleted(false);
 			route.setEnd_location(property.getEndLocation());
-			route.setStart_location(property.getStartLoaction());
+			route.setStart_location(property.getStartLocation());
 			route.setFull(false);
 			route.setMember_id(Integer.valueOf(id));
 			route.setStart_time(property.getGoTime());
@@ -322,6 +319,41 @@ public class PropertyController {
 			property.setDeleted(true);
 			propertyDao.updateProperty(property); 
 			json.put("resultCode", 200);
+		} catch (Exception e) {
+			json.put("resultCode", 500);
+			e.printStackTrace();
+		}
+		return json.toJSONString();
+	}
+	
+	@RequestMapping(value = "/crowdfunding", method = { RequestMethod.GET,
+			RequestMethod.POST }, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String crowdfunding(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		JSONObject json = new JSONObject();
+		try {
+			String property_id = request.getParameter("property_id");
+			UserDetails userDetails = (UserDetails) SecurityContextHolder
+					.getContext().getAuthentication().getPrincipal();
+			String username = userDetails.getUsername();
+			Integer member_id = userDetailServiceImpl.findUserByUsername(username).getId();
+			List<PropertyCF> pcf = propertyCFDao.
+					findByMemberIdAndPropertyId(member_id,Integer.valueOf(property_id));
+			if(pcf.size()>0){
+				json.put("resultCode", 300);
+			}else{
+				PropertyCF propertyCF = new PropertyCF();
+				propertyCF.setCreate_date(new Date());
+				propertyCF.setCreate_man(username);
+				propertyCF.setDeleted(false);
+				propertyCF.setUpdate_date(new Date());
+				propertyCF.setUpdate_man(username);
+				propertyCF.setMember_id(member_id);
+				propertyCF.setProperty_id(Integer.valueOf(property_id));
+				propertyCFDao.savePropertyCF(propertyCF);
+				json.put("resultCode", 200);
+			}			
 		} catch (Exception e) {
 			json.put("resultCode", 500);
 			e.printStackTrace();

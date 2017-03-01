@@ -78,9 +78,9 @@
 				    <div class="form-group">
 						<label class="col-sm-3 control-label">起点：</label>
 						<div class="col-sm-8">
-							<input id="startLoaction" name="startLoaction" class="form-control"
+							<input id="startLocation" name="startLocation" class="form-control"
 								aria-required="true" aria-invalid="true"
-								class="error" value="${property.startLoaction}">							
+								class="error" value="${property.startLocation}">							
 						</div>
 					</div>
 					<div class="form-group">
@@ -161,7 +161,7 @@
 	function checkModify(){ 
 	    return $("#modifyForm").validate({
 	        rules: {
-	        	startLoaction: "required",
+	        	startLocation: "required",
 	        	endLocation: "required",
 	        	goTime: "required",
 	        	backTime: "required",
@@ -172,7 +172,7 @@
 	        	}
 	        },
 	        messages: {
-	        	startLoaction: "请输入起点",
+	        	startLocation: "请输入起点",
 	        	endLocation: "请输入终点",
 	        	goTime: "请选择出发时间",
 	        	backTime: "请选择回程时间",
@@ -194,7 +194,7 @@
 	    	url: "update",
 	        data: {
 	            id:$("#propertyId").val(),
-	            startLoaction:$("#startLoaction").val(),
+	            startLocation:$("#startLocation").val(),
 	            endLocation:$("#endLocation").val(),
 	            goTime:$("#goTime").val(),
 	            backTime:$("#backTime").val(),

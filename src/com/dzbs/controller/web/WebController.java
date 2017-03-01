@@ -13,11 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dzbs.bean.common.Bus;
 import com.dzbs.bean.common.Property;
+import com.dzbs.bean.common.Route;
 import com.dzbs.bean.common.RouteVO;
 import com.dzbs.bean.security.Member;
 import com.dzbs.dao.UserDao;
 import com.dzbs.service.UserDetailServiceImpl;
+import com.dzbs.service.bus.BusImpl;
 import com.dzbs.service.property.PropertyImpl;
 import com.dzbs.service.route.RouteImpl;
 
@@ -36,6 +39,9 @@ public class WebController {
 	
 	@Autowired
 	private RouteImpl routeDao;
+	
+	@Autowired
+	private BusImpl busDao;
 	
 	/**
 	 * 主页
@@ -267,6 +273,83 @@ public class WebController {
 			HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("web/companyshow");
+		return modelAndView;
+	}
+	
+	/**
+	 * 司机详情主页
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/driverdetail", method = { RequestMethod.GET })
+	public ModelAndView driverdetail(HttpServletRequest request,
+			HttpServletResponse response) {
+		ModelAndView modelAndView = new ModelAndView();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Member member = userDetailServiceImpl.findUserByUsername(username);
+        if(member != null){
+        	modelAndView.addObject("member", member);	
+        }else{
+        	modelAndView.addObject("member", null);
+        } 
+        String id = request.getParameter("id");
+        Member driver = userDao.findUserById(Integer.valueOf(id));
+        Bus bus = busDao.findByMemberId(Integer.valueOf(id)).get(0);
+        Route route =routeDao.findByDriverId(Integer.valueOf(id)).get(0);
+        modelAndView.addObject("driver", driver);
+        modelAndView.addObject("bus", bus);
+        modelAndView.addObject("route", route);
+		modelAndView.setViewName("web/driverdetail");
+		return modelAndView;
+	}
+	
+	/**
+	 * 线路详情
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/routedetail", method = { RequestMethod.GET })
+	public ModelAndView routedetail(HttpServletRequest request,
+			HttpServletResponse response) {
+		ModelAndView modelAndView = new ModelAndView();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Member member = userDetailServiceImpl.findUserByUsername(username);
+        if(member != null){
+        	modelAndView.addObject("member", member);	
+        }else{
+        	modelAndView.addObject("member", null);
+        } 
+		String id = request.getParameter("id");
+		Route route = routeDao.findById(Integer.valueOf(id)).get(0);
+		modelAndView.addObject("route", route);
+		modelAndView.setViewName("web/routedetail");
+		return modelAndView;
+	}
+	
+	/**
+	 * 众筹详情
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/propertydetail", method = { RequestMethod.GET })
+	public ModelAndView propertydetail(HttpServletRequest request,
+			HttpServletResponse response) {
+		ModelAndView modelAndView = new ModelAndView();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Member member = userDetailServiceImpl.findUserByUsername(username);
+        if(member != null){
+        	modelAndView.addObject("member", member);	
+        }else{
+        	modelAndView.addObject("member", null);
+        } 
+		String id = request.getParameter("id");
+		Property property = propertyDao.findById(Integer.valueOf(id)).get(0);
+		System.out.println(property);
+		modelAndView.addObject("property", property);
+		modelAndView.setViewName("web/propertydetail");
 		return modelAndView;
 	}
 }

@@ -35,7 +35,7 @@ public interface PropertyDao {
 	 * 通过位置查询众筹信息
 	 * @return List<Property>
 	 */
-	public List<Property> findPropertiesByLocation(String startLoaction,String endLocation);
+	public List<Property> findPropertiesByLocation(String startLocation,String endLocation);
 	
 	/**
 	 * 最新众筹信息

@@ -30,112 +30,68 @@
         <div id="main">
             <div class="row">
                 <div class="span9">
-                    <h1 class="page-header">联系我们</h1>
-                        <iframe class="map" width="425" height="350" src="../Front-HTML/baidumap.html" scrolling=no></iframe>
-                        <div class="row">
+                    <h1 class="page-header">众筹详情</h1>
+                       <div class="map" id ="map_cavans" style="width: 830px;height: 310px;">
+                       </div>                
+                        <!-- <iframe class="map" width="425" height="350" src="../Front-HTML/baidumap.html" scrolling=no></iframe> -->
+                
+                <div class="row">
                             <div class="span3">
-                                <h3 class="address">地址</h3>
+                                <h3 class="address">路线</h3>
                                 <p class="content-icon-spacing">
-                                    XX<br>
-                                    上海, 松江区<br>
+                                    ${property.startLocation}<br>
+                                    到<br>
+                                    ${property.endLocation}<br>
                                 </p>
                             </div>
                             <div class="span3">
-                                <h3 class="call-us">电话</h3>
+                                <h3 class="call-us">发起人</h3>
                                 <p class="content-icon-spacing">
-                                    +86 XXXXXXXX<br>
-                                    9：00AM-17：00PM
+                                    姓名:    ${property.name}<br>
+                                    				<br>
+                                    手机:    ${property.mobile}
                                 </p>
                             </div>
                             <div class="span3">
-                                <h3 class="email">邮箱</h3>
+                                <h3 class="funding">众筹</h3>
                                 <p class="content-icon-spacing">
-                                    <a href="mailto:ysuperpaul@gmail.com">有问题找我</a><br>
+                                	<input type="button" id="crowdFunding" class="btn btn-primary btn-small" value="参与众筹">
+                                    <!-- <a href="mailto:ysuperpaul@gmail.com">有问题找我</a><br> -->
                                 </p>
                             </div>
                         </div>
                 </div>
 
-                <div class="sidebar span3">
-                    <div class="widget properties last">
+                            <div class="sidebar span3">
+                <div class="widget our-agents">
     <div class="title">
-        <h2>巴士合作商</h2>
+        <h2>联系客服</h2>
     </div><!-- /.title -->
 
     <div class="content">
-        <div class="property">
+        <div class="agent">
             <div class="image">
-                <a href="http://www.jac.com.cn/"></a>
-                <img src="../assets/img/jianghuai.png" alt="">
+                <img src="../assets/img/photos/laosiji.jpg" alt="">
             </div><!-- /.image -->
+            <div class="name">老司机</div><!-- /.name -->
+            <div class="phone">XXX-XXX-XX</div><!-- /.phone -->
+            <div class="email"><a href="mailto:laosiji@dzbs.com">laosiji@dzbs.com</a></div><!-- /.email -->
+        </div><!-- /.agent -->
 
-            <div class="wrapper">
-                <div class="title">
-                    <h3>
-                        <a href="http://www.jac.com.cn/">江淮客车</a>
-                    </h3>
-                </div><!-- /.title -->
-                <div class="location">安徽省合肥市东流路176号</div><!-- /.location -->
-                <div class="price">400-888-9933</div><!-- /.price -->
-            </div><!-- /.wrapper -->
-        </div><!-- /.property -->
-
-        <div class="property">
+        <div class="agent">
             <div class="image">
-                <a href="http://www.higer.com/"></a>
-                <img src="../assets/img/higer.png" alt="">
+                <img src="../assets/img/photos/dainifei.png" alt="">
             </div><!-- /.image -->
-
-            <div class="wrapper">
-                <div class="title">
-                    <h3>
-                        <a href="http://www.higer.com/">海格客车</a>
-                    </h3>
-                </div><!-- /.title -->
-                <div class="location">苏州工业园区苏虹东路288号</div><!-- /.location -->
-                <div class="price">400-828-2019</div><!-- /.price -->
-            </div><!-- /.wrapper -->
-        </div><!-- /.property -->
-
-        <div class="property">
-            <div class="image">
-                <a href="http://www.king-long.com.cn/"></a>
-                <img src="../assets/img/kinglong.png" alt="">
-            </div><!-- /.image -->
-
-            <div class="wrapper">
-                <div class="title">
-                    <h3>
-                        <a href="http://www.king-long.com.cn/">金龙客车</a>
-                    </h3>
-                </div><!-- /.title -->
-                <div class="location">福建省厦门市集美区金龙路9号</div><!-- /.location -->
-                <div class="price">400-886-6700</div><!-- /.price -->
-            </div><!-- /.wrapper -->
-        </div><!-- /.property -->
-
-        <div class="property">
-            <div class="image">
-                <a href="http://www.yutong.com/"></a>
-                <img src="../assets/img/yutong.png" alt="">
-            </div><!-- /.image -->
-
-            <div class="wrapper">
-                <div class="title">
-                    <h3>
-                        <a href="http://www.yutong.com/">宇通客车</a>
-                    </h3>
-                </div><!-- /.title -->
-                <div class="location">郑州市宇通路宇通工业园</div><!-- /.location -->
-                <div class="price">400-659-6666</div><!-- /.price -->
-            </div><!-- /.wrapper -->
-        </div><!-- /.property -->
+            <div class="name">带你飞</div><!-- /.name -->
+            <div class="phone">XXX-XXX-XX</div><!-- /.phone -->
+            <div class="email"><a href="mailto:dainifei@dzbs.com">dainifei@dzbs.com</a></div><!-- /.email -->
+        </div><!-- /.agent -->
     </div><!-- /.content -->
-</div><!-- /.properties -->
-                </div>
+</div><!-- /.our-agents -->
             </div>
         </div>
     </div>
+</div>
     </div><!-- /#content -->
 </div><!-- /#wrapper-inner -->
 
@@ -143,7 +99,7 @@
 </div><!-- /#wrapper -->
 </div><!-- /#wrapper-outer -->
 
-
+<script src="http://api.map.baidu.com/api?v=2.0&ak=sYY91vHWc5btABI2DOM7gEfm"></script> 
 <script type="text/javascript" src="../assets/js/jquery.js"></script>
 <script type="text/javascript" src="../assets/js/jquery.ezmark.js"></script>
 <script type="text/javascript" src="../assets/js/jquery.currency.js"></script>
@@ -158,6 +114,48 @@
 <script type="text/javascript" src="../assets/js/realia.js"></script>
 <script type="text/javascript" src="../assets/js/jquery.validate.js"></script> 
 <script type="text/javascript">
+	//调用百度地图
+	var start = '${property.startLocation}';
+	var end = '${property.endLocation}';
+    var map = new BMap.Map('map_cavans');
+    map.enableScrollWheelZoom();
+    map.centerAndZoom(new BMap.Point(121.47535,31.233588), 12);
+	map.clearOverlays();
+	var routePolicy = BMAP_DRIVING_POLICY_LEAST_TIME;
+	search(start,end); 
+	function search(start,end,routePolicy){ 
+		var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true}});
+		driving.search(start,end);
+	}
+</script>
+<script type="text/javascript">
+$('#crowdFunding').on('click',function(){
+	var property_id = '${property.id}';
+	$.ajax(
+			{
+			type: "POST",
+	    	url: "../property/crowdfunding",
+	        data: {
+	        	property_id:property_id
+	        },
+	        dataType: "json",   
+	        async : false,   
+	        success:function(data){
+	        	var resultCode = data.resultCode;
+	        	if(resultCode =="300"){
+	        		alert("您已经众筹过此线路,此次众筹无效");
+	        		window.location.href="../web/index";
+	        	}else if(resultCode =="200"){
+	        		alert("谢谢您的众筹");
+	 	            window.location.href="../web/index";
+	        	}           
+		    },
+		    error:function(data){
+			    alert("error");
+			}
+	});
+});
+
 //留言在此操作
 function check(){ 
 	return $("#messageForm").validate({

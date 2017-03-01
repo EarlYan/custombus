@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>        
 <html>
 <head>
     <meta charset="UTF-8"/>
@@ -163,16 +164,16 @@
 	        <div class="property span3">
 	            <div class="image">
 	                <div class="content">
-	                    <a href="detail.html"></a>
-	                    <img src="../assets/img/tmp/property-small-1.png" alt="">
+	                    <a href="../web/propertydetail?id=${p.id}"></a>
+	                    <img src="../assets/img/map.png" alt="">
 	                </div><!-- /.content -->
 	
-	                <div class="price">¥${p.distance/1000*1.5}</div><!-- /.price -->
+	                <div class="price">¥<fmt:formatNumber type="number" pattern="#" value="${p.distance/1000*1.5}"/>到¥<fmt:formatNumber type="number" pattern="#" value="${p.distance/1000*3.5}"/></div><!-- /.price -->
 	                <div class="reduced">申请中</div><!-- /.reduced -->
 	            </div><!-- /.image -->
 	
 	            <div class="title">
-	                <h2><a style="display: block;width:100%;text-overflow:ellipsis;white-space:nowrap;overflow: hidden;">${p.startLoaction}</a></h2>
+	                <h2><a style="display: block;width:100%;text-overflow:ellipsis;white-space:nowrap;overflow: hidden;">${p.startLocation}</a></h2>
 	            </div><!-- /.title -->
 	
 	            <div class="location" style="display: block;width:90%;text-overflow:ellipsis;white-space:nowrap;overflow: hidden;">到${p.endLocation}</div><!-- /.location -->
@@ -223,7 +224,7 @@
     	<c:forEach var="d" items="${drivers}">
         <div class="property">
             <div class="image">
-                <a href="detail.html"></a>
+                <a href="../web/driverdetail?id=${d.id}"></a>
                 <img src="${d.imgurl}" alt="" style="width:70px;">
             </div><!-- /.image -->
 
@@ -234,7 +235,7 @@
                     </h3>
                 </div><!-- /.title -->
                 <div class="location">${d.mobile}</div><!-- /.location -->
-                <div class="price"><a href="${d.email}">${d.email}</a></div><!-- /.price -->
+                <div class="price"><a href="mailto:${d.email}">${d.email}</a></div><!-- /.price -->
             </div><!-- /.wrapper -->
         </div><!-- /.property -->
         </c:forEach>
