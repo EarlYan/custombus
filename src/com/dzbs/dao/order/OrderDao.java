@@ -3,6 +3,7 @@ package com.dzbs.dao.order;
 import java.util.List;
 
 import com.dzbs.bean.common.Order;
+import com.dzbs.bean.common.OrderCount;
 import com.dzbs.bean.common.OrderVO;
 
 public interface OrderDao{
@@ -92,4 +93,25 @@ public interface OrderDao{
 	 * @return List<Order>
 	 */
 	public List<Order> findByRouteId(Integer route_id);
+	
+	/**
+	 * 生成报表
+	 * @param 
+	 * @return List<OrderCount>
+	 */
+	public List<OrderCount> getReport();
+	
+	/**
+	 * 生成报表
+	 * @param 
+	 * @return List<OrderCount>
+	 */
+	public List<OrderCount> getUserReport(Integer user_id);
+	
+	/**
+	 * 生成报表
+	 * @param 
+	 * @return List<OrderCount>
+	 */
+	public List<OrderCount> getDriverReport(Integer driver_id);
 }

@@ -286,7 +286,6 @@
           async:false,
           data:{'mobile':value},
           success: function(msg){
-        	console.log(msg);
             if(msg == 'true'){
               flag = 0;
             }

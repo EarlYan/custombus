@@ -21,6 +21,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.dzbs.bean.common.DriverVO;
 import com.dzbs.bean.common.Property;
 import com.dzbs.bean.common.PropertyCF;
+import com.dzbs.bean.common.PropertyVO;
 import com.dzbs.bean.common.Route;
 import com.dzbs.bean.security.Member;
 import com.dzbs.dao.UserDao;
@@ -148,16 +149,16 @@ public class PropertyController {
 		System.out.println("搜索关键字=" + dataTableUtil.getSearchValue());
 		System.out.println("===================================");
 	
-		List<Property> properties = propertyDao.findAllProperties();
+		List<PropertyVO> properties = propertyDao.findAllPropertiesVO();
 		Integer recordsTotal = properties.size();
 		Integer recordsFiltered = recordsTotal;
 
-		dataTableUtil.setResult(recordsTotal, recordsFiltered,properties);
+		dataTableUtil.setResult(recordsTotal, recordsFiltered,propertyDao.findAllPropertiesVO(dataTableUtil.getPage(), dataTableUtil.getLength()));
 		return dataTableUtil.result();
 	}
 	
 	/**
-	 * 删除评论信息
+	 * 逻辑删除众筹信息
 	 * @param id
 	 * @param request
 	 * @param response
@@ -359,5 +360,55 @@ public class PropertyController {
 			e.printStackTrace();
 		}
 		return json.toJSONString();
+	}
+	
+	/**
+	 * 众筹用户查询主页
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/lookwho", method = { RequestMethod.GET })
+	public ModelAndView lookwho(HttpServletRequest request,
+			HttpServletResponse response) {
+		ModelAndView modelAndView = new ModelAndView();
+		String id = request.getParameter("id");
+		modelAndView.addObject("id", id);
+		modelAndView.setViewName("property/lookwho");
+		return modelAndView;
+	}
+	
+	/**
+	 * 获取数据
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/whodata", method = { RequestMethod.POST }, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String whodata(HttpServletRequest request, HttpServletResponse response) {
+		/**
+		 * 获取查询参数
+		 */
+		String id = request.getParameter("id");
+
+		DataTableUtil dataTableUtil = new DataTableUtil(request);
+		System.out.println("===================================");
+		System.out.println("起始偏移=" + dataTableUtil.getStart());
+		System.out.println("页长=" + dataTableUtil.getLength());
+		System.out.println("页码=" + dataTableUtil.getPage());
+		System.out.println("排序字段=" + dataTableUtil.getOrderColumn());
+		System.out.println("排序顺序=" + dataTableUtil.getOrderDirection());
+		System.out.println("搜索关键字=" + dataTableUtil.getSearchValue());
+		System.out.println("===================================");
+	
+		List<Member> members =userDao.findCrowdFuningMembers(Integer.valueOf(id));
+		Integer recordsTotal = members.size();
+		Integer recordsFiltered = recordsTotal;
+
+		dataTableUtil.setResult(recordsTotal, recordsFiltered,userDao.findCrowdFuningMembers(Integer.valueOf(id),dataTableUtil.getPage(), dataTableUtil.getLength()));
+		return dataTableUtil.result();
 	}
 }

@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dzbs.bean.common.Order;
+import com.dzbs.bean.common.OrderCount;
 import com.dzbs.bean.common.OrderVO;
 import com.dzbs.dao.order.OrderDao;
 
@@ -311,6 +312,60 @@ public class OrderImpl implements OrderDao{
 		query.setInteger("route_id", route_id);
 		@SuppressWarnings("unchecked")
 		List<Order> temp = query.list();
+		return temp;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<OrderCount> getReport() {
+		String sql= "SELECT"+
+						" date_format(o.pay_time, '%Y-%m-%d') AS time,"+
+						" SUM(o.price) AS total"+
+					" FROM"+
+						" t_order o"+
+					" GROUP BY"+
+						" time";
+		Query query=this.sessionFactory.getCurrentSession()
+				.createSQLQuery(sql).setResultTransformer(Transformers.aliasToBean(OrderCount.class));
+		List<OrderCount> temp = query.list();
+		return temp;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<OrderCount> getUserReport(Integer user_id) {
+		String sql= "SELECT"+
+				" date_format(o.pay_time, '%Y-%m-%d') AS time,"+
+				" SUM(o.price) AS total"+
+			" FROM"+
+				" t_order o"+
+			" WHERE"+
+				" o.user_id =:user_id"+
+			" GROUP BY"+
+				" time";
+		Query query=this.sessionFactory.getCurrentSession()
+				.createSQLQuery(sql).setResultTransformer(Transformers.aliasToBean(OrderCount.class));
+		query.setInteger("user_id", user_id);
+		List<OrderCount> temp = query.list();
+		return temp;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<OrderCount> getDriverReport(Integer driver_id) {
+		String sql= "SELECT"+
+				" date_format(o.pay_time, '%Y-%m-%d') AS time,"+
+				" SUM(o.price) AS total"+
+			" FROM"+
+				" t_order o"+
+			" WHERE"+
+				" o.driver_id =:driver_id"+
+			" GROUP BY"+
+				" time";
+		Query query=this.sessionFactory.getCurrentSession()
+				.createSQLQuery(sql).setResultTransformer(Transformers.aliasToBean(OrderCount.class));
+		query.setInteger("driver_id", driver_id);
+		List<OrderCount> temp = query.list();
 		return temp;
 	}
 }

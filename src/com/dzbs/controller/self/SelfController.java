@@ -37,75 +37,7 @@ public class SelfController {
 	
 	@Autowired
 	private UserDetailServiceImpl userDetailServiceImpl;
-	
-//	/**
-//	 * 客户主页
-//	 * 
-//	 * @param request
-//	 * @param response
-//	 * @return
-//	 */
-//	@RequestMapping(value = "/index", method = { RequestMethod.GET })
-//	public ModelAndView indexPage(HttpServletRequest request,
-//			HttpServletResponse response) {
-//		ModelAndView modelAndView = new ModelAndView();
-//		modelAndView.setViewName("self/index");
-//		return modelAndView;
-//	}
-//	
-//	/**
-//	 * 获取数据
-//	 * 
-//	 * @param request
-//	 * @param response
-//	 * @return
-//	 */
-//	@RequestMapping(value = "/data", method = { RequestMethod.POST }, produces = "application/json; charset=utf-8")
-//	@ResponseBody
-//	public String data(HttpServletRequest request, HttpServletResponse response) {
-//		/**
-//		 * 获取查询参数
-//		 */
-//		DataTableUtil dataTableUtil = new DataTableUtil(request);
-//		System.out.println("===================================");
-//		System.out.println("起始偏移=" + dataTableUtil.getStart());
-//		System.out.println("页长=" + dataTableUtil.getLength());
-//		System.out.println("页码=" + dataTableUtil.getPage());
-//		System.out.println("排序字段=" + dataTableUtil.getOrderColumn());
-//		System.out.println("排序顺序=" + dataTableUtil.getOrderDirection());
-//		System.out.println("搜索关键字=" + dataTableUtil.getSearchValue());
-//		System.out.println("===================================");
-//	
-//		UserDetails userDetails = (UserDetails) SecurityContextHolder
-//				.getContext().getAuthentication().getPrincipal();
-//		String username = userDetails.getUsername();
-//		Member member = userDetailServiceImpl.findUserByUsername(username);
-//		List<Member> memberList = new ArrayList<Member>();
-//		memberList.add(member);
-//
-//		// 总记录数
-//		Integer recordsTotal =  memberList.size();
-//		// 关键字过滤后总记录数
-//		Integer recordsFiltered = recordsTotal;
-//		
-//		//Google JSon解析
-//		Gson gson = new GsonBuilder()  
-//				        .excludeFieldsWithoutExposeAnnotation() 
-//				        .enableComplexMapKeySerialization() 
-//				        .serializeNulls().setDateFormat("yyyy-MM-dd")
-//				        .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
-//				        .setPrettyPrinting()  
-//				        .setVersion(1.0)       
-//				        .create();  
-//		String s2 = gson.toJson(memberList);
-//		List<Member> members = gson.fromJson(s2,  
-//		                new TypeToken<List<Member>>() {  
-//		                }.getType());  
-//
-//		dataTableUtil.setResult(recordsTotal, recordsFiltered,members);
-//		return dataTableUtil.result();
-//	}
-	
+		
 	/**
 	 * 打开修改页面
 	 * 

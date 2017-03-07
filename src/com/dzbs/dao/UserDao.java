@@ -209,5 +209,52 @@ public class UserDao {
             return result.get(0);  
         return null ; 
     }
-
+    
+    /** 
+     * 查询众筹用户信息
+     * @param username 
+     * @param password 
+     * @return 
+     */  
+    @SuppressWarnings("unchecked")
+	public List<Member> findCrowdFuningMembers(Integer property_id){ 
+    	String sql= "SELECT"+
+		    			" m.*"+	    			
+		    		" FROM"+
+			    		" t_member m,"+
+			    		" t_propertycf p"+
+		    		" WHERE"+
+		    			" p.member_id = m.id"+
+		    			" and p.property_id = :property_id";
+    	Query query=this.sessionFactory.getCurrentSession().createSQLQuery(sql).setResultTransformer(Transformers.aliasToBean(Member.class));
+		query.setInteger("property_id", property_id);
+    	List<Member> temp = query.list();
+		return temp;
+    } 
+    
+    /** 
+     * 查询众筹用户信息分页
+     * @param username 
+     * @param password 
+     * @return 
+     */  
+    @SuppressWarnings("unchecked")
+	public List<Member> findCrowdFuningMembers(Integer property_id,Integer pageNo,Integer pageSize){ 
+    	String sql= "SELECT"+
+		    			" m.*"+	    			
+		    		" FROM"+
+			    		" t_member m,"+
+			    		" t_propertycf p"+
+		    		" WHERE"+
+		    			" p.member_id = m.id"+
+		    			" and p.property_id = :property_id";
+    	Query query=this.sessionFactory.getCurrentSession().createSQLQuery(sql).setResultTransformer(Transformers.aliasToBean(Member.class));
+		query.setInteger("property_id", property_id);
+    	if(pageSize != -1 && pageNo != -1) {
+			query.setFirstResult((pageNo - 1) * pageSize);
+			query.setMaxResults(pageSize);
+		}
+    	List<Member> temp = query.list();
+		return temp;
+    } 
 }

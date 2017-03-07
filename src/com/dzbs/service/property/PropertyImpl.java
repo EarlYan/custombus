@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dzbs.bean.common.Property;
+import com.dzbs.bean.common.PropertyVO;
 import com.dzbs.dao.property.PropertyDao;
 
 @Repository("propertyDao")
@@ -47,12 +48,13 @@ public class PropertyImpl implements PropertyDao{
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<Property> findAllProperties() {
-		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Property WHERE deleted = 0");
-		@SuppressWarnings("unchecked")
+		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Property WHERE deleted = 0");		
 		List<Property> temp = query.list();
 		return temp;
 	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Property> findAllProperties(Integer pageNo,Integer pageSize) {
@@ -65,6 +67,52 @@ public class PropertyImpl implements PropertyDao{
 		return temp;
 	}
 
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<PropertyVO> findAllPropertiesVO() {
+		String sql = "SELECT"+
+				" tmp.*, sum(c) as count"+
+			" FROM"+
+				" ("+
+					" SELECT"+
+						" p.*,"+
+					" IF (p.id = pcf.property_id, 1, 0) AS c"+
+					" FROM"+
+						" t_property p,"+
+						" t_propertycf pcf"+
+				" ) AS tmp"+
+			" GROUP BY tmp.id";
+		Query query=this.sessionFactory.getCurrentSession().
+		createSQLQuery(sql).setResultTransformer(Transformers.aliasToBean(PropertyVO.class));
+		List<PropertyVO> temp = query.list();
+		return temp;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<PropertyVO> findAllPropertiesVO(Integer pageNo,Integer pageSize) {
+		String sql = "SELECT"+
+						" tmp.*, sum(c) as count"+
+					" FROM"+
+						" ("+
+							" SELECT"+
+								" p.*,"+
+							" IF (p.id = pcf.property_id, 1, 0) AS c"+
+							" FROM"+
+								" t_property p,"+
+								" t_propertycf pcf"+
+						" ) AS tmp"+
+					" GROUP BY tmp.id";
+		Query query=this.sessionFactory.getCurrentSession().
+				createSQLQuery(sql).setResultTransformer(Transformers.aliasToBean(PropertyVO.class));
+		if(pageSize != -1 && pageNo != -1) {
+			query.setFirstResult((pageNo - 1) * pageSize);
+			query.setMaxResults(pageSize);
+		}
+		List<PropertyVO> temp = query.list();
+		return temp;
+	}
+	
 	@Override
 	public List<Property> findPropertiesByLocation(String startLocation, String endLocation) {
 		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Property WHERE deleted = false AND startLocation = :startLocation And endLocation = :endLocation");

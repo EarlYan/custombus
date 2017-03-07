@@ -280,4 +280,53 @@ public class DriverController {
 		}
 		return json.toJSONString();
 	}
+	
+	/**
+	 * 打开修改页面
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+
+	@RequestMapping(value = "/modifyPage", method = { RequestMethod.GET })
+	public ModelAndView modifyPage(
+			HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView modelAndView = new ModelAndView();
+		String id = request.getParameter("id");
+		Member member = userDao.findUserById(Integer.valueOf(id));
+		modelAndView.addObject("member", member);
+		modelAndView.setViewName("driver/modify");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/update", method = { RequestMethod.GET,
+			RequestMethod.POST }, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String update(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		JSONObject json = new JSONObject();
+		try {
+			String id = request.getParameter("id");
+			String memberRealName = request.getParameter("memberRealName");
+			String memberEmail = request.getParameter("memberEmail");
+			String memberGender = request.getParameter("memberGender");
+			String memberMobile = request.getParameter("memberMobile");
+			String memberImageURL = request.getParameter("memberImageURL");
+			Member member = userDao.findUserById(Integer.valueOf(id));
+			member.setRealname(memberRealName);
+			member.setEmail(memberEmail);
+			member.setGender(Boolean.valueOf(memberGender));
+			member.setMobile(memberMobile);
+			member.setImgurl(memberImageURL);
+			member.setUpdate_date(new Date());
+			userDao.updateUser(member);
+			json.put("resultCode", 200);
+		} catch (Exception e) {
+			json.put("resultCode", 500);
+			e.printStackTrace();
+			// LOG.error(e.getMessage());
+		}
+		return json.toJSONString();
+	}
 }

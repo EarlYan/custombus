@@ -27,16 +27,10 @@
 							<table id="data-Table" class="table table-border table-bordered table-bg table-hover table-sort">
 								<thead>
 									<tr class="text-c">
-										<th>姓名</th>
-										<th>邮箱</th>
-										<th>手机号</th>
-										<th>起点</th>
-										<th>终点</th>
-										<th>起始时间</th>
-										<th>回程时间</th>
-										<th>提议</th>
-										<th>距离</th>
-										<th>参与人数</th>
+										<th>留言者姓名</th>
+										<th>留言者邮箱</th>
+										<th>内容</th>
+										<th>留言时间</th>
 										<th>操作</th>
 									</tr>
 								</thead>
@@ -69,30 +63,24 @@
 			"processing" : false,
 			"serverSide" : true,
 	        "ajax": {
-	        	url:"../property/data",
+	        	url:"../message/data",
 	    		headers: {
 				        Accept: "application/json; charset=utf-8"
-				    },
+			    },
 				type: "post",
 			    data: function(request){   	
-				    	if(myParam !=null && myParam!="")
-				    	{
-				    		request.myParam = myParam;
-				    	}
+			    	if(myParam !=null && myParam!="")
+			    	{
+			    		request.myParam = myParam;
+			    	}
 			    	return request;
 			        }
 	        },
 	        "columns": [
 	            { "data": "name","orderable":false},
 	            { "data": "email","orderable":false},
-	            { "data": "mobile","orderable":false},
-	            { "data": "startLocation","orderable":false},
-	            { "data": "endLocation","orderable":false},
-	            { "data": "goTime","orderable":false},
-	            { "data": "backTime","orderable":false},
-	            { "data": "notes","orderable":false},
-	            { "data": "distance","orderable":false},
-	            { "data": "count","orderable":false},
+	            { "data": "message","orderable":false},
+	            { "data": "create_date","orderable":false},
 	            { "data": "id","orderable":false}
 	        ],
 	        "columnDefs": [
@@ -102,19 +90,14 @@
 	            },
 	            {
 	            "render": function(data, type, row) {
-	            	return "<a href='../property/modifyPage?id=" + data + "'><i class=\"fa fa-edit text-navy\"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a value='" + data + "' onclick='deletefunc(" + data +")'><i class=\"fa fa-times text-navy\"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='../property/assignPage?id=" + data + "'><i class=\"fa fa-user-plus\" style=\"color:#1ab394\"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='../property/lookwho?id=" + data + "'><i class=\"fa fa-search\"></i></a>";	
+	                return "<a value='" + data + "' onclick='deletefunc(" + data +")'><i class=\"fa fa-times text-navy\"></i></a>";
 	            },
-	            "targets": 10},
+	            "targets": 4},
 	            {
-		        "render": function(data) {
-		            return  new Date(data).Format("hh:mm:ss");
+		            "render": function(data) {
+		                return  new Date(data).Format("yyyy-MM-dd hh:mm:ss");
 		        },
-		        "targets": 5},
-		        {
-		        "render": function(data) {
-		            return  new Date(data).Format("hh:mm:ss");
-		        },
-		        "targets": 6}
+		        "targets": 3}
 	        ]
 	    } );
 	    
@@ -136,7 +119,7 @@
                data: { 
                },
                success: function (data) {
-                   window.location.href="../property/index";
+                   window.location.reload();
                }
            })
        	}

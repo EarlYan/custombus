@@ -3,6 +3,7 @@ package com.dzbs.dao.property;
 import java.util.List;
 
 import com.dzbs.bean.common.Property;
+import com.dzbs.bean.common.PropertyVO;
 
 public interface PropertyDao {
 
@@ -30,6 +31,18 @@ public interface PropertyDao {
 	 * @return List<Property>
 	 */
 	public List<Property> findAllProperties(Integer pageNo,Integer pageSize);
+	
+	/**
+	 * 查询所有众筹
+	 * @return List<PropertyVO>
+	 */
+	public List<PropertyVO> findAllPropertiesVO();
+	
+	/**
+	 * 查询所有众筹
+	 * @return List<PropertyVO>
+	 */
+	public List<PropertyVO> findAllPropertiesVO(Integer pageNo,Integer pageSize);
 	
 	/**
 	 * 通过位置查询众筹信息

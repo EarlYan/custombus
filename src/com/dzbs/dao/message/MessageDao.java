@@ -20,11 +20,16 @@ public interface MessageDao{
 	public List<Message> findById(Integer id);
 	
 	/**
-	 * 查询所有评论
-	 * @return List<Comment>
+	 * 查询所有留言
+	 * @return List<Message>
 	 */
 	public List<Message> findAllMessages();
 	
+	/**
+	 * 查询所有留言
+	 * @return List<Message>
+	 */
+	public List<Message> findAllMessages(Integer pageNo,Integer pageSize);
 	
 	/**
 	 * 用name进行查询

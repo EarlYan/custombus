@@ -96,7 +96,7 @@
                         <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
                             <li>
                                 <a class="J_menuItem" href="../route/index" data-index="0">现有路线管理</a>
-                                <a class="J_menuItem" href="../property/index" data-index="0">现有众筹管理</a>
+                                <a class="J_menuItem" href="../property/index" data-index="0">众筹线路管理</a>
                             </li>
                         </ul>
                     </li>
@@ -105,7 +105,7 @@
                         <a href="index.html#"><i class="fa fa fa-area-chart"></i><span class="nav-label">资金管理</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                               <a class="J_menuItem" href="../orderback/index">统计报表</a>
+                               <a class="J_menuItem" href="../order/report">统计报表</a>
                                <a class="J_menuItem" href="../order/index">订单管理</a>
                             </li>
                         </ul>
@@ -116,23 +116,24 @@
                         <ul class="nav nav-second-level">
                             <li>
                                 <a class="J_menuItem" href="../comment/index">评论查看</a>
+                                <a class="J_menuItem" href="../message/index">留言查看</a>
                             </li>
                         </ul>
                     </li>
                 </ul>
                 
                 
-                <div class="copyright copyright-gray">
-                    <!--<a data-toggle="dropdown" class="dropdown-toggle" href="#">-->
+<!--                 <div class="copyright copyright-gray">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                     <div class="profile-element">
                         <img style="width: 30px;" src="../user/img/bus-logo.png" alt="LOGO">
                         <span>XXXXXXXXXX有限公司</span>
                          ©️Copyright 2017 by More EarlYan.
                     </div>
                     <div class="logo-element">DZBS</div>
-                    <!--</a>-->
+                    </a>
                    
-                </div>
+                </div> -->
             </div>
             <div class="slimScrollBar"
                  style="background: rgb(0, 0, 0); width: 4px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 682px;"></div>
@@ -152,7 +153,7 @@
                 </div>
                 <!--class="nav navbar-top-links navbar-right-->
                 <div class="dropdown navUserAvatar navbar-right">
-                    <span><img alt="image" class="img-circle" src="../user/img/profile_small.jpg"></span>
+                    <span><img alt="image" class="img-circle" src="${member.imgurl}" style="height:40px;width:40px"></span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#" aria-expanded="false">
                                 <span class="clear">
                               	<span class="block m-t-xs"><strong class="font-bold"><security:authentication property='principal.username'/></strong></span>

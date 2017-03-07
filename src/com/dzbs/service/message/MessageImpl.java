@@ -61,4 +61,16 @@ public class  MessageImpl implements MessageDao{
 		List<Message> temp = query.list();
 		return temp;
 	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Message> findAllMessages(Integer pageNo, Integer pageSize) {
+		Query query=this.sessionFactory.getCurrentSession().createQuery("FROM Message WHERE deleted = false");
+		if(pageSize != -1 && pageNo != -1) {
+			query.setFirstResult((pageNo - 1) * pageSize);
+			query.setMaxResults(pageSize);
+		}
+		List<Message> temp = query.list();
+		return temp;
+	}
 }

@@ -294,7 +294,7 @@
        	        dataType: "json",   
        	        async : false,   
        	        success:function(data){
-       	            alert("感谢评论");
+       	            alert("感谢订购");
        	            window.location.href="../web/index";
        		    },
        		    error:function(data){

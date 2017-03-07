@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dzbs.bean.common.Order;
+import com.dzbs.bean.common.OrderCount;
 import com.dzbs.bean.common.OrderVO;
 import com.dzbs.bean.common.Route;
 import com.dzbs.bean.security.Member;
@@ -53,7 +54,7 @@ public class OrderController {
 	private BusImpl busDao;
 	
 	/**
-	 * 评论主页
+	 * 订单主页
 	 * 
 	 * @param request
 	 * @param response
@@ -69,6 +70,42 @@ public class OrderController {
 		Member member = userDetailServiceImpl.findUserByUsername(username);
 		modelAndView.addObject("member", member);
 		modelAndView.setViewName("order/index");
+		return modelAndView;
+	}
+	
+	/**
+	 * 报表主页
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/report", method = { RequestMethod.GET })
+	public ModelAndView reportPage(HttpServletRequest request,
+			HttpServletResponse response) {
+		ModelAndView modelAndView = new ModelAndView();
+		UserDetails userDetails = (UserDetails) SecurityContextHolder
+				.getContext().getAuthentication().getPrincipal();
+		String username = userDetails.getUsername();
+		Member member = userDetailServiceImpl.findUserByUsername(username);
+		Set<Role> mRoles = member.getRoles();
+		Iterator<Role> it = mRoles.iterator();
+		String roleCode = "";
+		while(it.hasNext()){
+			Role role = it.next();
+			roleCode = role.getCode();
+		}
+		if(roleCode.equals("ROLE_ADMIN")){
+			List<OrderCount> oc = orderDao.getReport();
+			modelAndView.addObject("orderCount", oc);
+		}else if(roleCode.equals("ROLE_PASSENGER")){
+			List<OrderCount> oc = orderDao.getUserReport(member.getId());
+			modelAndView.addObject("orderCount", oc);
+		}else if(roleCode.equals("ROLE_DRIVER")){
+			List<OrderCount> oc = orderDao.getDriverReport(member.getId());
+			modelAndView.addObject("orderCount", oc);
+		}		
+		modelAndView.setViewName("order/report");
 		return modelAndView;
 	}
 	
