@@ -598,9 +598,8 @@ iframe.map {
 
 #header-wrapper #header #header-inner .navbar .navbar-inner .logo {
 	float: left;
-	height: 90px;
-	margin: 0px 15px 0px 0px;
-	line-height: 90px
+	height: 44px;
+	margin: 24px 4px;
 }
 
 #header-wrapper #header #header-inner .navbar .navbar-inner .site-name {
