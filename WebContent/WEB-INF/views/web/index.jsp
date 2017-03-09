@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>        
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>  
+<!DOCTYPE html>      
 <html>
 <head>
     <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
     <meta name="author" content="Aviators - byaviators.com">
-
     <link rel="shortcut icon" href="../assets/img/favicon.png" type="image/png">
     <link rel="stylesheet" href="../assets/css/bootstrap.css" type="text/css">
     <link rel="stylesheet" href="../assets/css/flatpickr.min.css" type="text/css"> <!--日期选择器-->
@@ -17,58 +17,96 @@
     <link rel="stylesheet" href="../assets/css/realia-blue.css" type="text/css" id="color-variant-default">
     <link rel="stylesheet" href="../dist/css/swiper.min.css" type="text/css">
     <style type="text/css">
-    .error{
-        color: red;
-    }
-    #inputStart-error{
-    	color: red;
-    }
-    #inputEnd-error{
-    	color: red;
-    }
-    #inputDate-error{
-    	color: red;
-    }
-    .properties-grid .property {
-		margin-bottom:0;
-	}
-	
-	.properties-grid .property:nth-child(n+4){
-		margin-top:30px
-	}
-    .content .play{
-        background: #eee;
-        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-        font-size: 14px;
-        color:#000;
-        margin: 0;
-        padding: 0;
-    }
-    .swiper-container {
-        width: 100%;
-        height: 300px;
-        margin: 20px auto;
-    }
-    .swiper-slide {
-        text-align: center;
-        font-size: 18px;
-        background: #fff;
-        width: 250px;
+        body{
+            height:auto;
+        }
+        .error{
+            color: red;
+        }
+        #inputStart-error{
+            color: red;
+        }
+        #inputEnd-error{
+            color: red;
+        }
+        #inputDate-error{
+            color: red;
+        }
+        /*.properties-grid .property {*/
+            /*margin-bottom:0;*/
+        /*}*/
 
-        /* Center slide text vertically */
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: -webkit-flex;
-        display: flex;
-        -webkit-box-pack: center;
-        -ms-flex-pack: center;
-        -webkit-justify-content: center;
-        justify-content: center;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        -webkit-align-items: center;
-        align-items: center;
-    }
+        .properties-grid .property:nth-child(n+4){
+            margin-top:30px
+        }
+        .content .play{
+            background: #eee;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            color:#000;
+            margin: 0;
+            padding: 0;
+        }
+        .swiper-container {
+            width: 100%;
+            height: 300px;
+            margin: 20px auto;
+        }
+        .swiper-container li a {
+            display: inline-block;
+            width: 100%;
+            height: auto;
+        }
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            width: 250px;
+
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+        .properties-grid .property{
+            margin-bottom: 0;
+        }
+        body #wrapper-outer #wrapper {
+            display: block;
+            height: 100%;
+        }
+
+        body #wrapper-outer #wrapper #wrapper-inner {
+            display: block;
+            height: 100%;
+        }
+
+        body #wrapper-outer #wrapper #footer-wrapper {
+            display: block;
+            height: 100%;
+        }
+
+        /*.swiper-container li a {*/
+            /*display: inline-block;*/
+            /*width: 100%;*/
+            /*height: auto;*/
+        /*}*/
+        .properties-grid  .swiper-layout{
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            box-shadow: none;
+        }
     </style>
     <title>定制巴士</title>
 </head>
@@ -244,77 +282,48 @@
                 </div>
             </div>
         </div>
-        <div class="carousel">
-    <h2 class="page-header">所有线路</h2>
+<div class="carousel1">
+  <h2 class="page-header">所有线路</h2>
+  <div class="content play" style="background-color: #022a3b;padding: 30px 30px;">
+      <div class="swiper-container">
+          <div class="swiper-wrapper  properties-grid">
+              <c:forEach var="r" items="${routes}">
+              <div class="swiper-slide">
+                      <div class="property span3 swiper-layout">
+                          <div class="image">
+                              <div class="content">
+                                  <a href="../web/routedetail?id=${r.id}"></a>
+                                  <img src="../assets/img/routemap.png" alt="">
+                              </div><!-- /.content -->	                
+	                <div class="reduced">已开车</div><!-- /.reduced -->
+                          </div><!-- /.image -->
 
-    <div class="content play">
-    <div class="swiper-container">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide">
-            <li>
-                <div class="image">
-                    <a href="detail.html"></a>
-                    <img src="../assets/img/tmp/property-small-3.png" alt="">
-                </div><!-- /.image -->
-                <div class="title">
-                    <h3><a href="detail.html">1 Pacific Coast</a></h3>
-                </div><!-- /.title -->
-                <div class="location">Palo Alto CA</div><!-- /.location-->
-                <div class="price">€2 300 000</div><!-- .price -->
-                <div class="area">
-                    <span class="key">Area:</span>
-                    <span class="value">750m<sup>2</sup></span>
-                </div><!-- /.area -->
-                <div class="bathrooms"><div class="inner">3</div></div><!-- /.bathrooms -->
-                <div class="bedrooms"><div class="inner">3</div></div><!-- /.bedrooms -->
-            </li>
-            </div>          
-            <div class="swiper-slide">
-                <li>
-                <div class="image">
-                    <a href="detail.html"></a>
-                    <img src="../assets/img/tmp/property-small-3.png" alt="">
-                </div><!-- /.image -->
-                <div class="title">
-                    <h3><a href="detail.html">7 Pacific Coast</a></h3>
-                </div><!-- /.title -->
-                <div class="location">Palo Alto CA</div><!-- /.location-->
-                <div class="price">€2 300 000</div><!-- .price -->
-                <div class="area">
-                    <span class="key">Area:</span>
-                    <span class="value">750m<sup>2</sup></span>
-                </div><!-- /.area -->
-                <div class="bathrooms"><div class="inner">3</div></div><!-- /.bathrooms -->
-                <div class="bedrooms"><div class="inner">3</div></div><!-- /.bedrooms -->
-            </li>
-            </div>
-            <div class="swiper-slide">
-                <li>
-                <div class="image">
-                    <a href="detail.html"></a>
-                    <img src="../assets/img/tmp/property-small-3.png" alt="">
-                </div><!-- /.image -->
-                <div class="title">
-                    <h3><a href="detail.html">8 Pacific Coast</a></h3>
-                </div><!-- /.title -->
-                <div class="location">Palo Alto CA</div><!-- /.location-->
-                <div class="price">€2 300 000</div><!-- .price -->
-                <div class="area">
-                    <span class="key">Area:</span>
-                    <span class="value">750m<sup>2</sup></span>
-                </div><!-- /.area -->
-                <div class="bathrooms"><div class="inner">3</div></div><!-- /.bathrooms -->
-                <div class="bedrooms"><div class="inner">3</div></div><!-- /.bedrooms -->
-            </li>
-            </div>
-        </div>
-        <!-- Add Scrollbar -->
-        <div class="swiper-scrollbar"></div>
-    </div>
-    </div><!-- /.content -->
-</div><!-- /.carousel -->          
-</div><!-- /.main -->          
-</div><!-- /.container -->          
+                          <div class="title">
+                             <h2><a style="display: block;width:100%;text-overflow:ellipsis;white-space:nowrap;overflow: hidden;">${r.start_location}</a></h2>
+                          </div><!-- /.title -->
+
+                          <div class="location" style="display: block;width:90%;text-overflow:ellipsis;white-space:nowrap;overflow: hidden;">到${r.end_location}</div> 
+                          <div class="area">
+			                <span class="key">距离:</span><!-- /.key -->
+			                <span class="value">${r.mileage}</span><!-- /.value -->
+                          </div><!-- /.area -->
+                          <div class="bedrooms">
+                              <div class="content">1</div>
+                          </div><!-- /.bedrooms -->
+                          <div class="bathrooms">
+                              <div class="content">2</div>
+                          </div><!-- /.bathrooms -->
+                      </div><!-- /.property -->
+              </div>
+              </c:forEach>
+          </div>
+          <!-- Add Scrollbar -->
+          <div class="swiper-scrollbar"></div>
+      </div>
+  </div><!-- /.content -->
+</div><!-- /.carousel -->
+</div><!-- /.main -->
+</div><!-- /.container -->
 
 <div class="bottom-wrapper">
     <div class="bottom container">

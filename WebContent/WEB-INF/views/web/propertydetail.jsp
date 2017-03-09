@@ -117,6 +117,8 @@
 	//调用百度地图
 	var start = '${property.startLocation}';
 	var end = '${property.endLocation}';
+	console.log(start);
+	console.log(end);
     var map = new BMap.Map('map_cavans');
     map.enableScrollWheelZoom();
     map.centerAndZoom(new BMap.Point(121.47535,31.233588), 12);

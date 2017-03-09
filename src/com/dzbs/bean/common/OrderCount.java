@@ -1,7 +1,5 @@
 package com.dzbs.bean.common;
 
-import java.math.BigDecimal;
-
 public class OrderCount {
 
 	private String time;

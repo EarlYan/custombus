@@ -12,7 +12,6 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.google.gson.annotations.Expose;
 
 /**
  * 基础字段
