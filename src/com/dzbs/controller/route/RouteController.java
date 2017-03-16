@@ -1,7 +1,6 @@
 package com.dzbs.controller.route;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -26,7 +25,6 @@ import com.dzbs.bean.common.RouteVO;
 import com.dzbs.bean.security.Member;
 import com.dzbs.bean.security.Role;
 import com.dzbs.service.UserDetailServiceImpl;
-import com.dzbs.service.bus.BusImpl;
 import com.dzbs.service.route.RouteImpl;
 import com.dzbs.util.common.DataTableUtil;
 
@@ -41,8 +39,6 @@ public class RouteController {
 	@Autowired
 	private RouteImpl routeDao;
 	
-	@Autowired
-	private BusImpl busDao;
 	
 	/**
 	 * 路线主页

@@ -1,8 +1,6 @@
 package com.dzbs.controller.self;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,11 +19,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.dzbs.bean.security.Member;
 import com.dzbs.dao.UserDao;
 import com.dzbs.service.UserDetailServiceImpl;
-import com.dzbs.util.common.DataTableUtil;
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
 @Controller
 @RequestMapping(value = "/self")

@@ -8,21 +8,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dzbs.bean.security.Member;
-import com.dzbs.dao.UserDao;
 import com.dzbs.service.UserDetailServiceImpl;
-import com.dzbs.util.common.DataTableUtil;
 
 @Controller
 @RequestMapping(value = "/manage")
 public class ManageController {
 
-	@Autowired
-	private UserDao userDao;
-	
 	@Autowired
 	private UserDetailServiceImpl userDetailServiceImpl;
 	

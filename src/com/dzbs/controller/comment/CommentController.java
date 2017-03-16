@@ -23,21 +23,13 @@ import com.dzbs.bean.common.Comment;
 import com.dzbs.bean.common.CommentVO;
 import com.dzbs.bean.security.Member;
 import com.dzbs.bean.security.Role;
-import com.dzbs.dao.UserDao;
 import com.dzbs.service.UserDetailServiceImpl;
 import com.dzbs.service.comment.CommentImpl;
 import com.dzbs.util.common.DataTableUtil;
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
 @Controller
 @RequestMapping(value = "/comment")
 public class CommentController {
-
-	@Autowired
-	private UserDao userDao;
 	
 	@Autowired
 	private UserDetailServiceImpl userDetailServiceImpl;

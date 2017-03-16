@@ -56,11 +56,13 @@
                             <li> 	
                                 <a class="J_menuItem" href="../self/modifyPage" data-index="0">个人基本信息</a>
                                 <a class="J_menuItem" href="../self/passwordModifyPage" data-index="0">密码修改</a>
+                                <security:authorize ifAnyGranted="ROLE_DRIVER">
                                 <a class="J_menuItem" href="../driver/identify" data-index="0">资格认证</a>
+                                </security:authorize>
                             </li>
                         </ul>
                     </li>
-
+					<security:authorize ifAnyGranted="ROLE_ADMIN">
                     <li class="">
                         <a href="#">
                             <i class="fa fa-users"></i>
@@ -73,7 +75,8 @@
                             </li>
                         </ul>
                     </li>
-
+					</security:authorize>
+					<security:authorize ifAnyGranted="ROLE_ADMIN">
                     <li class="">
                         <a href="#">
                             <i class="fa fa-bus"></i>
@@ -86,7 +89,8 @@
                             </li>
                         </ul>
                     </li>
-
+					</security:authorize>
+					<security:authorize ifAnyGranted="ROLE_ADMIN,ROLE_DRIVER">
                     <li class="">
                         <a href="#">
                             <i class="fa fa-flag"></i>
@@ -94,13 +98,15 @@
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
-                            <li>
+                            <li>                         	
                                 <a class="J_menuItem" href="../route/index" data-index="0">现有路线管理</a>
+                                <security:authorize ifAnyGranted="ROLE_ADMIN">
                                 <a class="J_menuItem" href="../property/index" data-index="0">众筹线路管理</a>
+                                </security:authorize>
                             </li>
                         </ul>
                     </li>
-
+					</security:authorize>
                     <li>
                         <a href="index.html#"><i class="fa fa fa-area-chart"></i><span class="nav-label">资金管理</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -116,7 +122,9 @@
                         <ul class="nav nav-second-level">
                             <li>
                                 <a class="J_menuItem" href="../comment/index">评论查看</a>
+                                <security:authorize ifAnyGranted="ROLE_ADMIN">
                                 <a class="J_menuItem" href="../message/index">留言查看</a>
+                                </security:authorize>
                             </li>
                         </ul>
                     </li>
@@ -174,8 +182,6 @@
                         <li><a class="J_menuItem" href="../self/modifyPage" data-index="1">个人资料</a>
                         </li>
                         <li><a class="J_menuItem" href="../web/contactus" data-index="2">联系我们</a>
-                        </li>
-                        <li><a class="J_menuItem" href="mailbox.html" data-index="3">信箱</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="../j_spring_security_logout">安全退出</a>

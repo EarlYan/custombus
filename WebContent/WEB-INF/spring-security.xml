@@ -25,11 +25,13 @@
             
     <!--use-expressions="true" 的意思是开启表达式 access-denied-page的意思是，当验证权限失败后会跳转到的页面  -->  
     <security:http auto-config="true" use-expressions="true" access-denied-page="/powermiss.jsp" >  
+    <security:form-login login-page="/login/index" default-target-url="/web/index" authentication-failure-url="/login/index" />
         <!-- ROLE_ADMIN
         ROLE_PASSENGER  
         ROLE_DRIVER -->
-<!--         <security:intercept-url pattern="/login/**"  access="hasAnyRole('ROLE_ADMIN','ROLE_PASSENGER,'ROLE_DRIVER')" />
-        <security:intercept-url pattern="/web/**"  access="hasAnyRole('ROLE_ADMIN','ROLE_PASSENGER,'ROLE_DRIVER')" /> -->
+ 		<security:intercept-url pattern="/web/index"  access="permitAll" /> 
+    	<security:intercept-url pattern="/route/recommend"  access="hasAnyRole('ROLE_ADMIN','ROLE_PASSENGER','ROLE_DRIVER')"/>
+    	<security:intercept-url pattern="/manage/index"  access="hasAnyRole('ROLE_ADMIN','ROLE_PASSENGER','ROLE_DRIVER')"/>
         <!-- 退出配置 -->  
         <security:logout invalidate-session="true" logout-success-url="/" logout-url="/j_spring_security_logout"/>   
           

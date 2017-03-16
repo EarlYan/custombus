@@ -3,7 +3,6 @@ package com.dzbs.controller.vip;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,19 +14,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dzbs.bean.common.UserFund;
 import com.dzbs.bean.security.Member;
-import com.dzbs.dao.UserDao;
 import com.dzbs.service.UserDetailServiceImpl;
 import com.dzbs.service.fund.UserFundImpl;
 @Controller
 @RequestMapping(value = "/vip")
 public class VipController {
-	@Autowired
-	private UserDao userDao;
 	
 	@Autowired
 	private UserDetailServiceImpl userDetailServiceImpl;

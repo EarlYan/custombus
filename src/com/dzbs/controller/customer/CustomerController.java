@@ -1,6 +1,5 @@
 package com.dzbs.controller.customer;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,20 +7,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dzbs.bean.security.Member;
 import com.dzbs.dao.UserDao;
-import com.dzbs.service.UserDetailServiceImpl;
 import com.dzbs.util.common.DataTableUtil;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -35,8 +29,6 @@ public class CustomerController {
 	@Autowired
 	private UserDao userDao;
 	
-	@Autowired
-	private UserDetailServiceImpl userDetailServiceImpl;
 	
 	/**
 	 * 客户主页
