@@ -171,7 +171,7 @@
                                         选择时间
                                     </label>
                                     <div class="controls">
-                                        <input id="inputDate" name="inputDate" class="flatpickr" type="text" data-time_24hr="true" placeholder="请选择时间" readonly="readonly" style="width: 230px;height: 40px;">
+                                        <input id="inputDate" name="inputDate" class="flatpickr" type="text" data-time_24hr="true" placeholder="请选择时间" readonly="readonly" style="width: 230px;height: 40px;" >
                                     </div>
                                 </div>
                                 <div class="form-actions">
@@ -480,6 +480,9 @@
         var inputEnd = $('#inputEnd').val();
         var chooseBusType = $('#chooseBusType').val();
         var inputDate = $('#inputDate').val();
+        if(null == inputDate || "" == inputDate){
+        	inputDate = $('.flatpickr-input.flatpickr-mobile').val();
+        }
         $.ajax({
 			type: "POST",
 	    	url: "../route/judge",
