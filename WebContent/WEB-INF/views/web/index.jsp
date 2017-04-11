@@ -332,7 +332,7 @@
                 <div class="address decoration"></div>
                 <h2><a>众筹你的路线</a></h2>
                 <p>定制符合自己的上下班路线，享受专属个性化服务，专车专道，一路畅行</p>
-                <a href="..web/property" class="btn btn-primary">开始众筹</a>
+                <a href="../web/property" class="btn btn-primary">开始众筹</a>
             </div><!-- /.item -->
 
             <div class="item span4">
